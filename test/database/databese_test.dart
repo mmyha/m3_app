@@ -44,27 +44,15 @@ void main() {
     });
 
     test('ウィッシュリスト操作', () async {
-      const mockModel = CircleModel(
-        id: 1,
-        name: 'name',
-        phonetic: 'phonetic',
-        genre: 'genre',
-        spaceSize: 1,
-        adult: false,
-        prText: 'prText',
-        links: SnsLinksModel(
-          twitter: SocialLink(text: 'twitter', url: 'twitter'),
-        ),
-        keywords: [
-          KeywordModel(text: 'text', phonetic: 'phonetic'),
-        ],
-        realSp: RealSpModel(area: 'A', no: '01'),
-      );
-      await db.addCircle(
-        circle: mockModel,
-      );
       const wishMock = CircleWishModel(
-          circle: mockModel, isDone: false, amount: 1000, memo: 'memo');
+        circleId: 1,
+        name: 'name',
+        spaceName: 'A01',
+        isFavorite: true,
+        isDone: true,
+        amount: 1000,
+        memo: 'memo',
+      );
       await db.addWish(wish: wishMock);
 
       final wishList = await db.getAllWishes();
