@@ -1,6 +1,6 @@
 import 'package:m3_app/domain/model/circle_model.dart';
-import 'package:m3_app/infrastracture/local/db/circle_database.dart';
-import 'package:m3_app/infrastracture/model/circle_api_response/circle_api_response_model.dart';
+import 'package:m3_app/infrastructure/local/db/circle_database.dart';
+import 'package:m3_app/infrastructure/model/circle_api_response/circle_api_response_model.dart';
 
 class CircleInfoDao {
   CircleInfoDao(this.db);

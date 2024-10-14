@@ -1,6 +1,6 @@
 import 'package:m3_app/domain/model/circle_model.dart';
 import 'package:m3_app/domain/model/circle_wish_model.dart';
-import 'package:m3_app/infrastracture/local/db/circle_database.dart';
+import 'package:m3_app/infrastructure/local/db/circle_database.dart';
 import 'package:test/test.dart';
 
 void main() {
