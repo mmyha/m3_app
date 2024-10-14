@@ -231,6 +231,11 @@ class CircleDatabase extends _$CircleDatabase {
 
   // -----------------------------
 
+  Future<List<Wish>> getAllWishes() async {
+    final data = await select(wishes).get();
+    return data;
+  }
+
   Future<void> addWish({
     required CircleWishModel wish,
   }) async {
