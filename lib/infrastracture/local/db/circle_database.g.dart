@@ -1720,7 +1720,11 @@ class $WishesTable extends Wishes with TableInfo<$WishesTable, Wish> {
   @override
   late final GeneratedColumn<int> id = GeneratedColumn<int>(
       'id', aliasedName, false,
-      type: DriftSqlType.int, requiredDuringInsert: true);
+      hasAutoIncrement: true,
+      type: DriftSqlType.int,
+      requiredDuringInsert: false,
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('PRIMARY KEY AUTOINCREMENT'));
   static const VerificationMeta _isFavoriteMeta =
       const VerificationMeta('isFavorite');
   @override
@@ -1789,8 +1793,6 @@ class $WishesTable extends Wishes with TableInfo<$WishesTable, Wish> {
     final data = instance.toColumns(true);
     if (data.containsKey('id')) {
       context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
-    } else if (isInserting) {
-      context.missing(_idMeta);
     }
     if (data.containsKey('is_favorite')) {
       context.handle(
@@ -1834,7 +1836,7 @@ class $WishesTable extends Wishes with TableInfo<$WishesTable, Wish> {
   }
 
   @override
-  Set<GeneratedColumn> get $primaryKey => const {};
+  Set<GeneratedColumn> get $primaryKey => {id};
   @override
   Wish map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
@@ -2018,7 +2020,6 @@ class WishesCompanion extends UpdateCompanion<Wish> {
   final Value<String> circleName;
   final Value<int> amount;
   final Value<String?> memo;
-  final Value<int> rowid;
   const WishesCompanion({
     this.id = const Value.absent(),
     this.isFavorite = const Value.absent(),
@@ -2028,10 +2029,9 @@ class WishesCompanion extends UpdateCompanion<Wish> {
     this.circleName = const Value.absent(),
     this.amount = const Value.absent(),
     this.memo = const Value.absent(),
-    this.rowid = const Value.absent(),
   });
   WishesCompanion.insert({
-    required int id,
+    this.id = const Value.absent(),
     required bool isFavorite,
     this.done = const Value.absent(),
     this.space = const Value.absent(),
@@ -2039,9 +2039,7 @@ class WishesCompanion extends UpdateCompanion<Wish> {
     required String circleName,
     this.amount = const Value.absent(),
     this.memo = const Value.absent(),
-    this.rowid = const Value.absent(),
-  })  : id = Value(id),
-        isFavorite = Value(isFavorite),
+  })  : isFavorite = Value(isFavorite),
         circleId = Value(circleId),
         circleName = Value(circleName);
   static Insertable<Wish> custom({
@@ -2053,7 +2051,6 @@ class WishesCompanion extends UpdateCompanion<Wish> {
     Expression<String>? circleName,
     Expression<int>? amount,
     Expression<String>? memo,
-    Expression<int>? rowid,
   }) {
     return RawValuesInsertable({
       if (id != null) 'id': id,
@@ -2064,7 +2061,6 @@ class WishesCompanion extends UpdateCompanion<Wish> {
       if (circleName != null) 'circle_name': circleName,
       if (amount != null) 'amount': amount,
       if (memo != null) 'memo': memo,
-      if (rowid != null) 'rowid': rowid,
     });
   }
 
@@ -2076,8 +2072,7 @@ class WishesCompanion extends UpdateCompanion<Wish> {
       Value<int>? circleId,
       Value<String>? circleName,
       Value<int>? amount,
-      Value<String?>? memo,
-      Value<int>? rowid}) {
+      Value<String?>? memo}) {
     return WishesCompanion(
       id: id ?? this.id,
       isFavorite: isFavorite ?? this.isFavorite,
@@ -2087,7 +2082,6 @@ class WishesCompanion extends UpdateCompanion<Wish> {
       circleName: circleName ?? this.circleName,
       amount: amount ?? this.amount,
       memo: memo ?? this.memo,
-      rowid: rowid ?? this.rowid,
     );
   }
 
@@ -2118,9 +2112,6 @@ class WishesCompanion extends UpdateCompanion<Wish> {
     if (memo.present) {
       map['memo'] = Variable<String>(memo.value);
     }
-    if (rowid.present) {
-      map['rowid'] = Variable<int>(rowid.value);
-    }
     return map;
   }
 
@@ -2134,8 +2125,7 @@ class WishesCompanion extends UpdateCompanion<Wish> {
           ..write('circleId: $circleId, ')
           ..write('circleName: $circleName, ')
           ..write('amount: $amount, ')
-          ..write('memo: $memo, ')
-          ..write('rowid: $rowid')
+          ..write('memo: $memo')
           ..write(')'))
         .toString();
   }
@@ -3385,7 +3375,7 @@ typedef $$KeywordsTableProcessedTableManager = ProcessedTableManager<
     Keyword,
     PrefetchHooks Function({bool circleId})>;
 typedef $$WishesTableCreateCompanionBuilder = WishesCompanion Function({
-  required int id,
+  Value<int> id,
   required bool isFavorite,
   Value<bool> done,
   Value<String?> space,
@@ -3393,7 +3383,6 @@ typedef $$WishesTableCreateCompanionBuilder = WishesCompanion Function({
   required String circleName,
   Value<int> amount,
   Value<String?> memo,
-  Value<int> rowid,
 });
 typedef $$WishesTableUpdateCompanionBuilder = WishesCompanion Function({
   Value<int> id,
@@ -3404,7 +3393,6 @@ typedef $$WishesTableUpdateCompanionBuilder = WishesCompanion Function({
   Value<String> circleName,
   Value<int> amount,
   Value<String?> memo,
-  Value<int> rowid,
 });
 
 final class $$WishesTableReferences
@@ -3610,7 +3598,6 @@ class $$WishesTableTableManager extends RootTableManager<
             Value<String> circleName = const Value.absent(),
             Value<int> amount = const Value.absent(),
             Value<String?> memo = const Value.absent(),
-            Value<int> rowid = const Value.absent(),
           }) =>
               WishesCompanion(
             id: id,
@@ -3621,10 +3608,9 @@ class $$WishesTableTableManager extends RootTableManager<
             circleName: circleName,
             amount: amount,
             memo: memo,
-            rowid: rowid,
           ),
           createCompanionCallback: ({
-            required int id,
+            Value<int> id = const Value.absent(),
             required bool isFavorite,
             Value<bool> done = const Value.absent(),
             Value<String?> space = const Value.absent(),
@@ -3632,7 +3618,6 @@ class $$WishesTableTableManager extends RootTableManager<
             required String circleName,
             Value<int> amount = const Value.absent(),
             Value<String?> memo = const Value.absent(),
-            Value<int> rowid = const Value.absent(),
           }) =>
               WishesCompanion.insert(
             id: id,
@@ -3643,7 +3628,6 @@ class $$WishesTableTableManager extends RootTableManager<
             circleName: circleName,
             amount: amount,
             memo: memo,
-            rowid: rowid,
           ),
           withReferenceMapper: (p0) => p0
               .map((e) =>

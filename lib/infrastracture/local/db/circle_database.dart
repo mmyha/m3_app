@@ -62,7 +62,7 @@ class Keywords extends Table {
 
 @DataClassName('Wish')
 class Wishes extends Table {
-  IntColumn get id => integer()(); // 主キー
+  IntColumn get id => integer().autoIncrement()(); // 主キー
   BoolColumn get isFavorite => boolean().references(Circles, #isFavorite)();
   BoolColumn get done => boolean().withDefault(const Constant(false))();
   TextColumn get space => text().nullable()();
@@ -99,6 +99,49 @@ class CircleDatabase extends _$CircleDatabase {
   Future<List<Circle>> getAllCircle() async {
     final data = await select(circles).get();
 
+    return data;
+  }
+
+  Future<List<Circle>> getCircle(int circleId) async {
+    final data =
+        await (select(circles)..where((tbl) => tbl.id.equals(circleId))).get();
+    return data;
+  }
+
+  Future<SnsLink?> getSnsLinks(int circleId) async {
+    final data = await (select(snsLinks)
+          ..where((tbl) => tbl.circleId.equals(circleId)))
+        .get();
+    if (data.isEmpty) {
+      return null;
+    }
+    return data[0];
+  }
+
+  Future<RealSp?> getRealSp(int circleId) async {
+    final data = await (select(realSps)
+          ..where((tbl) => tbl.circleId.equals(circleId)))
+        .get();
+    if (data.isEmpty) {
+      return null;
+    }
+    return data[0];
+  }
+
+  Future<WebSp?> getWebSp(int circleId) async {
+    final data = await (select(webSps)
+          ..where((tbl) => tbl.circle.equals(circleId)))
+        .get();
+    if (data.isEmpty) {
+      return null;
+    }
+    return data[0];
+  }
+
+  Future<List<Keyword>> getKeywords(int circleId) async {
+    final data = await (select(keywords)
+          ..where((tbl) => tbl.circleId.equals(circleId)))
+        .get();
     return data;
   }
 
@@ -239,17 +282,13 @@ class CircleDatabase extends _$CircleDatabase {
   Future<void> addWish({
     required CircleWishModel wish,
   }) async {
-    final spaceName = wish.circle.realSp != null
-        ? '${wish.circle.realSp!.area} ${wish.circle.realSp!.no}'
-        : '';
     await into(wishes).insert(
       WishesCompanion(
-        id: Value(wish.circle.id),
-        isFavorite: Value(wish.circle.isFavorite ?? false),
+        isFavorite: Value(wish.isFavorite),
         done: Value(wish.isDone),
-        space: Value(spaceName),
-        circleId: Value(wish.circle.id),
-        circleName: Value(wish.circle.name),
+        space: Value(wish.spaceName),
+        circleId: Value(wish.circleId),
+        circleName: Value(wish.name),
         amount: Value(wish.amount),
         memo: Value(wish.memo),
       ),
@@ -257,9 +296,9 @@ class CircleDatabase extends _$CircleDatabase {
   }
 
   Future<void> updateWish({required CircleWishModel wish}) async {
-    await (update(wishes)..where((tbl) => tbl.id.equals(wish.circle.id))).write(
+    await (update(wishes)..where((tbl) => tbl.id.equals(wish.circleId))).write(
       WishesCompanion(
-        isFavorite: Value(wish.circle.isFavorite ?? false),
+        isFavorite: Value(wish.isFavorite),
         done: Value(wish.isDone),
         amount: Value(wish.amount),
         memo: Value(wish.memo),
