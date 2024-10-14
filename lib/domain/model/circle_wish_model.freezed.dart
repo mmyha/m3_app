@@ -16,7 +16,10 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$CircleWishModel {
-  CircleModel get circle => throw _privateConstructorUsedError;
+  int get circleId => throw _privateConstructorUsedError;
+  String get name => throw _privateConstructorUsedError;
+  String get spaceName => throw _privateConstructorUsedError;
+  bool get isFavorite => throw _privateConstructorUsedError;
   bool get isDone => throw _privateConstructorUsedError;
   int get amount => throw _privateConstructorUsedError;
   String get memo => throw _privateConstructorUsedError;
@@ -34,9 +37,14 @@ abstract class $CircleWishModelCopyWith<$Res> {
           CircleWishModel value, $Res Function(CircleWishModel) then) =
       _$CircleWishModelCopyWithImpl<$Res, CircleWishModel>;
   @useResult
-  $Res call({CircleModel circle, bool isDone, int amount, String memo});
-
-  $CircleModelCopyWith<$Res> get circle;
+  $Res call(
+      {int circleId,
+      String name,
+      String spaceName,
+      bool isFavorite,
+      bool isDone,
+      int amount,
+      String memo});
 }
 
 /// @nodoc
@@ -54,16 +62,31 @@ class _$CircleWishModelCopyWithImpl<$Res, $Val extends CircleWishModel>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? circle = null,
+    Object? circleId = null,
+    Object? name = null,
+    Object? spaceName = null,
+    Object? isFavorite = null,
     Object? isDone = null,
     Object? amount = null,
     Object? memo = null,
   }) {
     return _then(_value.copyWith(
-      circle: null == circle
-          ? _value.circle
-          : circle // ignore: cast_nullable_to_non_nullable
-              as CircleModel,
+      circleId: null == circleId
+          ? _value.circleId
+          : circleId // ignore: cast_nullable_to_non_nullable
+              as int,
+      name: null == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      spaceName: null == spaceName
+          ? _value.spaceName
+          : spaceName // ignore: cast_nullable_to_non_nullable
+              as String,
+      isFavorite: null == isFavorite
+          ? _value.isFavorite
+          : isFavorite // ignore: cast_nullable_to_non_nullable
+              as bool,
       isDone: null == isDone
           ? _value.isDone
           : isDone // ignore: cast_nullable_to_non_nullable
@@ -78,16 +101,6 @@ class _$CircleWishModelCopyWithImpl<$Res, $Val extends CircleWishModel>
               as String,
     ) as $Val);
   }
-
-  /// Create a copy of CircleWishModel
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @pragma('vm:prefer-inline')
-  $CircleModelCopyWith<$Res> get circle {
-    return $CircleModelCopyWith<$Res>(_value.circle, (value) {
-      return _then(_value.copyWith(circle: value) as $Val);
-    });
-  }
 }
 
 /// @nodoc
@@ -98,10 +111,14 @@ abstract class _$$CircleWishModelImplCopyWith<$Res>
       __$$CircleWishModelImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({CircleModel circle, bool isDone, int amount, String memo});
-
-  @override
-  $CircleModelCopyWith<$Res> get circle;
+  $Res call(
+      {int circleId,
+      String name,
+      String spaceName,
+      bool isFavorite,
+      bool isDone,
+      int amount,
+      String memo});
 }
 
 /// @nodoc
@@ -117,16 +134,31 @@ class __$$CircleWishModelImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? circle = null,
+    Object? circleId = null,
+    Object? name = null,
+    Object? spaceName = null,
+    Object? isFavorite = null,
     Object? isDone = null,
     Object? amount = null,
     Object? memo = null,
   }) {
     return _then(_$CircleWishModelImpl(
-      circle: null == circle
-          ? _value.circle
-          : circle // ignore: cast_nullable_to_non_nullable
-              as CircleModel,
+      circleId: null == circleId
+          ? _value.circleId
+          : circleId // ignore: cast_nullable_to_non_nullable
+              as int,
+      name: null == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      spaceName: null == spaceName
+          ? _value.spaceName
+          : spaceName // ignore: cast_nullable_to_non_nullable
+              as String,
+      isFavorite: null == isFavorite
+          ? _value.isFavorite
+          : isFavorite // ignore: cast_nullable_to_non_nullable
+              as bool,
       isDone: null == isDone
           ? _value.isDone
           : isDone // ignore: cast_nullable_to_non_nullable
@@ -147,13 +179,22 @@ class __$$CircleWishModelImplCopyWithImpl<$Res>
 
 class _$CircleWishModelImpl implements _CircleWishModel {
   const _$CircleWishModelImpl(
-      {required this.circle,
+      {required this.circleId,
+      required this.name,
+      required this.spaceName,
+      required this.isFavorite,
       required this.isDone,
       required this.amount,
       required this.memo});
 
   @override
-  final CircleModel circle;
+  final int circleId;
+  @override
+  final String name;
+  @override
+  final String spaceName;
+  @override
+  final bool isFavorite;
   @override
   final bool isDone;
   @override
@@ -163,7 +204,7 @@ class _$CircleWishModelImpl implements _CircleWishModel {
 
   @override
   String toString() {
-    return 'CircleWishModel(circle: $circle, isDone: $isDone, amount: $amount, memo: $memo)';
+    return 'CircleWishModel(circleId: $circleId, name: $name, spaceName: $spaceName, isFavorite: $isFavorite, isDone: $isDone, amount: $amount, memo: $memo)';
   }
 
   @override
@@ -171,14 +212,21 @@ class _$CircleWishModelImpl implements _CircleWishModel {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$CircleWishModelImpl &&
-            (identical(other.circle, circle) || other.circle == circle) &&
+            (identical(other.circleId, circleId) ||
+                other.circleId == circleId) &&
+            (identical(other.name, name) || other.name == name) &&
+            (identical(other.spaceName, spaceName) ||
+                other.spaceName == spaceName) &&
+            (identical(other.isFavorite, isFavorite) ||
+                other.isFavorite == isFavorite) &&
             (identical(other.isDone, isDone) || other.isDone == isDone) &&
             (identical(other.amount, amount) || other.amount == amount) &&
             (identical(other.memo, memo) || other.memo == memo));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, circle, isDone, amount, memo);
+  int get hashCode => Object.hash(
+      runtimeType, circleId, name, spaceName, isFavorite, isDone, amount, memo);
 
   /// Create a copy of CircleWishModel
   /// with the given fields replaced by the non-null parameter values.
@@ -192,13 +240,22 @@ class _$CircleWishModelImpl implements _CircleWishModel {
 
 abstract class _CircleWishModel implements CircleWishModel {
   const factory _CircleWishModel(
-      {required final CircleModel circle,
+      {required final int circleId,
+      required final String name,
+      required final String spaceName,
+      required final bool isFavorite,
       required final bool isDone,
       required final int amount,
       required final String memo}) = _$CircleWishModelImpl;
 
   @override
-  CircleModel get circle;
+  int get circleId;
+  @override
+  String get name;
+  @override
+  String get spaceName;
+  @override
+  bool get isFavorite;
   @override
   bool get isDone;
   @override
