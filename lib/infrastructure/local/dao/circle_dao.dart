@@ -71,8 +71,11 @@ class CircleInfoDao {
     return list;
   }
 
-  Future<void> updateCircleFav(CircleModel circle) async {
-    await db.updateCircleFav(circle: circle);
+  Future<void> updateCircleFav({
+    required int circleId,
+    required bool isFav,
+  }) async {
+    await db.updateCircleFav(circleId: circleId, isFavorite: isFav);
   }
 
   /// APIレスポンスからデータベースに保存

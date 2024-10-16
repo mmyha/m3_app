@@ -24,9 +24,10 @@ class CircleRepository {
   }
 
   /// サークルのお気に入り情報を更新
-  Future<void> updateCircleFavorite(CircleModel circle) async {
+  Future<void> updateCircleFavorite(
+      {required int circleId, required bool isFav}) async {
     try {
-      await _dao.updateCircleFav(circle);
+      await _dao.updateCircleFav(circleId: circleId, isFav: isFav);
     } on Exception catch (_) {
       rethrow;
     }
