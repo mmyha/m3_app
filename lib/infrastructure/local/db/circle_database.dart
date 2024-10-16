@@ -261,11 +261,13 @@ class CircleDatabase extends _$CircleDatabase {
   }
 
   Future<void> updateCircleFav({
-    required CircleModel circle,
+    // required CircleModel circle,
+    required int circleId,
+    required bool isFavorite,
   }) async {
-    await (update(circles)..where((tbl) => tbl.id.equals(circle.id))).write(
+    await (update(circles)..where((tbl) => tbl.id.equals(circleId))).write(
       CirclesCompanion(
-        isFavorite: Value(circle.isFavorite ?? false),
+        isFavorite: Value(isFavorite),
       ),
     );
   }
