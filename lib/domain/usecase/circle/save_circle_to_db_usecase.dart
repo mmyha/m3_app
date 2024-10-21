@@ -11,7 +11,7 @@ class SaveCircleInfoToDBUseCase {
 
   Future<Result<void, Exception>> call() async {
     try {
-      final result = _circleRepository.saveCircleInfoToDB();
+      final result = await _circleRepository.saveCircleInfoToDB();
       return Success(result);
     } on Exception catch (e) {
       return Failure(e);
