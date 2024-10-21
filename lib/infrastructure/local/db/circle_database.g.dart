@@ -33,8 +33,8 @@ class $CirclesTable extends Circles with TableInfo<$CirclesTable, Circle> {
       const VerificationMeta('spaceSize');
   @override
   late final GeneratedColumn<int> spaceSize = GeneratedColumn<int>(
-      'space_size', aliasedName, false,
-      type: DriftSqlType.int, requiredDuringInsert: true);
+      'space_size', aliasedName, true,
+      type: DriftSqlType.int, requiredDuringInsert: false);
   static const VerificationMeta _adultMeta = const VerificationMeta('adult');
   @override
   late final GeneratedColumn<bool> adult = GeneratedColumn<bool>(
@@ -97,8 +97,6 @@ class $CirclesTable extends Circles with TableInfo<$CirclesTable, Circle> {
     if (data.containsKey('space_size')) {
       context.handle(_spaceSizeMeta,
           spaceSize.isAcceptableOrUnknown(data['space_size']!, _spaceSizeMeta));
-    } else if (isInserting) {
-      context.missing(_spaceSizeMeta);
     }
     if (data.containsKey('adult')) {
       context.handle(
@@ -136,7 +134,7 @@ class $CirclesTable extends Circles with TableInfo<$CirclesTable, Circle> {
       genre: attachedDatabase.typeMapping
           .read(DriftSqlType.string, data['${effectivePrefix}genre'])!,
       spaceSize: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}space_size'])!,
+          .read(DriftSqlType.int, data['${effectivePrefix}space_size']),
       adult: attachedDatabase.typeMapping
           .read(DriftSqlType.bool, data['${effectivePrefix}adult'])!,
       prText: attachedDatabase.typeMapping
@@ -157,7 +155,7 @@ class Circle extends DataClass implements Insertable<Circle> {
   final String name;
   final String phonetic;
   final String genre;
-  final int spaceSize;
+  final int? spaceSize;
   final bool adult;
   final String prText;
   final bool isFavorite;
@@ -166,7 +164,7 @@ class Circle extends DataClass implements Insertable<Circle> {
       required this.name,
       required this.phonetic,
       required this.genre,
-      required this.spaceSize,
+      this.spaceSize,
       required this.adult,
       required this.prText,
       required this.isFavorite});
@@ -177,7 +175,9 @@ class Circle extends DataClass implements Insertable<Circle> {
     map['name'] = Variable<String>(name);
     map['phonetic'] = Variable<String>(phonetic);
     map['genre'] = Variable<String>(genre);
-    map['space_size'] = Variable<int>(spaceSize);
+    if (!nullToAbsent || spaceSize != null) {
+      map['space_size'] = Variable<int>(spaceSize);
+    }
     map['adult'] = Variable<bool>(adult);
     map['pr_text'] = Variable<String>(prText);
     map['is_favorite'] = Variable<bool>(isFavorite);
@@ -190,7 +190,9 @@ class Circle extends DataClass implements Insertable<Circle> {
       name: Value(name),
       phonetic: Value(phonetic),
       genre: Value(genre),
-      spaceSize: Value(spaceSize),
+      spaceSize: spaceSize == null && nullToAbsent
+          ? const Value.absent()
+          : Value(spaceSize),
       adult: Value(adult),
       prText: Value(prText),
       isFavorite: Value(isFavorite),
@@ -205,7 +207,7 @@ class Circle extends DataClass implements Insertable<Circle> {
       name: serializer.fromJson<String>(json['name']),
       phonetic: serializer.fromJson<String>(json['phonetic']),
       genre: serializer.fromJson<String>(json['genre']),
-      spaceSize: serializer.fromJson<int>(json['spaceSize']),
+      spaceSize: serializer.fromJson<int?>(json['spaceSize']),
       adult: serializer.fromJson<bool>(json['adult']),
       prText: serializer.fromJson<String>(json['prText']),
       isFavorite: serializer.fromJson<bool>(json['isFavorite']),
@@ -219,7 +221,7 @@ class Circle extends DataClass implements Insertable<Circle> {
       'name': serializer.toJson<String>(name),
       'phonetic': serializer.toJson<String>(phonetic),
       'genre': serializer.toJson<String>(genre),
-      'spaceSize': serializer.toJson<int>(spaceSize),
+      'spaceSize': serializer.toJson<int?>(spaceSize),
       'adult': serializer.toJson<bool>(adult),
       'prText': serializer.toJson<String>(prText),
       'isFavorite': serializer.toJson<bool>(isFavorite),
@@ -231,7 +233,7 @@ class Circle extends DataClass implements Insertable<Circle> {
           String? name,
           String? phonetic,
           String? genre,
-          int? spaceSize,
+          Value<int?> spaceSize = const Value.absent(),
           bool? adult,
           String? prText,
           bool? isFavorite}) =>
@@ -240,7 +242,7 @@ class Circle extends DataClass implements Insertable<Circle> {
         name: name ?? this.name,
         phonetic: phonetic ?? this.phonetic,
         genre: genre ?? this.genre,
-        spaceSize: spaceSize ?? this.spaceSize,
+        spaceSize: spaceSize.present ? spaceSize.value : this.spaceSize,
         adult: adult ?? this.adult,
         prText: prText ?? this.prText,
         isFavorite: isFavorite ?? this.isFavorite,
@@ -296,7 +298,7 @@ class CirclesCompanion extends UpdateCompanion<Circle> {
   final Value<String> name;
   final Value<String> phonetic;
   final Value<String> genre;
-  final Value<int> spaceSize;
+  final Value<int?> spaceSize;
   final Value<bool> adult;
   final Value<String> prText;
   final Value<bool> isFavorite;
@@ -317,7 +319,7 @@ class CirclesCompanion extends UpdateCompanion<Circle> {
     required String name,
     required String phonetic,
     required String genre,
-    required int spaceSize,
+    this.spaceSize = const Value.absent(),
     required bool adult,
     required String prText,
     this.isFavorite = const Value.absent(),
@@ -326,7 +328,6 @@ class CirclesCompanion extends UpdateCompanion<Circle> {
         name = Value(name),
         phonetic = Value(phonetic),
         genre = Value(genre),
-        spaceSize = Value(spaceSize),
         adult = Value(adult),
         prText = Value(prText);
   static Insertable<Circle> custom({
@@ -358,7 +359,7 @@ class CirclesCompanion extends UpdateCompanion<Circle> {
       Value<String>? name,
       Value<String>? phonetic,
       Value<String>? genre,
-      Value<int>? spaceSize,
+      Value<int?>? spaceSize,
       Value<bool>? adult,
       Value<String>? prText,
       Value<bool>? isFavorite,
@@ -2153,7 +2154,7 @@ typedef $$CirclesTableCreateCompanionBuilder = CirclesCompanion Function({
   required String name,
   required String phonetic,
   required String genre,
-  required int spaceSize,
+  Value<int?> spaceSize,
   required bool adult,
   required String prText,
   Value<bool> isFavorite,
@@ -2164,7 +2165,7 @@ typedef $$CirclesTableUpdateCompanionBuilder = CirclesCompanion Function({
   Value<String> name,
   Value<String> phonetic,
   Value<String> genre,
-  Value<int> spaceSize,
+  Value<int?> spaceSize,
   Value<bool> adult,
   Value<String> prText,
   Value<bool> isFavorite,
@@ -2400,7 +2401,7 @@ class $$CirclesTableTableManager extends RootTableManager<
             Value<String> name = const Value.absent(),
             Value<String> phonetic = const Value.absent(),
             Value<String> genre = const Value.absent(),
-            Value<int> spaceSize = const Value.absent(),
+            Value<int?> spaceSize = const Value.absent(),
             Value<bool> adult = const Value.absent(),
             Value<String> prText = const Value.absent(),
             Value<bool> isFavorite = const Value.absent(),
@@ -2422,7 +2423,7 @@ class $$CirclesTableTableManager extends RootTableManager<
             required String name,
             required String phonetic,
             required String genre,
-            required int spaceSize,
+            Value<int?> spaceSize = const Value.absent(),
             required bool adult,
             required String prText,
             Value<bool> isFavorite = const Value.absent(),

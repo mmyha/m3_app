@@ -16,7 +16,7 @@ class Circles extends Table {
   TextColumn get name => text()();
   TextColumn get phonetic => text()();
   TextColumn get genre => text()();
-  IntColumn get spaceSize => integer()();
+  IntColumn get spaceSize => integer().nullable()();
   BoolColumn get adult => boolean()();
   TextColumn get prText => text()();
   BoolColumn get isFavorite => boolean().withDefault(const Constant(false))();

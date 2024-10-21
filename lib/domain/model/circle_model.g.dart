@@ -12,7 +12,7 @@ _$CircleModelImpl _$$CircleModelImplFromJson(Map<String, dynamic> json) =>
       name: json['name'] as String,
       phonetic: json['phonetic'] as String,
       genre: json['genre'] as String,
-      spaceSize: (json['spaceSize'] as num).toInt(),
+      spaceSize: const IntOrStringConverter().fromJson(json['spaceSize']),
       adult: json['adult'] as bool,
       prText: json['prText'] as String,
       links: json['links'] == null
@@ -36,7 +36,7 @@ Map<String, dynamic> _$$CircleModelImplToJson(_$CircleModelImpl instance) =>
       'name': instance.name,
       'phonetic': instance.phonetic,
       'genre': instance.genre,
-      'spaceSize': instance.spaceSize,
+      'spaceSize': const IntOrStringConverter().toJson(instance.spaceSize),
       'adult': instance.adult,
       'prText': instance.prText,
       'links': instance.links,
