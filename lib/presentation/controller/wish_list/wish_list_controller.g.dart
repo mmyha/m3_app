@@ -1,27 +1,27 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'circle_db_controller.dart';
+part of 'wish_list_controller.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$circleDBControllerHash() =>
-    r'bad6b6b82b5faadf0477d32a372f820d54e3e1a6';
+String _$wishListControllerHash() =>
+    r'8cfba47eebcc5f107e2a16debb9e411d4fa1ab65';
 
-/// See also [CircleDBController].
-@ProviderFor(CircleDBController)
-final circleDBControllerProvider =
-    AutoDisposeAsyncNotifierProvider<CircleDBController, void>.internal(
-  CircleDBController.new,
-  name: r'circleDBControllerProvider',
+/// See also [WishListController].
+@ProviderFor(WishListController)
+final wishListControllerProvider = AutoDisposeAsyncNotifierProvider<
+    WishListController, List<CircleWishModel>>.internal(
+  WishListController.new,
+  name: r'wishListControllerProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
       ? null
-      : _$circleDBControllerHash,
+      : _$wishListControllerHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef _$CircleDBController = AutoDisposeAsyncNotifier<void>;
+typedef _$WishListController = AutoDisposeAsyncNotifier<List<CircleWishModel>>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member
