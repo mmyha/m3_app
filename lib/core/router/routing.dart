@@ -4,7 +4,8 @@ import 'package:m3_app/core/router/routing_path_const.dart';
 import 'package:m3_app/presentation/view/components/common/scaffold_wish_bottom_nav_bar.dart';
 import 'package:m3_app/presentation/view/pages/circle_list/circle_detail_page.dart';
 import 'package:m3_app/presentation/view/pages/circle_list/circle_list_page.dart';
-import 'package:m3_app/presentation/view/pages/event_select_page.dart';
+import 'package:m3_app/presentation/view/pages/event_select/circle_fetch_page.dart';
+import 'package:m3_app/presentation/view/pages/event_select/event_select_page.dart';
 import 'package:m3_app/presentation/view/pages/map/map_page.dart';
 import 'package:m3_app/presentation/view/pages/wish_list/wish_list_page.dart';
 
@@ -20,6 +21,12 @@ final router = GoRouter(
       path: RoutingPathConst.home,
       builder: (BuildContext context, GoRouterState state) {
         return const EventSelectPage();
+      },
+    ),
+    GoRoute(
+      path: RoutingPathConst.fetchCircle,
+      builder: (context, state) {
+        return const CircleFetchPage();
       },
     ),
     // ボトムナビゲーションバー
