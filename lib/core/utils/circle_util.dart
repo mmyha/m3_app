@@ -17,4 +17,19 @@ class CircleUtil {
     }
     return spaceName;
   }
+
+  static bool isUpperCaseEnglish(String input) {
+    final upperCaseRegExp = RegExp(r'^[A-Z]+$');
+    return upperCaseRegExp.hasMatch(input);
+  }
+
+  static bool isHiragana(String input) {
+    final hiraganaRegExp = RegExp(r'^[\u3040-\u309F]+$');
+    return hiraganaRegExp.hasMatch(input);
+  }
+
+  static bool isKatakana(String input) {
+    final katakanaRegExp = RegExp(r'^[\u30A0-\u30FF]+$');
+    return katakanaRegExp.hasMatch(input);
+  }
 }
