@@ -2,22 +2,49 @@ import 'package:m3_app/domain/model/circle_model.dart';
 import 'package:m3_app/provider/usecase/usecase_providers.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
+import '../../../core/utils/circle_util.dart';
 import '../../../core/utils/result.dart';
 
 part 'circle_list_controller.g.dart';
 
 @riverpod
 class CircleListController extends _$CircleListController {
+  List<CircleModel> _allCircles = [];
   @override
-  FutureOr<List<CircleModel>> build() {
+  FutureOr<List<CircleModel>> build() async {
     state = const AsyncValue.loading();
-    return _fetchCircleInfoFromDB();
+    return _allCircles = await _fetchCircleInfoFromDB();
   }
 
   // リストを更新するためのメソッド
   Future<void> refresh() async {
     state = const AsyncValue.loading();
     state = await AsyncValue.guard(_fetchCircleInfoFromDB);
+  }
+
+  // 検索
+  void search(String query) {
+    if (query.isEmpty) {
+      state = AsyncValue.data(_allCircles);
+    } else {
+      state = state.whenData(
+        (circles) => [
+          ..._allCircles.where(
+            (e) =>
+                e.name.contains(query) ||
+                e.phonetic.contains(query) ||
+                e.prText.contains(query) ||
+                e.keywords.any(
+                  (keyword) =>
+                      keyword.text.contains(query) ||
+                      keyword.phonetic.contains(query),
+                ) ||
+                CircleUtil.generateSpaceName(realSp: e.realSp, webSp: e.webSp)
+                    .contains(query),
+          ),
+        ],
+      );
+    }
   }
 
   Future<void> updateFavorite(CircleModel circle) async {

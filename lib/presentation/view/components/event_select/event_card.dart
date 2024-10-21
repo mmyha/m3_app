@@ -21,7 +21,7 @@ class EventCard extends StatelessWidget {
             child: Text(
               style: TextStyle(
                 color: m3ColorScheme.surfaceTint,
-                fontSize: M3ThemeConfig().fontSize.large,
+                fontSize: M3ThemeConfig.fontSize.large,
                 fontWeight: FontWeight.bold,
               ),
               eventName,
