@@ -1,6 +1,7 @@
 // ignore_for_file: avoid_classes_with_only_static_members
 
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 
 class FontSize {
   double get small => 10;
@@ -10,6 +11,25 @@ class FontSize {
 
 class M3CustomColor {
   Color get favorite => const Color.fromARGB(255, 245, 70, 143);
+}
+
+class M3CustomIcon {
+  static SvgPicture youtube({double? width, double? height}) {
+    return SvgPicture.asset(
+      'assets/youtube_logo.svg',
+      width: width,
+      height: height,
+      colorFilter: const ColorFilter.mode(Colors.red, BlendMode.srcIn),
+    );
+  }
+
+  static SvgPicture x({double? width, double? height}) {
+    return SvgPicture.asset(
+      'assets/x_logo.svg',
+      width: width,
+      height: height,
+    );
+  }
 }
 
 class M3ThemeConfig {
