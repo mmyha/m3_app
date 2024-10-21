@@ -10,7 +10,7 @@ class CircleModel with _$CircleModel {
     required String name,
     required String phonetic,
     required String genre,
-    required int spaceSize,
+    @IntOrStringConverter() required int? spaceSize,
     required bool adult,
     required String prText,
     @Default(SnsLinksModel()) SnsLinksModel links, // nullable
@@ -78,4 +78,24 @@ class WebSpModel with _$WebSpModel {
 
   factory WebSpModel.fromJson(Map<String, dynamic> json) =>
       _$WebSpModelFromJson(json);
+}
+
+class IntOrStringConverter implements JsonConverter<int?, dynamic> {
+  const IntOrStringConverter();
+
+  @override
+  int? fromJson(dynamic json) {
+    if (json == null) {
+      return null;
+    } else if (json is int) {
+      return json;
+    } else if (json is String) {
+      return int.tryParse(json) ?? 0;
+    } else {
+      throw Exception('Invalid type for int conversion ${json.runtimeType}');
+    }
+  }
+
+  @override
+  dynamic toJson(int? object) => object;
 }

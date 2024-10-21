@@ -24,7 +24,8 @@ mixin _$CircleModel {
   String get name => throw _privateConstructorUsedError;
   String get phonetic => throw _privateConstructorUsedError;
   String get genre => throw _privateConstructorUsedError;
-  int get spaceSize => throw _privateConstructorUsedError;
+  @IntOrStringConverter()
+  int? get spaceSize => throw _privateConstructorUsedError;
   bool get adult => throw _privateConstructorUsedError;
   String get prText => throw _privateConstructorUsedError;
   SnsLinksModel get links => throw _privateConstructorUsedError; // nullable
@@ -54,7 +55,7 @@ abstract class $CircleModelCopyWith<$Res> {
       String name,
       String phonetic,
       String genre,
-      int spaceSize,
+      @IntOrStringConverter() int? spaceSize,
       bool adult,
       String prText,
       SnsLinksModel links,
@@ -87,7 +88,7 @@ class _$CircleModelCopyWithImpl<$Res, $Val extends CircleModel>
     Object? name = null,
     Object? phonetic = null,
     Object? genre = null,
-    Object? spaceSize = null,
+    Object? spaceSize = freezed,
     Object? adult = null,
     Object? prText = null,
     Object? links = null,
@@ -113,10 +114,10 @@ class _$CircleModelCopyWithImpl<$Res, $Val extends CircleModel>
           ? _value.genre
           : genre // ignore: cast_nullable_to_non_nullable
               as String,
-      spaceSize: null == spaceSize
+      spaceSize: freezed == spaceSize
           ? _value.spaceSize
           : spaceSize // ignore: cast_nullable_to_non_nullable
-              as int,
+              as int?,
       adult: null == adult
           ? _value.adult
           : adult // ignore: cast_nullable_to_non_nullable
@@ -200,7 +201,7 @@ abstract class _$$CircleModelImplCopyWith<$Res>
       String name,
       String phonetic,
       String genre,
-      int spaceSize,
+      @IntOrStringConverter() int? spaceSize,
       bool adult,
       String prText,
       SnsLinksModel links,
@@ -234,7 +235,7 @@ class __$$CircleModelImplCopyWithImpl<$Res>
     Object? name = null,
     Object? phonetic = null,
     Object? genre = null,
-    Object? spaceSize = null,
+    Object? spaceSize = freezed,
     Object? adult = null,
     Object? prText = null,
     Object? links = null,
@@ -260,10 +261,10 @@ class __$$CircleModelImplCopyWithImpl<$Res>
           ? _value.genre
           : genre // ignore: cast_nullable_to_non_nullable
               as String,
-      spaceSize: null == spaceSize
+      spaceSize: freezed == spaceSize
           ? _value.spaceSize
           : spaceSize // ignore: cast_nullable_to_non_nullable
-              as int,
+              as int?,
       adult: null == adult
           ? _value.adult
           : adult // ignore: cast_nullable_to_non_nullable
@@ -304,7 +305,7 @@ class _$CircleModelImpl implements _CircleModel {
       required this.name,
       required this.phonetic,
       required this.genre,
-      required this.spaceSize,
+      @IntOrStringConverter() required this.spaceSize,
       required this.adult,
       required this.prText,
       this.links = const SnsLinksModel(),
@@ -326,7 +327,8 @@ class _$CircleModelImpl implements _CircleModel {
   @override
   final String genre;
   @override
-  final int spaceSize;
+  @IntOrStringConverter()
+  final int? spaceSize;
   @override
   final bool adult;
   @override
@@ -419,7 +421,7 @@ abstract class _CircleModel implements CircleModel {
       required final String name,
       required final String phonetic,
       required final String genre,
-      required final int spaceSize,
+      @IntOrStringConverter() required final int? spaceSize,
       required final bool adult,
       required final String prText,
       final SnsLinksModel links,
@@ -440,7 +442,8 @@ abstract class _CircleModel implements CircleModel {
   @override
   String get genre;
   @override
-  int get spaceSize;
+  @IntOrStringConverter()
+  int? get spaceSize;
   @override
   bool get adult;
   @override
