@@ -7,12 +7,12 @@ part of 'circle_db_controller.dart';
 // **************************************************************************
 
 String _$circleDBControllerHash() =>
-    r'c6f69df2a52cdf8dce01f9a36043ad51bcbb18b7';
+    r'bad6b6b82b5faadf0477d32a372f820d54e3e1a6';
 
 /// See also [CircleDBController].
 @ProviderFor(CircleDBController)
 final circleDBControllerProvider =
-    AutoDisposeNotifierProvider<CircleDBController, Object?>.internal(
+    AutoDisposeAsyncNotifierProvider<CircleDBController, void>.internal(
   CircleDBController.new,
   name: r'circleDBControllerProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
@@ -22,6 +22,6 @@ final circleDBControllerProvider =
   allTransitiveDependencies: null,
 );
 
-typedef _$CircleDBController = AutoDisposeNotifier<Object?>;
+typedef _$CircleDBController = AutoDisposeAsyncNotifier<void>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member
