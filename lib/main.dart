@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:m3_app/core/theme/m3_theme.dart';
 import 'package:m3_app/provider/common/router/router_privder.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -31,10 +32,7 @@ class MyApp extends ConsumerWidget {
     return MaterialApp.router(
       routerConfig: router,
       title: 'M3 APP',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
-      ),
+      theme: m3Theme,
     );
   }
 }
