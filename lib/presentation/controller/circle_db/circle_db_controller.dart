@@ -9,16 +9,16 @@ part 'circle_db_controller.g.dart';
 @riverpod
 class CircleDBController extends _$CircleDBController {
   @override
-  FutureOr<AsyncValue<void>> build() async {
+  FutureOr<void> build() async {
     state = const AsyncValue<void>.loading();
     final isLocalAvailable = isLocalDataAvailable();
     state = isLocalAvailable
-        ? const AsyncValue.data(true)
+        ? const AsyncValue.data(null)
         : const AsyncValue<void>.loading();
     if (!isLocalAvailable) {
       await _saveLocal();
     }
-    return state;
+    return;
   }
 
   bool isLocalDataAvailable() {

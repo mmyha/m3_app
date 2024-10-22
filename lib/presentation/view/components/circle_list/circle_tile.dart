@@ -30,7 +30,7 @@ class CircleTile extends StatelessWidget {
                 ),
               ),
               Icon(
-                (circle.isFavorite ?? true)
+                (circle.isFavorite ?? false)
                     ? Icons.favorite_rounded
                     : Icons.favorite_border_rounded,
                 size: 35,
