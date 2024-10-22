@@ -36,5 +36,6 @@ build_ios:
 
 # ios 実機インストール
 .PHONY: install_ios
+install_ios:
 	make build_ios
 	fvm flutter install
