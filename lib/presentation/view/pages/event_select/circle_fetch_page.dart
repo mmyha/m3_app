@@ -24,7 +24,7 @@ class CircleFetchPage extends ConsumerWidget {
                   const MarginVertical(10),
                   ElevatedButton(
                     onPressed: () {
-                      context.push(RoutingPathConst.circleList);
+                      context.go(RoutingPathConst.circleList);
                     },
                     child: const Text('次へ'),
                   ),
