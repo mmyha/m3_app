@@ -23,6 +23,7 @@ class CircleInfoDao {
         spaceSize: circle.spaceSize,
         adult: circle.adult,
         prText: circle.prText,
+        isFavorite: circle.isFavorite,
         links: (links != null)
             ? SnsLinksModel(
                 twitter: SocialLink(
