@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:m3_app/core/theme/m3_theme.dart';
 
 class FontSize {
   double get small => 10;
@@ -12,6 +13,8 @@ class FontSize {
 class M3CustomColor {
   Color get favorite => const Color.fromARGB(255, 245, 70, 143);
   Color get favoriteButton => const Color.fromRGBO(255, 204, 0, 1);
+  Color get overBudget => m3ColorScheme.error;
+  Color get underBudget => m3ColorScheme.inversePrimary;
 }
 
 class M3CustomIcon {
