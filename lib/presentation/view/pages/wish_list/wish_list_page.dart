@@ -6,7 +6,10 @@ import 'package:m3_app/core/theme/m3_theme_config.dart';
 import 'package:m3_app/domain/model/circle_wish_model.dart';
 import 'package:m3_app/presentation/view/components/common/error_page.dart';
 import 'package:m3_app/presentation/view/components/common/loading_page.dart';
+import 'package:m3_app/presentation/view/components/common/margin.dart';
 
+import '../../../../core/theme/m3_theme.dart';
+import '../../../../provider/wish_list_page/budget_state.dart';
 import '../../../controller/wish_list/wish_list_controller.dart';
 
 class WishListPage extends ConsumerWidget {
@@ -20,30 +23,49 @@ class WishListPage extends ConsumerWidget {
       appBar: AppBar(
         title: const Text('ウィッシュリスト'),
       ),
-      body: SingleChildScrollView(
-        child: SingleChildScrollView(
-          scrollDirection: Axis.horizontal, // 横スクロール
-          child: Column(
-            children: [
-              _HeaderCell(),
-              wishListController.when(
-                data: (data) {
-                  return Column(
-                    children: data.map((wish) {
-                      return _DataCellRow(
-                        wish: wish,
-                      );
-                    }).toList(),
-                  );
-                },
-                loading: () => const LoadingPage(),
-                error: (error, stack) => ErrorPage(
-                  retryMethod: () {
-                    ref.invalidate(wishListControllerProvider);
-                  },
+      body: Padding(
+        padding: const EdgeInsets.only(left: 15, top: 15),
+        child: wishListController.when(
+          data: (data) {
+            var totalEstimatedAmount = 0;
+            var totalDoneAmount = 0;
+            for (var i = 0; i < data.length; i++) {
+              totalEstimatedAmount += data[i].amount;
+              totalDoneAmount += data[i].isDone ? data[i].amount : 0;
+            }
+            return Column(
+              children: [
+                _BudgetArea(
+                  totalEstimatedAmount: totalEstimatedAmount,
+                  totalDoneAmount: totalDoneAmount,
                 ),
-              ),
-            ],
+                Expanded(
+                  child: SingleChildScrollView(
+                    child: SingleChildScrollView(
+                      scrollDirection: Axis.horizontal, // 横スクロール
+                      child: Column(
+                        children: [
+                          _HeaderCell(),
+                          Column(
+                            children: data.map((wish) {
+                              return _DataCellRow(
+                                wish: wish,
+                              );
+                            }).toList(),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            );
+          },
+          loading: () => const LoadingPage(),
+          error: (error, stack) => ErrorPage(
+            retryMethod: () {
+              ref.invalidate(wishListControllerProvider);
+            },
           ),
         ),
       ),
@@ -245,6 +267,172 @@ class _WishMemoTextEditingArea extends HookWidget {
       onTapOutside: (event) {
         focusNode.unfocus();
       },
+    );
+  }
+}
+
+class _BudgetArea extends ConsumerWidget {
+  const _BudgetArea({
+    required this.totalEstimatedAmount,
+    required this.totalDoneAmount,
+  });
+  final int totalEstimatedAmount;
+  final int totalDoneAmount;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final budget = ref.watch(budgetStateProvider);
+
+    return Column(
+      children: [
+        Row(
+          children: [
+            const SizedBox(width: 50, child: Text('予算: ')),
+            _BudgetAmountTextField(
+              initialAmount: budget,
+              onTapOutside: (value) {
+                ref.read(budgetStateProvider.notifier).updateBudget(
+                      int.parse(value),
+                    );
+              },
+            ),
+            const Text('円'),
+          ],
+        ),
+        const MarginVertical(15),
+        Row(
+          children: [
+            const SizedBox(width: 50, child: Text('検討中: ')),
+            _BudgetAmountTextContainer(
+              amount: totalEstimatedAmount,
+            ),
+            const Text('円'),
+            const MarginHorizontal(5),
+            _BudgetDifference(amount: totalEstimatedAmount, budget: budget),
+          ],
+        ),
+        const MarginVertical(15),
+        Row(
+          children: [
+            const SizedBox(width: 50, child: Text('済: ')),
+            _BudgetAmountTextContainer(
+              amount: totalDoneAmount,
+            ),
+            const Text('円'),
+            const MarginHorizontal(5),
+            _BudgetDifference(amount: totalDoneAmount, budget: budget),
+          ],
+        ),
+      ],
+    );
+  }
+}
+
+class _BudgetAmountTextContainer extends StatelessWidget {
+  const _BudgetAmountTextContainer({
+    required this.amount,
+  });
+  final int amount;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 100,
+      height: 35,
+      decoration: BoxDecoration(
+        color: m3ColorScheme.surfaceContainer,
+        borderRadius: BorderRadius.circular(10),
+      ),
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 8),
+        alignment: Alignment.centerRight,
+        child: Text(
+          amount.toString(),
+          style: TextStyle(
+            fontSize: M3ThemeConfig.fontSize.normal,
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _BudgetAmountTextField extends HookWidget {
+  const _BudgetAmountTextField({
+    required this.initialAmount,
+    required this.onTapOutside,
+  });
+  final int initialAmount;
+  final ValueChanged<String> onTapOutside;
+
+  @override
+  Widget build(BuildContext context) {
+    final textEditingController =
+        useTextEditingController(text: initialAmount.toString());
+    final focusNode = useFocusNode();
+    focusNode.addListener(() {
+      if (!focusNode.hasFocus) {
+        onTapOutside(textEditingController.text);
+      }
+    });
+    return SizedBox(
+      width: 100,
+      height: 35,
+      child: TextField(
+        controller: textEditingController,
+        focusNode: focusNode,
+        decoration: InputDecoration(
+          filled: true,
+          fillColor: m3ColorScheme.surfaceContainer,
+          contentPadding: const EdgeInsets.symmetric(
+            vertical: 5,
+            horizontal: 5,
+          ),
+          border: OutlineInputBorder(
+            gapPadding: 0,
+            borderRadius: BorderRadius.circular(10),
+            borderSide: BorderSide.none,
+          ),
+        ),
+        style: TextStyle(
+          fontSize: M3ThemeConfig.fontSize.normal, // Adjust the font size here
+        ),
+        textAlign: TextAlign.end,
+        keyboardType: TextInputType.number,
+        inputFormatters: [
+          FilteringTextInputFormatter.digitsOnly,
+        ],
+        onTapOutside: (event) {
+          focusNode.unfocus();
+        },
+      ),
+    );
+  }
+}
+
+class _BudgetDifference extends StatelessWidget {
+  const _BudgetDifference({
+    required this.budget,
+    required this.amount,
+  });
+  final int budget;
+  final int amount;
+
+  @override
+  Widget build(BuildContext context) {
+    final diff = amount - budget;
+    return Row(
+      children: [
+        Text(
+          '(${diff > 0 ? '+' : ''}$diff円)',
+          style: TextStyle(
+            fontSize: M3ThemeConfig.fontSize.normal,
+            color: diff > 0
+                ? M3ThemeConfig.customColor.overBudget
+                : M3ThemeConfig.customColor.underBudget,
+          ),
+        ),
+      ],
     );
   }
 }
