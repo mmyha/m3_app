@@ -11,6 +11,7 @@ class FontSize {
 
 class M3CustomColor {
   Color get favorite => const Color.fromARGB(255, 245, 70, 143);
+  Color get favoriteButton => const Color.fromRGBO(255, 204, 0, 1);
 }
 
 class M3CustomIcon {
