@@ -47,9 +47,9 @@ class CircleListPage extends HookConsumerWidget {
                       return CircleTile(
                         circle: circle,
                         onTap: () {
-                          // TODO サークル詳細画面へ遷移
                           context.push(
                             '${RoutingPathConst.circleList}/${RoutingPathConst.circleDetails}',
+                            extra: circle,
                           );
                         },
                       );
