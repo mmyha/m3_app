@@ -7,7 +7,7 @@ part of 'circle_list_controller.dart';
 // **************************************************************************
 
 String _$circleListControllerHash() =>
-    r'dfd34c03bc591a2d551faab2b021016902c07469';
+    r'9ddd6f0804497a7fe9392e24dd28e6c0dc0c7f29';
 
 /// See also [CircleListController].
 @ProviderFor(CircleListController)
