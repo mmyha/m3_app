@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:m3_app/core/router/routing_path_const.dart';
+import 'package:m3_app/domain/model/circle_model.dart';
 import 'package:m3_app/presentation/view/components/common/scaffold_wish_bottom_nav_bar.dart';
 import 'package:m3_app/presentation/view/pages/circle_list/circle_detail_page.dart';
 import 'package:m3_app/presentation/view/pages/circle_list/circle_list_page.dart';
@@ -47,7 +48,9 @@ final router = GoRouter(
                 GoRoute(
                   path: RoutingPathConst.circleDetails,
                   builder: (context, state) {
-                    return const CircleDetailPage();
+                    return CircleDetailPage(
+                      circle: state.extra! as CircleModel,
+                    );
                   },
                 ),
               ],
