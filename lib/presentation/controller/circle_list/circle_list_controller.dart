@@ -48,6 +48,19 @@ class CircleListController extends _$CircleListController {
   }
 
   Future<void> updateFavorite(CircleModel circle) async {
+    try {
+      await _updateWishListDB(circle);
+    } on Exception catch (_) {
+      rethrow;
+    }
+
+    final newCircle = circle.copyWith(isFavorite: !circle.isFavorite!);
+    state = state.whenData(
+      (circles) => [...circles.map((e) => e.id == circle.id ? newCircle : e)],
+    );
+  }
+
+  Future<void> _updateWishListDB(CircleModel circle) async {
     final addWishListUseCase = ref.read(addWishListUseCaseProvider);
     final deleteWishUseCase = ref.read(deleteWishUseCaseProvider);
 
@@ -68,11 +81,6 @@ class CircleListController extends _$CircleListController {
           case Failure<void, Exception>():
             throw result.exception;
         }
-        final newCircle = circle.copyWith(isFavorite: !circle.isFavorite!);
-        state = state.whenData(
-          (circles) =>
-              [...circles.map((e) => e.id == circle.id ? newCircle : e)],
-        );
     }
   }
 
