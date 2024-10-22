@@ -298,7 +298,8 @@ class CircleDatabase extends _$CircleDatabase {
   }
 
   Future<void> updateWish({required CircleWishModel wish}) async {
-    await (update(wishes)..where((tbl) => tbl.id.equals(wish.circleId))).write(
+    await (update(wishes)..where((tbl) => tbl.circleId.equals(wish.circleId)))
+        .write(
       WishesCompanion(
         isFavorite: Value(wish.isFavorite),
         done: Value(wish.isDone),
