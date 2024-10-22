@@ -1,4 +1,5 @@
 import 'package:m3_app/domain/model/circle_model.dart';
+import 'package:m3_app/presentation/controller/wish_list/wish_list_controller.dart';
 import 'package:m3_app/provider/usecase/usecase_providers.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -53,6 +54,8 @@ class CircleListController extends _$CircleListController {
     } on Exception catch (_) {
       rethrow;
     }
+
+    ref.invalidate(wishListControllerProvider);
 
     final newCircle = circle.copyWith(isFavorite: !circle.isFavorite!);
     state = state.whenData(
