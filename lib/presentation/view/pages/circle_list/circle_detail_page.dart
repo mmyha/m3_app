@@ -207,10 +207,12 @@ class _WishToggleButton extends HookConsumerWidget {
     final notifier = ref.read(circleListControllerProvider.notifier);
     final isFavorite = useState<bool>(circle.isFavorite ?? false);
     final futureState = useState<bool>(false);
+
     Future<void> updateMethod() async {
       try {
         futureState.value = true;
-        await notifier.updateFavorite(circle);
+        await notifier
+            .updateFavorite(circle.copyWith(isFavorite: isFavorite.value));
         futureState.value = false;
         isFavorite.value = !isFavorite.value;
       } on Exception catch (_) {
@@ -224,7 +226,7 @@ class _WishToggleButton extends HookConsumerWidget {
         FavoriteButton(
           isFavorite: isFavorite.value,
           onPressed: () async {
-            if (circle.isFavorite == true || isFavorite.value) {
+            if (isFavorite.value) {
               await showDialog<void>(
                 context: context,
                 builder: (context) {
