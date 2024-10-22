@@ -31,6 +31,7 @@ final addWishListUseCaseProvider = Provider(
 final deleteWishUseCaseProvider = Provider(
   (ref) => DeleteWishUseCase(
     ref.read(wishListRepositoryProvider),
+    ref.read(circleRepositoryProvider),
   ),
 );
 
