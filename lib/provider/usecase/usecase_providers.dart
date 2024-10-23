@@ -3,6 +3,7 @@ import 'package:m3_app/domain/usecase/circle/save_circle_to_db_usecase.dart';
 import 'package:m3_app/domain/usecase/wish_list/delete_wish_usecase.dart';
 
 import '../../domain/usecase/circle/fetch_circle_usecase.dart';
+import '../../domain/usecase/map_pdf/get_map_pdf_usecase.dart';
 import '../../domain/usecase/wish_list/add_wish_list_usecase.dart';
 import '../../domain/usecase/wish_list/fetch_wish_list_usecase.dart';
 import '../../domain/usecase/wish_list/update_wish_list_usecase.dart';
@@ -38,5 +39,11 @@ final deleteWishUseCaseProvider = Provider(
 final updateWishListUseCaseProvider = Provider(
   (ref) => UpdateWishListUseCase(
     ref.read(wishListRepositoryProvider),
+  ),
+);
+
+final getMapPdfUseCaseProvider = Provider(
+  (ref) => GetMapPdfUseCase(
+    ref.read(mapPdfRepositoryProvider),
   ),
 );
