@@ -23,6 +23,16 @@ class CircleRepository {
     }
   }
 
+  /// サークル情報をIDで取得
+  Future<CircleModel> fetchCircleFromId(int circleId) async {
+    try {
+      final data = await _dao.getCircleFromID(circleId);
+      return data;
+    } on Exception catch (_) {
+      rethrow;
+    }
+  }
+
   /// サークルのお気に入り情報を更新
   Future<void> updateCircleFavorite(
       {required int circleId, required bool isFav}) async {
