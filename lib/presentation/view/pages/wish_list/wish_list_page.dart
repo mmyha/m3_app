@@ -1,14 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:m3_app/core/router/routing_path_const.dart';
 import 'package:m3_app/core/theme/m3_theme_config.dart';
+import 'package:m3_app/domain/model/circle_model.dart';
 import 'package:m3_app/domain/model/circle_wish_model.dart';
 import 'package:m3_app/presentation/view/components/common/error_page.dart';
 import 'package:m3_app/presentation/view/components/common/loading_page.dart';
 import 'package:m3_app/presentation/view/components/common/margin.dart';
+import 'package:m3_app/presentation/view/components/common/toast.dart';
+import 'package:m3_app/provider/usecase/usecase_providers.dart';
 
 import '../../../../core/theme/m3_theme.dart';
+import '../../../../core/utils/result.dart';
 import '../../../../provider/wish_list_page/budget_state.dart';
 import '../../../controller/wish_list/wish_list_controller.dart';
 
@@ -147,7 +153,32 @@ class _DataCellRow extends ConsumerWidget {
             ),
           ),
           _DataCell(width: 80, child: Text(wish.spaceName)),
-          _DataCell(width: 120, child: Text(wish.name)),
+          _DataCell(
+            width: 120,
+            child: _CircleName(
+              name: wish.name,
+              onTap: () async {
+                // サークル詳細に遷移
+                // めんどくさいのでusecaseから取得
+                final result = await ref
+                    .read(fetchCircleFromIdUseCaseProvider)
+                    .call(wish.circleId);
+                if (!context.mounted) {
+                  return;
+                }
+                switch (result) {
+                  case Success<CircleModel, Exception>():
+                    final circle = result.value;
+                    await context.push(
+                      '${RoutingPathConst.wishList}/${RoutingPathConst.circleDetails}',
+                      extra: circle,
+                    );
+                  case Failure<CircleModel, Exception>():
+                    MessageWidget.show('サークル情報の取得に失敗しました');
+                }
+              },
+            ),
+          ),
           _DataCell(
             width: 100,
             child: _WishAmountTextEditingArea(
@@ -433,6 +464,34 @@ class _BudgetDifference extends StatelessWidget {
           ),
         ),
       ],
+    );
+  }
+}
+
+class _CircleName extends StatelessWidget {
+  const _CircleName({required this.name, required this.onTap});
+  final String name;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return TextButton(
+      onPressed: onTap,
+      style: ButtonStyle(
+        padding: WidgetStateProperty.all(
+          EdgeInsets.zero,
+        ),
+        splashFactory: NoSplash.splashFactory, // インクエフェクトを無効にする // テキストカラー
+        backgroundColor:
+            WidgetStateProperty.all(Colors.transparent), // 背景色を透明にする
+        overlayColor: WidgetStateProperty.all(Colors.transparent), // ハイライ
+      ),
+      child: Text(
+        name,
+        style: TextStyle(
+          fontSize: M3ThemeConfig.fontSize.normal,
+        ),
+      ),
     );
   }
 }

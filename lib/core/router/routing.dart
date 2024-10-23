@@ -63,6 +63,16 @@ final router = GoRouter(
             GoRoute(
               path: RoutingPathConst.wishList,
               builder: (context, state) => const WishListPage(),
+              routes: [
+                GoRoute(
+                  path: RoutingPathConst.circleDetails,
+                  builder: (context, state) {
+                    return CircleDetailPage(
+                      circle: state.extra! as CircleModel,
+                    );
+                  },
+                ),
+              ],
             ),
           ],
         ),
