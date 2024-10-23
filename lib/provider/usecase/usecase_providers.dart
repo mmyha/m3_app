@@ -2,6 +2,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:m3_app/domain/usecase/circle/save_circle_to_db_usecase.dart';
 import 'package:m3_app/domain/usecase/wish_list/delete_wish_usecase.dart';
 
+import '../../domain/usecase/circle/fetch_circle_from_id_usecase.dart';
 import '../../domain/usecase/circle/fetch_circle_usecase.dart';
 import '../../domain/usecase/map_pdf/get_map_pdf_usecase.dart';
 import '../../domain/usecase/wish_list/add_wish_list_usecase.dart';
@@ -11,6 +12,10 @@ import '../../infrastructure/repository/provider/repository_providers.dart';
 
 final fetchCircleUseCaseProvider =
     Provider((ref) => FetchCircleUseCase(ref.read(circleRepositoryProvider)));
+
+final fetchCircleFromIdUseCaseProvider = Provider(
+  (ref) => FetchCircleFromIdUseCase(ref.read(circleRepositoryProvider)),
+);
 
 final saveCircleUseCaseProvider = Provider(
   (ref) => SaveCircleInfoToDBUseCase(ref.read(circleRepositoryProvider)),

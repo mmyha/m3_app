@@ -15,61 +15,28 @@ class CircleInfoDao {
       final keywords = await db.getKeywords(circle.id);
       final realSp = await db.getRealSp(circle.id);
       final webSp = await db.getWebSp(circle.id);
-      final model = CircleModel(
-        id: circle.id,
-        name: circle.name,
-        phonetic: circle.phonetic,
-        genre: circle.genre,
-        spaceSize: circle.spaceSize,
-        adult: circle.adult,
-        prText: circle.prText,
-        isFavorite: circle.isFavorite,
-        links: (links != null)
-            ? SnsLinksModel(
-                twitter: SocialLink(
-                  text: links.twitterText ?? '',
-                  url: links.twitterUrl ?? '',
-                ),
-                site: SocialLink(
-                  text: links.siteText ?? '',
-                  url: links.siteUrl ?? '',
-                ),
-                youtube: SocialLink(
-                  text: links.youtubeText ?? '',
-                  url: links.youtubeUrl ?? '',
-                ),
-                sns: SocialLink(
-                  text: links.snsText ?? '',
-                  url: links.snsUrl ?? '',
-                ),
-              )
-            : const SnsLinksModel(),
-        keywords: keywords
-            .map(
-              (keyword) => KeywordModel(
-                text: keyword.keywordText,
-                phonetic: keyword.phonetic,
-              ),
-            )
-            .toList(),
-        realSp: realSp != null
-            ? RealSpModel(
-                area: realSp.area,
-                no: realSp.no,
-              )
-            : null,
-        webSp: webSp != null
-            ? WebSpModel(
-                area: webSp.area ?? '',
-                no: webSp.no ?? '',
-              )
-            : null,
-      );
+      final model = _toModel(circle, links, keywords, realSp, webSp);
 
       list.add(model);
     }
 
     return list;
+  }
+
+  Future<CircleModel> getCircleFromID(int id) async {
+    final circles = await db.getCircle(id);
+    if (circles.isEmpty) {
+      throw Exception('サークル情報が見つかりませんでした');
+    }
+    final circle = circles.first;
+    final links = await db.getSnsLinks(id);
+    final keywords = await db.getKeywords(id);
+    final realSp = await db.getRealSp(id);
+    final webSp = await db.getWebSp(id);
+
+    final circleModel = _toModel(circle, links, keywords, realSp, webSp);
+
+    return circleModel;
   }
 
   Future<void> updateCircleFav({
@@ -86,5 +53,64 @@ class CircleInfoDao {
     for (final circle in circles) {
       await db.addCircle(circle: circle);
     }
+  }
+
+  CircleModel _toModel(
+    Circle circle,
+    SnsLink? links,
+    List<Keyword> keywords,
+    RealSp? realSp,
+    WebSp? webSp,
+  ) {
+    return CircleModel(
+      id: circle.id,
+      name: circle.name,
+      phonetic: circle.phonetic,
+      genre: circle.genre,
+      spaceSize: circle.spaceSize,
+      adult: circle.adult,
+      prText: circle.prText,
+      isFavorite: circle.isFavorite,
+      links: (links != null)
+          ? SnsLinksModel(
+              twitter: SocialLink(
+                text: links.twitterText ?? '',
+                url: links.twitterUrl ?? '',
+              ),
+              site: SocialLink(
+                text: links.siteText ?? '',
+                url: links.siteUrl ?? '',
+              ),
+              youtube: SocialLink(
+                text: links.youtubeText ?? '',
+                url: links.youtubeUrl ?? '',
+              ),
+              sns: SocialLink(
+                text: links.snsText ?? '',
+                url: links.snsUrl ?? '',
+              ),
+            )
+          : const SnsLinksModel(),
+      keywords: keywords
+          .map(
+            (keyword) => KeywordModel(
+              text: keyword.keywordText,
+              phonetic: keyword.phonetic,
+            ),
+          )
+          .toList(),
+      realSp: realSp != null
+          ? RealSpModel(
+              area: realSp.area,
+              no: realSp.no,
+            )
+          : null,
+      webSp: webSp != null
+          ? WebSpModel(
+              area: webSp.area ?? '',
+              no: webSp.no ?? '',
+            )
+          : null,
+    );
   }
 }
