@@ -7,7 +7,7 @@ part of 'circle_db_controller.dart';
 // **************************************************************************
 
 String _$circleDBControllerHash() =>
-    r'62fcd48dfca53d5992c813320ffd95e810f8b839';
+    r'af2b9a172974c90f813c12f669d74a9bca584a3c';
 
 /// See also [CircleDBController].
 @ProviderFor(CircleDBController)

@@ -1,16 +1,19 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:m3_app/domain/model/circle_model.dart';
+import 'package:m3_app/infrastructure/http/circle_api/circle_api_service.dart';
 import 'package:m3_app/infrastructure/local/dao/circle_dao.dart';
 import 'package:m3_app/infrastructure/local/db/circle_database.dart';
 import 'package:m3_app/infrastructure/model/circle_api_response/circle_api_response_model.dart';
 import 'package:m3_app/infrastructure/repository/circle_repository.dart';
 import 'package:m3_app/provider/infrastructure/dao_provider.dart';
 import 'package:m3_app/provider/infrastructure/http_service_providers.dart';
+import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:test/test.dart';
 
 import 'circle_repo_test.mocks.dart';
 
+@GenerateNiceMocks([MockSpec<CircleApiService>()])
 void main() {
   late ProviderContainer container;
   late CircleInfoDao dao;
