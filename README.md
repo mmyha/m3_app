@@ -6,7 +6,10 @@
 
 (2025/4/25)
 2025 春に一時的に対応
+
 branch → ver2025spring
+
+[androidAPK](https://drive.google.com/drive/folders/1yLqPOpCbROfYeZSzF7jMl8pq716PPKSq?usp=sharing)
 
 ## 環境
 
