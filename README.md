@@ -9,6 +9,8 @@
 
 branch → ver2025spring
 
+(レスポンスのデータ構造が前回若干ことなっており、互換対応ができていないのでmainにはマージしていない)
+
 [androidAPK](https://drive.google.com/drive/folders/1yLqPOpCbROfYeZSzF7jMl8pq716PPKSq?usp=sharing)
 
 ## 環境
