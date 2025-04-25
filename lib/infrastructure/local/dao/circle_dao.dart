@@ -51,7 +51,8 @@ class CircleInfoDao {
     final circles = response.items;
 
     for (final circle in circles) {
-      await db.addCircle(circle: circle);
+      final c = CircleModel.fromDto(circle);
+      await db.addCircle(circle: c);
     }
   }
 

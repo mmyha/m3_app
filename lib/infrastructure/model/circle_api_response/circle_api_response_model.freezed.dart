@@ -20,7 +20,7 @@ CircleApiResponse _$CircleApiResponseFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$CircleApiResponse {
-  List<CircleModel> get items => throw _privateConstructorUsedError;
+  List<CircleModelDto> get items => throw _privateConstructorUsedError;
 
   /// Serializes this CircleApiResponse to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -38,7 +38,7 @@ abstract class $CircleApiResponseCopyWith<$Res> {
           CircleApiResponse value, $Res Function(CircleApiResponse) then) =
       _$CircleApiResponseCopyWithImpl<$Res, CircleApiResponse>;
   @useResult
-  $Res call({List<CircleModel> items});
+  $Res call({List<CircleModelDto> items});
 }
 
 /// @nodoc
@@ -62,7 +62,7 @@ class _$CircleApiResponseCopyWithImpl<$Res, $Val extends CircleApiResponse>
       items: null == items
           ? _value.items
           : items // ignore: cast_nullable_to_non_nullable
-              as List<CircleModel>,
+              as List<CircleModelDto>,
     ) as $Val);
   }
 }
@@ -75,7 +75,7 @@ abstract class _$$CircleApiResponseImplCopyWith<$Res>
       __$$CircleApiResponseImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({List<CircleModel> items});
+  $Res call({List<CircleModelDto> items});
 }
 
 /// @nodoc
@@ -97,7 +97,7 @@ class __$$CircleApiResponseImplCopyWithImpl<$Res>
       items: null == items
           ? _value._items
           : items // ignore: cast_nullable_to_non_nullable
-              as List<CircleModel>,
+              as List<CircleModelDto>,
     ));
   }
 }
@@ -105,15 +105,15 @@ class __$$CircleApiResponseImplCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$CircleApiResponseImpl implements _CircleApiResponse {
-  const _$CircleApiResponseImpl({required final List<CircleModel> items})
+  const _$CircleApiResponseImpl({required final List<CircleModelDto> items})
       : _items = items;
 
   factory _$CircleApiResponseImpl.fromJson(Map<String, dynamic> json) =>
       _$$CircleApiResponseImplFromJson(json);
 
-  final List<CircleModel> _items;
+  final List<CircleModelDto> _items;
   @override
-  List<CircleModel> get items {
+  List<CircleModelDto> get items {
     if (_items is EqualUnmodifiableListView) return _items;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_items);
@@ -155,14 +155,14 @@ class _$CircleApiResponseImpl implements _CircleApiResponse {
 }
 
 abstract class _CircleApiResponse implements CircleApiResponse {
-  const factory _CircleApiResponse({required final List<CircleModel> items}) =
-      _$CircleApiResponseImpl;
+  const factory _CircleApiResponse(
+      {required final List<CircleModelDto> items}) = _$CircleApiResponseImpl;
 
   factory _CircleApiResponse.fromJson(Map<String, dynamic> json) =
       _$CircleApiResponseImpl.fromJson;
 
   @override
-  List<CircleModel> get items;
+  List<CircleModelDto> get items;
 
   /// Create a copy of CircleApiResponse
   /// with the given fields replaced by the non-null parameter values.

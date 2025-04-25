@@ -6,46 +6,6 @@ part of 'circle_model.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$CircleModelImpl _$$CircleModelImplFromJson(Map<String, dynamic> json) =>
-    _$CircleModelImpl(
-      id: (json['id'] as num).toInt(),
-      name: json['name'] as String,
-      phonetic: json['phonetic'] as String,
-      genre: json['genre'] as String,
-      spaceSize: const IntOrStringConverter().fromJson(json['spaceSize']),
-      adult: json['adult'] as bool,
-      prText: json['prText'] as String,
-      links: json['links'] == null
-          ? const SnsLinksModel()
-          : SnsLinksModel.fromJson(json['links'] as Map<String, dynamic>),
-      keywords: (json['keywords'] as List<dynamic>)
-          .map((e) => KeywordModel.fromJson(e as Map<String, dynamic>))
-          .toList(),
-      realSp: json['realSp'] == null
-          ? null
-          : RealSpModel.fromJson(json['realSp'] as Map<String, dynamic>),
-      webSp: json['webSp'] == null
-          ? null
-          : WebSpModel.fromJson(json['webSp'] as Map<String, dynamic>),
-      isFavorite: json['isFavorite'] as bool? ?? false,
-    );
-
-Map<String, dynamic> _$$CircleModelImplToJson(_$CircleModelImpl instance) =>
-    <String, dynamic>{
-      'id': instance.id,
-      'name': instance.name,
-      'phonetic': instance.phonetic,
-      'genre': instance.genre,
-      'spaceSize': const IntOrStringConverter().toJson(instance.spaceSize),
-      'adult': instance.adult,
-      'prText': instance.prText,
-      'links': instance.links,
-      'keywords': instance.keywords,
-      'realSp': instance.realSp,
-      'webSp': instance.webSp,
-      'isFavorite': instance.isFavorite,
-    };
-
 _$SnsLinksModelImpl _$$SnsLinksModelImplFromJson(Map<String, dynamic> json) =>
     _$SnsLinksModelImpl(
       site: json['site'] == null

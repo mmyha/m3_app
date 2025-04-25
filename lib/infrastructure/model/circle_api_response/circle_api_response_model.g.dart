@@ -10,7 +10,7 @@ _$CircleApiResponseImpl _$$CircleApiResponseImplFromJson(
         Map<String, dynamic> json) =>
     _$CircleApiResponseImpl(
       items: (json['items'] as List<dynamic>)
-          .map((e) => CircleModel.fromJson(e as Map<String, dynamic>))
+          .map((e) => CircleModelDto.fromJson(e as Map<String, dynamic>))
           .toList(),
     );
 

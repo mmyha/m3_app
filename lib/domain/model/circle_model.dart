@@ -1,5 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
+import '../../infrastructure/model/dto/circle_model_dto.dart';
+
 part 'circle_model.freezed.dart';
 part 'circle_model.g.dart';
 
@@ -19,8 +21,24 @@ class CircleModel with _$CircleModel {
     WebSpModel? webSp,
     @Default(false) bool? isFavorite, // nullable
   }) = _CircleModel;
-  factory CircleModel.fromJson(Map<String, dynamic> json) =>
-      _$CircleModelFromJson(json);
+  factory CircleModel.fromDto(CircleModelDto dto) {
+    return CircleModel(
+      id: dto.id,
+      name: dto.name,
+      phonetic: dto.phonetic,
+      genre: dto.genre,
+      spaceSize: dto.spaceSize,
+      adult: dto.adult,
+      prText: dto.prText,
+      links: dto.links,
+      keywords: dto.keywords,
+      realSp: RealSpModel(
+        area: dto.area,
+        no: dto.number,
+      ),
+      isFavorite: dto.isFavorite,
+    );
+  }
 }
 
 @freezed

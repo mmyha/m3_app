@@ -14,10 +14,6 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
-CircleModel _$CircleModelFromJson(Map<String, dynamic> json) {
-  return _CircleModel.fromJson(json);
-}
-
 /// @nodoc
 mixin _$CircleModel {
   int get id => throw _privateConstructorUsedError;
@@ -33,9 +29,6 @@ mixin _$CircleModel {
   RealSpModel? get realSp => throw _privateConstructorUsedError; // nullable
   WebSpModel? get webSp => throw _privateConstructorUsedError;
   bool? get isFavorite => throw _privateConstructorUsedError;
-
-  /// Serializes this CircleModel to a JSON map.
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
 
   /// Create a copy of CircleModel
   /// with the given fields replaced by the non-null parameter values.
@@ -298,7 +291,7 @@ class __$$CircleModelImplCopyWithImpl<$Res>
 }
 
 /// @nodoc
-@JsonSerializable()
+
 class _$CircleModelImpl implements _CircleModel {
   const _$CircleModelImpl(
       {required this.id,
@@ -314,9 +307,6 @@ class _$CircleModelImpl implements _CircleModel {
       this.webSp,
       this.isFavorite = false})
       : _keywords = keywords;
-
-  factory _$CircleModelImpl.fromJson(Map<String, dynamic> json) =>
-      _$$CircleModelImplFromJson(json);
 
   @override
   final int id;
@@ -382,7 +372,6 @@ class _$CircleModelImpl implements _CircleModel {
                 other.isFavorite == isFavorite));
   }
 
-  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(
       runtimeType,
@@ -406,13 +395,6 @@ class _$CircleModelImpl implements _CircleModel {
   @pragma('vm:prefer-inline')
   _$$CircleModelImplCopyWith<_$CircleModelImpl> get copyWith =>
       __$$CircleModelImplCopyWithImpl<_$CircleModelImpl>(this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$CircleModelImplToJson(
-      this,
-    );
-  }
 }
 
 abstract class _CircleModel implements CircleModel {
@@ -429,9 +411,6 @@ abstract class _CircleModel implements CircleModel {
       final RealSpModel? realSp,
       final WebSpModel? webSp,
       final bool? isFavorite}) = _$CircleModelImpl;
-
-  factory _CircleModel.fromJson(Map<String, dynamic> json) =
-      _$CircleModelImpl.fromJson;
 
   @override
   int get id;
