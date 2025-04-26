@@ -13,6 +13,8 @@ branch → ver2025spring
 
 [androidAPK](https://drive.google.com/drive/folders/1yLqPOpCbROfYeZSzF7jMl8pq716PPKSq?usp=sharing)
 
+*iosのビルドファイルの配布はできません。
+
 ## 環境
 
 2024/10/9 created
