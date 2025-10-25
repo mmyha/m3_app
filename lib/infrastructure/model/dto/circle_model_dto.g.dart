@@ -6,8 +6,8 @@ part of 'circle_model_dto.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$CircleModelDtoImpl _$$CircleModelDtoImplFromJson(Map<String, dynamic> json) =>
-    _$CircleModelDtoImpl(
+_CircleModelDto _$CircleModelDtoFromJson(Map<String, dynamic> json) =>
+    _CircleModelDto(
       id: (json['id'] as num).toInt(),
       name: json['name'] as String,
       phonetic: json['phonetic'] as String,
@@ -26,8 +26,7 @@ _$CircleModelDtoImpl _$$CircleModelDtoImplFromJson(Map<String, dynamic> json) =>
       isFavorite: json['isFavorite'] as bool? ?? false,
     );
 
-Map<String, dynamic> _$$CircleModelDtoImplToJson(
-        _$CircleModelDtoImpl instance) =>
+Map<String, dynamic> _$CircleModelDtoToJson(_CircleModelDto instance) =>
     <String, dynamic>{
       'id': instance.id,
       'name': instance.name,
