@@ -3,10 +3,10 @@
 // Do not manually edit this file.
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'dart:async' as _i3;
+import 'dart:async' as _i4;
 
-import 'package:m3_app/domain/model/circle_model.dart' as _i4;
-import 'package:m3_app/infrastructure/repository/circle_repository.dart' as _i2;
+import 'package:m3_app/domain/model/circle_model.dart' as _i2;
+import 'package:m3_app/infrastructure/repository/circle_repository.dart' as _i3;
 import 'package:mockito/mockito.dart' as _i1;
 
 // ignore_for_file: type=lint
@@ -22,25 +22,59 @@ import 'package:mockito/mockito.dart' as _i1;
 // ignore_for_file: camel_case_types
 // ignore_for_file: subtype_of_sealed_class
 
+class _FakeCircleModel_0 extends _i1.SmartFake implements _i2.CircleModel {
+  _FakeCircleModel_0(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
 /// A class which mocks [CircleRepository].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockCircleRepository extends _i1.Mock implements _i2.CircleRepository {
+class MockCircleRepository extends _i1.Mock implements _i3.CircleRepository {
   @override
-  _i3.Future<List<_i4.CircleModel>> fetchCircleInfoFromDB() =>
+  _i4.Future<List<_i2.CircleModel>> fetchCircleInfoFromDB() =>
       (super.noSuchMethod(
         Invocation.method(
           #fetchCircleInfoFromDB,
           [],
         ),
         returnValue:
-            _i3.Future<List<_i4.CircleModel>>.value(<_i4.CircleModel>[]),
+            _i4.Future<List<_i2.CircleModel>>.value(<_i2.CircleModel>[]),
         returnValueForMissingStub:
-            _i3.Future<List<_i4.CircleModel>>.value(<_i4.CircleModel>[]),
-      ) as _i3.Future<List<_i4.CircleModel>>);
+            _i4.Future<List<_i2.CircleModel>>.value(<_i2.CircleModel>[]),
+      ) as _i4.Future<List<_i2.CircleModel>>);
 
   @override
-  _i3.Future<void> updateCircleFavorite({
+  _i4.Future<_i2.CircleModel> fetchCircleFromId(int? circleId) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #fetchCircleFromId,
+          [circleId],
+        ),
+        returnValue: _i4.Future<_i2.CircleModel>.value(_FakeCircleModel_0(
+          this,
+          Invocation.method(
+            #fetchCircleFromId,
+            [circleId],
+          ),
+        )),
+        returnValueForMissingStub:
+            _i4.Future<_i2.CircleModel>.value(_FakeCircleModel_0(
+          this,
+          Invocation.method(
+            #fetchCircleFromId,
+            [circleId],
+          ),
+        )),
+      ) as _i4.Future<_i2.CircleModel>);
+
+  @override
+  _i4.Future<void> updateCircleFavorite({
     required int? circleId,
     required bool? isFav,
   }) =>
@@ -53,17 +87,17 @@ class MockCircleRepository extends _i1.Mock implements _i2.CircleRepository {
             #isFav: isFav,
           },
         ),
-        returnValue: _i3.Future<void>.value(),
-        returnValueForMissingStub: _i3.Future<void>.value(),
-      ) as _i3.Future<void>);
+        returnValue: _i4.Future<void>.value(),
+        returnValueForMissingStub: _i4.Future<void>.value(),
+      ) as _i4.Future<void>);
 
   @override
-  _i3.Future<void> saveCircleInfoToDB() => (super.noSuchMethod(
+  _i4.Future<void> saveCircleInfoToDB() => (super.noSuchMethod(
         Invocation.method(
           #saveCircleInfoToDB,
           [],
         ),
-        returnValue: _i3.Future<void>.value(),
-        returnValueForMissingStub: _i3.Future<void>.value(),
-      ) as _i3.Future<void>);
+        returnValue: _i4.Future<void>.value(),
+        returnValueForMissingStub: _i4.Future<void>.value(),
+      ) as _i4.Future<void>);
 }

@@ -13,7 +13,7 @@ class CircleUtil {
     } else if (realSp != null && webSp == null) {
       spaceName = '${realSp.area}-${realSp.no}';
     } else {
-      spaceName = '${webSp!.area}-${webSp.no}';
+      // spaceName = '${webSp!.area}-${webSp.no}';
     }
     return spaceName;
   }

@@ -35,7 +35,7 @@ class _MapApiService implements MapApiService {
     )
         .compose(
           _dio.options,
-          '/m3_54/M3tuushin54map_web.pdf',
+          '/m3_55/M3tuushin55map_web.pdf',
           queryParameters: queryParameters,
           data: _data,
         )
