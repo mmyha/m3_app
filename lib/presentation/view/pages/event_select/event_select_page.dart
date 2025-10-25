@@ -18,7 +18,7 @@ class EventSelectPage extends ConsumerWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               EventCard(
-                eventName: '2025春',
+                eventName: '2025秋',
                 onTap: () {
                   final isLocalAvailable = ref
                           .read(sharedPreferencesProvider)
