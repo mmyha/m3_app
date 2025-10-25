@@ -2183,7 +2183,7 @@ final class $$CirclesTableReferences
 
   $$SnsLinksTableProcessedTableManager get snsLinksRefs {
     final manager = $$SnsLinksTableTableManager($_db, $_db.snsLinks)
-        .filter((f) => f.circleId.id($_item.id));
+        .filter((f) => f.circleId.id.sqlEquals($_itemColumn<int>('id')!));
 
     final cache = $_typedResult.readTableOrNull(_snsLinksRefsTable($_db));
     return ProcessedTableManager(
@@ -2197,7 +2197,7 @@ final class $$CirclesTableReferences
 
   $$RealSpsTableProcessedTableManager get realSpsRefs {
     final manager = $$RealSpsTableTableManager($_db, $_db.realSps)
-        .filter((f) => f.circleId.id($_item.id));
+        .filter((f) => f.circleId.id.sqlEquals($_itemColumn<int>('id')!));
 
     final cache = $_typedResult.readTableOrNull(_realSpsRefsTable($_db));
     return ProcessedTableManager(
@@ -2211,7 +2211,7 @@ final class $$CirclesTableReferences
 
   $$WebSpsTableProcessedTableManager get webSpsRefs {
     final manager = $$WebSpsTableTableManager($_db, $_db.webSps)
-        .filter((f) => f.circle.id($_item.id));
+        .filter((f) => f.circle.id.sqlEquals($_itemColumn<int>('id')!));
 
     final cache = $_typedResult.readTableOrNull(_webSpsRefsTable($_db));
     return ProcessedTableManager(
@@ -2225,7 +2225,7 @@ final class $$CirclesTableReferences
 
   $$KeywordsTableProcessedTableManager get keywordsRefs {
     final manager = $$KeywordsTableTableManager($_db, $_db.keywords)
-        .filter((f) => f.circleId.id($_item.id));
+        .filter((f) => f.circleId.id.sqlEquals($_itemColumn<int>('id')!));
 
     final cache = $_typedResult.readTableOrNull(_keywordsRefsTable($_db));
     return ProcessedTableManager(
@@ -2234,143 +2234,273 @@ final class $$CirclesTableReferences
 }
 
 class $$CirclesTableFilterComposer
-    extends FilterComposer<_$CircleDatabase, $CirclesTable> {
-  $$CirclesTableFilterComposer(super.$state);
-  ColumnFilters<int> get id => $state.composableBuilder(
-      column: $state.table.id,
-      builder: (column, joinBuilders) =>
-          ColumnFilters(column, joinBuilders: joinBuilders));
+    extends Composer<_$CircleDatabase, $CirclesTable> {
+  $$CirclesTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<int> get id => $composableBuilder(
+      column: $table.id, builder: (column) => ColumnFilters(column));
 
-  ColumnFilters<String> get name => $state.composableBuilder(
-      column: $state.table.name,
-      builder: (column, joinBuilders) =>
-          ColumnFilters(column, joinBuilders: joinBuilders));
+  ColumnFilters<String> get name => $composableBuilder(
+      column: $table.name, builder: (column) => ColumnFilters(column));
 
-  ColumnFilters<String> get phonetic => $state.composableBuilder(
-      column: $state.table.phonetic,
-      builder: (column, joinBuilders) =>
-          ColumnFilters(column, joinBuilders: joinBuilders));
+  ColumnFilters<String> get phonetic => $composableBuilder(
+      column: $table.phonetic, builder: (column) => ColumnFilters(column));
 
-  ColumnFilters<String> get genre => $state.composableBuilder(
-      column: $state.table.genre,
-      builder: (column, joinBuilders) =>
-          ColumnFilters(column, joinBuilders: joinBuilders));
+  ColumnFilters<String> get genre => $composableBuilder(
+      column: $table.genre, builder: (column) => ColumnFilters(column));
 
-  ColumnFilters<int> get spaceSize => $state.composableBuilder(
-      column: $state.table.spaceSize,
-      builder: (column, joinBuilders) =>
-          ColumnFilters(column, joinBuilders: joinBuilders));
+  ColumnFilters<int> get spaceSize => $composableBuilder(
+      column: $table.spaceSize, builder: (column) => ColumnFilters(column));
 
-  ColumnFilters<bool> get adult => $state.composableBuilder(
-      column: $state.table.adult,
-      builder: (column, joinBuilders) =>
-          ColumnFilters(column, joinBuilders: joinBuilders));
+  ColumnFilters<bool> get adult => $composableBuilder(
+      column: $table.adult, builder: (column) => ColumnFilters(column));
 
-  ColumnFilters<String> get prText => $state.composableBuilder(
-      column: $state.table.prText,
-      builder: (column, joinBuilders) =>
-          ColumnFilters(column, joinBuilders: joinBuilders));
+  ColumnFilters<String> get prText => $composableBuilder(
+      column: $table.prText, builder: (column) => ColumnFilters(column));
 
-  ColumnFilters<bool> get isFavorite => $state.composableBuilder(
-      column: $state.table.isFavorite,
-      builder: (column, joinBuilders) =>
-          ColumnFilters(column, joinBuilders: joinBuilders));
+  ColumnFilters<bool> get isFavorite => $composableBuilder(
+      column: $table.isFavorite, builder: (column) => ColumnFilters(column));
 
-  ComposableFilter snsLinksRefs(
-      ComposableFilter Function($$SnsLinksTableFilterComposer f) f) {
-    final $$SnsLinksTableFilterComposer composer = $state.composerBuilder(
+  Expression<bool> snsLinksRefs(
+      Expression<bool> Function($$SnsLinksTableFilterComposer f) f) {
+    final $$SnsLinksTableFilterComposer composer = $composerBuilder(
         composer: this,
         getCurrentColumn: (t) => t.id,
-        referencedTable: $state.db.snsLinks,
+        referencedTable: $db.snsLinks,
         getReferencedColumn: (t) => t.circleId,
-        builder: (joinBuilder, parentComposers) =>
-            $$SnsLinksTableFilterComposer(ComposerState(
-                $state.db, $state.db.snsLinks, joinBuilder, parentComposers)));
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $$SnsLinksTableFilterComposer(
+              $db: $db,
+              $table: $db.snsLinks,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
     return f(composer);
   }
 
-  ComposableFilter realSpsRefs(
-      ComposableFilter Function($$RealSpsTableFilterComposer f) f) {
-    final $$RealSpsTableFilterComposer composer = $state.composerBuilder(
+  Expression<bool> realSpsRefs(
+      Expression<bool> Function($$RealSpsTableFilterComposer f) f) {
+    final $$RealSpsTableFilterComposer composer = $composerBuilder(
         composer: this,
         getCurrentColumn: (t) => t.id,
-        referencedTable: $state.db.realSps,
+        referencedTable: $db.realSps,
         getReferencedColumn: (t) => t.circleId,
-        builder: (joinBuilder, parentComposers) => $$RealSpsTableFilterComposer(
-            ComposerState(
-                $state.db, $state.db.realSps, joinBuilder, parentComposers)));
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $$RealSpsTableFilterComposer(
+              $db: $db,
+              $table: $db.realSps,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
     return f(composer);
   }
 
-  ComposableFilter webSpsRefs(
-      ComposableFilter Function($$WebSpsTableFilterComposer f) f) {
-    final $$WebSpsTableFilterComposer composer = $state.composerBuilder(
+  Expression<bool> webSpsRefs(
+      Expression<bool> Function($$WebSpsTableFilterComposer f) f) {
+    final $$WebSpsTableFilterComposer composer = $composerBuilder(
         composer: this,
         getCurrentColumn: (t) => t.id,
-        referencedTable: $state.db.webSps,
+        referencedTable: $db.webSps,
         getReferencedColumn: (t) => t.circle,
-        builder: (joinBuilder, parentComposers) => $$WebSpsTableFilterComposer(
-            ComposerState(
-                $state.db, $state.db.webSps, joinBuilder, parentComposers)));
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $$WebSpsTableFilterComposer(
+              $db: $db,
+              $table: $db.webSps,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
     return f(composer);
   }
 
-  ComposableFilter keywordsRefs(
-      ComposableFilter Function($$KeywordsTableFilterComposer f) f) {
-    final $$KeywordsTableFilterComposer composer = $state.composerBuilder(
+  Expression<bool> keywordsRefs(
+      Expression<bool> Function($$KeywordsTableFilterComposer f) f) {
+    final $$KeywordsTableFilterComposer composer = $composerBuilder(
         composer: this,
         getCurrentColumn: (t) => t.id,
-        referencedTable: $state.db.keywords,
+        referencedTable: $db.keywords,
         getReferencedColumn: (t) => t.circleId,
-        builder: (joinBuilder, parentComposers) =>
-            $$KeywordsTableFilterComposer(ComposerState(
-                $state.db, $state.db.keywords, joinBuilder, parentComposers)));
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $$KeywordsTableFilterComposer(
+              $db: $db,
+              $table: $db.keywords,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
     return f(composer);
   }
 }
 
 class $$CirclesTableOrderingComposer
-    extends OrderingComposer<_$CircleDatabase, $CirclesTable> {
-  $$CirclesTableOrderingComposer(super.$state);
-  ColumnOrderings<int> get id => $state.composableBuilder(
-      column: $state.table.id,
-      builder: (column, joinBuilders) =>
-          ColumnOrderings(column, joinBuilders: joinBuilders));
+    extends Composer<_$CircleDatabase, $CirclesTable> {
+  $$CirclesTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<int> get id => $composableBuilder(
+      column: $table.id, builder: (column) => ColumnOrderings(column));
 
-  ColumnOrderings<String> get name => $state.composableBuilder(
-      column: $state.table.name,
-      builder: (column, joinBuilders) =>
-          ColumnOrderings(column, joinBuilders: joinBuilders));
+  ColumnOrderings<String> get name => $composableBuilder(
+      column: $table.name, builder: (column) => ColumnOrderings(column));
 
-  ColumnOrderings<String> get phonetic => $state.composableBuilder(
-      column: $state.table.phonetic,
-      builder: (column, joinBuilders) =>
-          ColumnOrderings(column, joinBuilders: joinBuilders));
+  ColumnOrderings<String> get phonetic => $composableBuilder(
+      column: $table.phonetic, builder: (column) => ColumnOrderings(column));
 
-  ColumnOrderings<String> get genre => $state.composableBuilder(
-      column: $state.table.genre,
-      builder: (column, joinBuilders) =>
-          ColumnOrderings(column, joinBuilders: joinBuilders));
+  ColumnOrderings<String> get genre => $composableBuilder(
+      column: $table.genre, builder: (column) => ColumnOrderings(column));
 
-  ColumnOrderings<int> get spaceSize => $state.composableBuilder(
-      column: $state.table.spaceSize,
-      builder: (column, joinBuilders) =>
-          ColumnOrderings(column, joinBuilders: joinBuilders));
+  ColumnOrderings<int> get spaceSize => $composableBuilder(
+      column: $table.spaceSize, builder: (column) => ColumnOrderings(column));
 
-  ColumnOrderings<bool> get adult => $state.composableBuilder(
-      column: $state.table.adult,
-      builder: (column, joinBuilders) =>
-          ColumnOrderings(column, joinBuilders: joinBuilders));
+  ColumnOrderings<bool> get adult => $composableBuilder(
+      column: $table.adult, builder: (column) => ColumnOrderings(column));
 
-  ColumnOrderings<String> get prText => $state.composableBuilder(
-      column: $state.table.prText,
-      builder: (column, joinBuilders) =>
-          ColumnOrderings(column, joinBuilders: joinBuilders));
+  ColumnOrderings<String> get prText => $composableBuilder(
+      column: $table.prText, builder: (column) => ColumnOrderings(column));
 
-  ColumnOrderings<bool> get isFavorite => $state.composableBuilder(
-      column: $state.table.isFavorite,
-      builder: (column, joinBuilders) =>
-          ColumnOrderings(column, joinBuilders: joinBuilders));
+  ColumnOrderings<bool> get isFavorite => $composableBuilder(
+      column: $table.isFavorite, builder: (column) => ColumnOrderings(column));
+}
+
+class $$CirclesTableAnnotationComposer
+    extends Composer<_$CircleDatabase, $CirclesTable> {
+  $$CirclesTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<int> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<String> get name =>
+      $composableBuilder(column: $table.name, builder: (column) => column);
+
+  GeneratedColumn<String> get phonetic =>
+      $composableBuilder(column: $table.phonetic, builder: (column) => column);
+
+  GeneratedColumn<String> get genre =>
+      $composableBuilder(column: $table.genre, builder: (column) => column);
+
+  GeneratedColumn<int> get spaceSize =>
+      $composableBuilder(column: $table.spaceSize, builder: (column) => column);
+
+  GeneratedColumn<bool> get adult =>
+      $composableBuilder(column: $table.adult, builder: (column) => column);
+
+  GeneratedColumn<String> get prText =>
+      $composableBuilder(column: $table.prText, builder: (column) => column);
+
+  GeneratedColumn<bool> get isFavorite => $composableBuilder(
+      column: $table.isFavorite, builder: (column) => column);
+
+  Expression<T> snsLinksRefs<T extends Object>(
+      Expression<T> Function($$SnsLinksTableAnnotationComposer a) f) {
+    final $$SnsLinksTableAnnotationComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.id,
+        referencedTable: $db.snsLinks,
+        getReferencedColumn: (t) => t.circleId,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $$SnsLinksTableAnnotationComposer(
+              $db: $db,
+              $table: $db.snsLinks,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return f(composer);
+  }
+
+  Expression<T> realSpsRefs<T extends Object>(
+      Expression<T> Function($$RealSpsTableAnnotationComposer a) f) {
+    final $$RealSpsTableAnnotationComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.id,
+        referencedTable: $db.realSps,
+        getReferencedColumn: (t) => t.circleId,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $$RealSpsTableAnnotationComposer(
+              $db: $db,
+              $table: $db.realSps,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return f(composer);
+  }
+
+  Expression<T> webSpsRefs<T extends Object>(
+      Expression<T> Function($$WebSpsTableAnnotationComposer a) f) {
+    final $$WebSpsTableAnnotationComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.id,
+        referencedTable: $db.webSps,
+        getReferencedColumn: (t) => t.circle,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $$WebSpsTableAnnotationComposer(
+              $db: $db,
+              $table: $db.webSps,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return f(composer);
+  }
+
+  Expression<T> keywordsRefs<T extends Object>(
+      Expression<T> Function($$KeywordsTableAnnotationComposer a) f) {
+    final $$KeywordsTableAnnotationComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.id,
+        referencedTable: $db.keywords,
+        getReferencedColumn: (t) => t.circleId,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $$KeywordsTableAnnotationComposer(
+              $db: $db,
+              $table: $db.keywords,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return f(composer);
+  }
 }
 
 class $$CirclesTableTableManager extends RootTableManager<
@@ -2379,6 +2509,7 @@ class $$CirclesTableTableManager extends RootTableManager<
     Circle,
     $$CirclesTableFilterComposer,
     $$CirclesTableOrderingComposer,
+    $$CirclesTableAnnotationComposer,
     $$CirclesTableCreateCompanionBuilder,
     $$CirclesTableUpdateCompanionBuilder,
     (Circle, $$CirclesTableReferences),
@@ -2392,10 +2523,12 @@ class $$CirclesTableTableManager extends RootTableManager<
       : super(TableManagerState(
           db: db,
           table: table,
-          filteringComposer:
-              $$CirclesTableFilterComposer(ComposerState(db, table)),
-          orderingComposer:
-              $$CirclesTableOrderingComposer(ComposerState(db, table)),
+          createFilteringComposer: () =>
+              $$CirclesTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$CirclesTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$CirclesTableAnnotationComposer($db: db, $table: table),
           updateCompanionCallback: ({
             Value<int> id = const Value.absent(),
             Value<String> name = const Value.absent(),
@@ -2461,7 +2594,7 @@ class $$CirclesTableTableManager extends RootTableManager<
               getPrefetchedDataCallback: (items) async {
                 return [
                   if (snsLinksRefs)
-                    await $_getPrefetchedData(
+                    await $_getPrefetchedData<Circle, $CirclesTable, SnsLink>(
                         currentTable: table,
                         referencedTable:
                             $$CirclesTableReferences._snsLinksRefsTable(db),
@@ -2473,7 +2606,7 @@ class $$CirclesTableTableManager extends RootTableManager<
                             referencedItems.where((e) => e.circleId == item.id),
                         typedResults: items),
                   if (realSpsRefs)
-                    await $_getPrefetchedData(
+                    await $_getPrefetchedData<Circle, $CirclesTable, RealSp>(
                         currentTable: table,
                         referencedTable:
                             $$CirclesTableReferences._realSpsRefsTable(db),
@@ -2484,7 +2617,7 @@ class $$CirclesTableTableManager extends RootTableManager<
                             referencedItems.where((e) => e.circleId == item.id),
                         typedResults: items),
                   if (webSpsRefs)
-                    await $_getPrefetchedData(
+                    await $_getPrefetchedData<Circle, $CirclesTable, WebSp>(
                         currentTable: table,
                         referencedTable:
                             $$CirclesTableReferences._webSpsRefsTable(db),
@@ -2495,7 +2628,7 @@ class $$CirclesTableTableManager extends RootTableManager<
                             referencedItems.where((e) => e.circle == item.id),
                         typedResults: items),
                   if (keywordsRefs)
-                    await $_getPrefetchedData(
+                    await $_getPrefetchedData<Circle, $CirclesTable, Keyword>(
                         currentTable: table,
                         referencedTable:
                             $$CirclesTableReferences._keywordsRefsTable(db),
@@ -2519,6 +2652,7 @@ typedef $$CirclesTableProcessedTableManager = ProcessedTableManager<
     Circle,
     $$CirclesTableFilterComposer,
     $$CirclesTableOrderingComposer,
+    $$CirclesTableAnnotationComposer,
     $$CirclesTableCreateCompanionBuilder,
     $$CirclesTableUpdateCompanionBuilder,
     (Circle, $$CirclesTableReferences),
@@ -2560,10 +2694,11 @@ final class $$SnsLinksTableReferences
   static $CirclesTable _circleIdTable(_$CircleDatabase db) => db.circles
       .createAlias($_aliasNameGenerator(db.snsLinks.circleId, db.circles.id));
 
-  $$CirclesTableProcessedTableManager? get circleId {
-    if ($_item.circleId == null) return null;
+  $$CirclesTableProcessedTableManager get circleId {
+    final $_column = $_itemColumn<int>('circle_id')!;
+
     final manager = $$CirclesTableTableManager($_db, $_db.circles)
-        .filter((f) => f.id($_item.circleId!));
+        .filter((f) => f.id.sqlEquals($_column));
     final item = $_typedResult.readTableOrNull(_circleIdTable($_db));
     if (item == null) return manager;
     return ProcessedTableManager(
@@ -2572,123 +2707,172 @@ final class $$SnsLinksTableReferences
 }
 
 class $$SnsLinksTableFilterComposer
-    extends FilterComposer<_$CircleDatabase, $SnsLinksTable> {
-  $$SnsLinksTableFilterComposer(super.$state);
-  ColumnFilters<int> get id => $state.composableBuilder(
-      column: $state.table.id,
-      builder: (column, joinBuilders) =>
-          ColumnFilters(column, joinBuilders: joinBuilders));
+    extends Composer<_$CircleDatabase, $SnsLinksTable> {
+  $$SnsLinksTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<int> get id => $composableBuilder(
+      column: $table.id, builder: (column) => ColumnFilters(column));
 
-  ColumnFilters<String> get siteText => $state.composableBuilder(
-      column: $state.table.siteText,
-      builder: (column, joinBuilders) =>
-          ColumnFilters(column, joinBuilders: joinBuilders));
+  ColumnFilters<String> get siteText => $composableBuilder(
+      column: $table.siteText, builder: (column) => ColumnFilters(column));
 
-  ColumnFilters<String> get siteUrl => $state.composableBuilder(
-      column: $state.table.siteUrl,
-      builder: (column, joinBuilders) =>
-          ColumnFilters(column, joinBuilders: joinBuilders));
+  ColumnFilters<String> get siteUrl => $composableBuilder(
+      column: $table.siteUrl, builder: (column) => ColumnFilters(column));
 
-  ColumnFilters<String> get twitterText => $state.composableBuilder(
-      column: $state.table.twitterText,
-      builder: (column, joinBuilders) =>
-          ColumnFilters(column, joinBuilders: joinBuilders));
+  ColumnFilters<String> get twitterText => $composableBuilder(
+      column: $table.twitterText, builder: (column) => ColumnFilters(column));
 
-  ColumnFilters<String> get twitterUrl => $state.composableBuilder(
-      column: $state.table.twitterUrl,
-      builder: (column, joinBuilders) =>
-          ColumnFilters(column, joinBuilders: joinBuilders));
+  ColumnFilters<String> get twitterUrl => $composableBuilder(
+      column: $table.twitterUrl, builder: (column) => ColumnFilters(column));
 
-  ColumnFilters<String> get youtubeText => $state.composableBuilder(
-      column: $state.table.youtubeText,
-      builder: (column, joinBuilders) =>
-          ColumnFilters(column, joinBuilders: joinBuilders));
+  ColumnFilters<String> get youtubeText => $composableBuilder(
+      column: $table.youtubeText, builder: (column) => ColumnFilters(column));
 
-  ColumnFilters<String> get youtubeUrl => $state.composableBuilder(
-      column: $state.table.youtubeUrl,
-      builder: (column, joinBuilders) =>
-          ColumnFilters(column, joinBuilders: joinBuilders));
+  ColumnFilters<String> get youtubeUrl => $composableBuilder(
+      column: $table.youtubeUrl, builder: (column) => ColumnFilters(column));
 
-  ColumnFilters<String> get snsText => $state.composableBuilder(
-      column: $state.table.snsText,
-      builder: (column, joinBuilders) =>
-          ColumnFilters(column, joinBuilders: joinBuilders));
+  ColumnFilters<String> get snsText => $composableBuilder(
+      column: $table.snsText, builder: (column) => ColumnFilters(column));
 
-  ColumnFilters<String> get snsUrl => $state.composableBuilder(
-      column: $state.table.snsUrl,
-      builder: (column, joinBuilders) =>
-          ColumnFilters(column, joinBuilders: joinBuilders));
+  ColumnFilters<String> get snsUrl => $composableBuilder(
+      column: $table.snsUrl, builder: (column) => ColumnFilters(column));
 
   $$CirclesTableFilterComposer get circleId {
-    final $$CirclesTableFilterComposer composer = $state.composerBuilder(
+    final $$CirclesTableFilterComposer composer = $composerBuilder(
         composer: this,
         getCurrentColumn: (t) => t.circleId,
-        referencedTable: $state.db.circles,
+        referencedTable: $db.circles,
         getReferencedColumn: (t) => t.id,
-        builder: (joinBuilder, parentComposers) => $$CirclesTableFilterComposer(
-            ComposerState(
-                $state.db, $state.db.circles, joinBuilder, parentComposers)));
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $$CirclesTableFilterComposer(
+              $db: $db,
+              $table: $db.circles,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
     return composer;
   }
 }
 
 class $$SnsLinksTableOrderingComposer
-    extends OrderingComposer<_$CircleDatabase, $SnsLinksTable> {
-  $$SnsLinksTableOrderingComposer(super.$state);
-  ColumnOrderings<int> get id => $state.composableBuilder(
-      column: $state.table.id,
-      builder: (column, joinBuilders) =>
-          ColumnOrderings(column, joinBuilders: joinBuilders));
+    extends Composer<_$CircleDatabase, $SnsLinksTable> {
+  $$SnsLinksTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<int> get id => $composableBuilder(
+      column: $table.id, builder: (column) => ColumnOrderings(column));
 
-  ColumnOrderings<String> get siteText => $state.composableBuilder(
-      column: $state.table.siteText,
-      builder: (column, joinBuilders) =>
-          ColumnOrderings(column, joinBuilders: joinBuilders));
+  ColumnOrderings<String> get siteText => $composableBuilder(
+      column: $table.siteText, builder: (column) => ColumnOrderings(column));
 
-  ColumnOrderings<String> get siteUrl => $state.composableBuilder(
-      column: $state.table.siteUrl,
-      builder: (column, joinBuilders) =>
-          ColumnOrderings(column, joinBuilders: joinBuilders));
+  ColumnOrderings<String> get siteUrl => $composableBuilder(
+      column: $table.siteUrl, builder: (column) => ColumnOrderings(column));
 
-  ColumnOrderings<String> get twitterText => $state.composableBuilder(
-      column: $state.table.twitterText,
-      builder: (column, joinBuilders) =>
-          ColumnOrderings(column, joinBuilders: joinBuilders));
+  ColumnOrderings<String> get twitterText => $composableBuilder(
+      column: $table.twitterText, builder: (column) => ColumnOrderings(column));
 
-  ColumnOrderings<String> get twitterUrl => $state.composableBuilder(
-      column: $state.table.twitterUrl,
-      builder: (column, joinBuilders) =>
-          ColumnOrderings(column, joinBuilders: joinBuilders));
+  ColumnOrderings<String> get twitterUrl => $composableBuilder(
+      column: $table.twitterUrl, builder: (column) => ColumnOrderings(column));
 
-  ColumnOrderings<String> get youtubeText => $state.composableBuilder(
-      column: $state.table.youtubeText,
-      builder: (column, joinBuilders) =>
-          ColumnOrderings(column, joinBuilders: joinBuilders));
+  ColumnOrderings<String> get youtubeText => $composableBuilder(
+      column: $table.youtubeText, builder: (column) => ColumnOrderings(column));
 
-  ColumnOrderings<String> get youtubeUrl => $state.composableBuilder(
-      column: $state.table.youtubeUrl,
-      builder: (column, joinBuilders) =>
-          ColumnOrderings(column, joinBuilders: joinBuilders));
+  ColumnOrderings<String> get youtubeUrl => $composableBuilder(
+      column: $table.youtubeUrl, builder: (column) => ColumnOrderings(column));
 
-  ColumnOrderings<String> get snsText => $state.composableBuilder(
-      column: $state.table.snsText,
-      builder: (column, joinBuilders) =>
-          ColumnOrderings(column, joinBuilders: joinBuilders));
+  ColumnOrderings<String> get snsText => $composableBuilder(
+      column: $table.snsText, builder: (column) => ColumnOrderings(column));
 
-  ColumnOrderings<String> get snsUrl => $state.composableBuilder(
-      column: $state.table.snsUrl,
-      builder: (column, joinBuilders) =>
-          ColumnOrderings(column, joinBuilders: joinBuilders));
+  ColumnOrderings<String> get snsUrl => $composableBuilder(
+      column: $table.snsUrl, builder: (column) => ColumnOrderings(column));
 
   $$CirclesTableOrderingComposer get circleId {
-    final $$CirclesTableOrderingComposer composer = $state.composerBuilder(
+    final $$CirclesTableOrderingComposer composer = $composerBuilder(
         composer: this,
         getCurrentColumn: (t) => t.circleId,
-        referencedTable: $state.db.circles,
+        referencedTable: $db.circles,
         getReferencedColumn: (t) => t.id,
-        builder: (joinBuilder, parentComposers) =>
-            $$CirclesTableOrderingComposer(ComposerState(
-                $state.db, $state.db.circles, joinBuilder, parentComposers)));
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $$CirclesTableOrderingComposer(
+              $db: $db,
+              $table: $db.circles,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return composer;
+  }
+}
+
+class $$SnsLinksTableAnnotationComposer
+    extends Composer<_$CircleDatabase, $SnsLinksTable> {
+  $$SnsLinksTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<int> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<String> get siteText =>
+      $composableBuilder(column: $table.siteText, builder: (column) => column);
+
+  GeneratedColumn<String> get siteUrl =>
+      $composableBuilder(column: $table.siteUrl, builder: (column) => column);
+
+  GeneratedColumn<String> get twitterText => $composableBuilder(
+      column: $table.twitterText, builder: (column) => column);
+
+  GeneratedColumn<String> get twitterUrl => $composableBuilder(
+      column: $table.twitterUrl, builder: (column) => column);
+
+  GeneratedColumn<String> get youtubeText => $composableBuilder(
+      column: $table.youtubeText, builder: (column) => column);
+
+  GeneratedColumn<String> get youtubeUrl => $composableBuilder(
+      column: $table.youtubeUrl, builder: (column) => column);
+
+  GeneratedColumn<String> get snsText =>
+      $composableBuilder(column: $table.snsText, builder: (column) => column);
+
+  GeneratedColumn<String> get snsUrl =>
+      $composableBuilder(column: $table.snsUrl, builder: (column) => column);
+
+  $$CirclesTableAnnotationComposer get circleId {
+    final $$CirclesTableAnnotationComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.circleId,
+        referencedTable: $db.circles,
+        getReferencedColumn: (t) => t.id,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $$CirclesTableAnnotationComposer(
+              $db: $db,
+              $table: $db.circles,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
     return composer;
   }
 }
@@ -2699,6 +2883,7 @@ class $$SnsLinksTableTableManager extends RootTableManager<
     SnsLink,
     $$SnsLinksTableFilterComposer,
     $$SnsLinksTableOrderingComposer,
+    $$SnsLinksTableAnnotationComposer,
     $$SnsLinksTableCreateCompanionBuilder,
     $$SnsLinksTableUpdateCompanionBuilder,
     (SnsLink, $$SnsLinksTableReferences),
@@ -2708,10 +2893,12 @@ class $$SnsLinksTableTableManager extends RootTableManager<
       : super(TableManagerState(
           db: db,
           table: table,
-          filteringComposer:
-              $$SnsLinksTableFilterComposer(ComposerState(db, table)),
-          orderingComposer:
-              $$SnsLinksTableOrderingComposer(ComposerState(db, table)),
+          createFilteringComposer: () =>
+              $$SnsLinksTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$SnsLinksTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$SnsLinksTableAnnotationComposer($db: db, $table: table),
           updateCompanionCallback: ({
             Value<int> id = const Value.absent(),
             Value<int> circleId = const Value.absent(),
@@ -2779,6 +2966,7 @@ class $$SnsLinksTableTableManager extends RootTableManager<
                       dynamic,
                       dynamic,
                       dynamic,
+                      dynamic,
                       dynamic>>(state) {
                 if (circleId) {
                   state = state.withJoin(
@@ -2807,6 +2995,7 @@ typedef $$SnsLinksTableProcessedTableManager = ProcessedTableManager<
     SnsLink,
     $$SnsLinksTableFilterComposer,
     $$SnsLinksTableOrderingComposer,
+    $$SnsLinksTableAnnotationComposer,
     $$SnsLinksTableCreateCompanionBuilder,
     $$SnsLinksTableUpdateCompanionBuilder,
     (SnsLink, $$SnsLinksTableReferences),
@@ -2832,10 +3021,11 @@ final class $$RealSpsTableReferences
   static $CirclesTable _circleIdTable(_$CircleDatabase db) => db.circles
       .createAlias($_aliasNameGenerator(db.realSps.circleId, db.circles.id));
 
-  $$CirclesTableProcessedTableManager? get circleId {
-    if ($_item.circleId == null) return null;
+  $$CirclesTableProcessedTableManager get circleId {
+    final $_column = $_itemColumn<int>('circle_id')!;
+
     final manager = $$CirclesTableTableManager($_db, $_db.circles)
-        .filter((f) => f.id($_item.circleId!));
+        .filter((f) => f.id.sqlEquals($_column));
     final item = $_typedResult.readTableOrNull(_circleIdTable($_db));
     if (item == null) return manager;
     return ProcessedTableManager(
@@ -2844,63 +3034,118 @@ final class $$RealSpsTableReferences
 }
 
 class $$RealSpsTableFilterComposer
-    extends FilterComposer<_$CircleDatabase, $RealSpsTable> {
-  $$RealSpsTableFilterComposer(super.$state);
-  ColumnFilters<int> get id => $state.composableBuilder(
-      column: $state.table.id,
-      builder: (column, joinBuilders) =>
-          ColumnFilters(column, joinBuilders: joinBuilders));
+    extends Composer<_$CircleDatabase, $RealSpsTable> {
+  $$RealSpsTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<int> get id => $composableBuilder(
+      column: $table.id, builder: (column) => ColumnFilters(column));
 
-  ColumnFilters<String> get area => $state.composableBuilder(
-      column: $state.table.area,
-      builder: (column, joinBuilders) =>
-          ColumnFilters(column, joinBuilders: joinBuilders));
+  ColumnFilters<String> get area => $composableBuilder(
+      column: $table.area, builder: (column) => ColumnFilters(column));
 
-  ColumnFilters<String> get no => $state.composableBuilder(
-      column: $state.table.no,
-      builder: (column, joinBuilders) =>
-          ColumnFilters(column, joinBuilders: joinBuilders));
+  ColumnFilters<String> get no => $composableBuilder(
+      column: $table.no, builder: (column) => ColumnFilters(column));
 
   $$CirclesTableFilterComposer get circleId {
-    final $$CirclesTableFilterComposer composer = $state.composerBuilder(
+    final $$CirclesTableFilterComposer composer = $composerBuilder(
         composer: this,
         getCurrentColumn: (t) => t.circleId,
-        referencedTable: $state.db.circles,
+        referencedTable: $db.circles,
         getReferencedColumn: (t) => t.id,
-        builder: (joinBuilder, parentComposers) => $$CirclesTableFilterComposer(
-            ComposerState(
-                $state.db, $state.db.circles, joinBuilder, parentComposers)));
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $$CirclesTableFilterComposer(
+              $db: $db,
+              $table: $db.circles,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
     return composer;
   }
 }
 
 class $$RealSpsTableOrderingComposer
-    extends OrderingComposer<_$CircleDatabase, $RealSpsTable> {
-  $$RealSpsTableOrderingComposer(super.$state);
-  ColumnOrderings<int> get id => $state.composableBuilder(
-      column: $state.table.id,
-      builder: (column, joinBuilders) =>
-          ColumnOrderings(column, joinBuilders: joinBuilders));
+    extends Composer<_$CircleDatabase, $RealSpsTable> {
+  $$RealSpsTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<int> get id => $composableBuilder(
+      column: $table.id, builder: (column) => ColumnOrderings(column));
 
-  ColumnOrderings<String> get area => $state.composableBuilder(
-      column: $state.table.area,
-      builder: (column, joinBuilders) =>
-          ColumnOrderings(column, joinBuilders: joinBuilders));
+  ColumnOrderings<String> get area => $composableBuilder(
+      column: $table.area, builder: (column) => ColumnOrderings(column));
 
-  ColumnOrderings<String> get no => $state.composableBuilder(
-      column: $state.table.no,
-      builder: (column, joinBuilders) =>
-          ColumnOrderings(column, joinBuilders: joinBuilders));
+  ColumnOrderings<String> get no => $composableBuilder(
+      column: $table.no, builder: (column) => ColumnOrderings(column));
 
   $$CirclesTableOrderingComposer get circleId {
-    final $$CirclesTableOrderingComposer composer = $state.composerBuilder(
+    final $$CirclesTableOrderingComposer composer = $composerBuilder(
         composer: this,
         getCurrentColumn: (t) => t.circleId,
-        referencedTable: $state.db.circles,
+        referencedTable: $db.circles,
         getReferencedColumn: (t) => t.id,
-        builder: (joinBuilder, parentComposers) =>
-            $$CirclesTableOrderingComposer(ComposerState(
-                $state.db, $state.db.circles, joinBuilder, parentComposers)));
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $$CirclesTableOrderingComposer(
+              $db: $db,
+              $table: $db.circles,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return composer;
+  }
+}
+
+class $$RealSpsTableAnnotationComposer
+    extends Composer<_$CircleDatabase, $RealSpsTable> {
+  $$RealSpsTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<int> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<String> get area =>
+      $composableBuilder(column: $table.area, builder: (column) => column);
+
+  GeneratedColumn<String> get no =>
+      $composableBuilder(column: $table.no, builder: (column) => column);
+
+  $$CirclesTableAnnotationComposer get circleId {
+    final $$CirclesTableAnnotationComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.circleId,
+        referencedTable: $db.circles,
+        getReferencedColumn: (t) => t.id,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $$CirclesTableAnnotationComposer(
+              $db: $db,
+              $table: $db.circles,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
     return composer;
   }
 }
@@ -2911,6 +3156,7 @@ class $$RealSpsTableTableManager extends RootTableManager<
     RealSp,
     $$RealSpsTableFilterComposer,
     $$RealSpsTableOrderingComposer,
+    $$RealSpsTableAnnotationComposer,
     $$RealSpsTableCreateCompanionBuilder,
     $$RealSpsTableUpdateCompanionBuilder,
     (RealSp, $$RealSpsTableReferences),
@@ -2920,10 +3166,12 @@ class $$RealSpsTableTableManager extends RootTableManager<
       : super(TableManagerState(
           db: db,
           table: table,
-          filteringComposer:
-              $$RealSpsTableFilterComposer(ComposerState(db, table)),
-          orderingComposer:
-              $$RealSpsTableOrderingComposer(ComposerState(db, table)),
+          createFilteringComposer: () =>
+              $$RealSpsTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$RealSpsTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$RealSpsTableAnnotationComposer($db: db, $table: table),
           updateCompanionCallback: ({
             Value<int> id = const Value.absent(),
             Value<int> circleId = const Value.absent(),
@@ -2967,6 +3215,7 @@ class $$RealSpsTableTableManager extends RootTableManager<
                       dynamic,
                       dynamic,
                       dynamic,
+                      dynamic,
                       dynamic>>(state) {
                 if (circleId) {
                   state = state.withJoin(
@@ -2995,6 +3244,7 @@ typedef $$RealSpsTableProcessedTableManager = ProcessedTableManager<
     RealSp,
     $$RealSpsTableFilterComposer,
     $$RealSpsTableOrderingComposer,
+    $$RealSpsTableAnnotationComposer,
     $$RealSpsTableCreateCompanionBuilder,
     $$RealSpsTableUpdateCompanionBuilder,
     (RealSp, $$RealSpsTableReferences),
@@ -3020,10 +3270,11 @@ final class $$WebSpsTableReferences
   static $CirclesTable _circleTable(_$CircleDatabase db) => db.circles
       .createAlias($_aliasNameGenerator(db.webSps.circle, db.circles.id));
 
-  $$CirclesTableProcessedTableManager? get circle {
-    if ($_item.circle == null) return null;
+  $$CirclesTableProcessedTableManager get circle {
+    final $_column = $_itemColumn<int>('circle')!;
+
     final manager = $$CirclesTableTableManager($_db, $_db.circles)
-        .filter((f) => f.id($_item.circle!));
+        .filter((f) => f.id.sqlEquals($_column));
     final item = $_typedResult.readTableOrNull(_circleTable($_db));
     if (item == null) return manager;
     return ProcessedTableManager(
@@ -3032,63 +3283,118 @@ final class $$WebSpsTableReferences
 }
 
 class $$WebSpsTableFilterComposer
-    extends FilterComposer<_$CircleDatabase, $WebSpsTable> {
-  $$WebSpsTableFilterComposer(super.$state);
-  ColumnFilters<int> get id => $state.composableBuilder(
-      column: $state.table.id,
-      builder: (column, joinBuilders) =>
-          ColumnFilters(column, joinBuilders: joinBuilders));
+    extends Composer<_$CircleDatabase, $WebSpsTable> {
+  $$WebSpsTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<int> get id => $composableBuilder(
+      column: $table.id, builder: (column) => ColumnFilters(column));
 
-  ColumnFilters<String> get area => $state.composableBuilder(
-      column: $state.table.area,
-      builder: (column, joinBuilders) =>
-          ColumnFilters(column, joinBuilders: joinBuilders));
+  ColumnFilters<String> get area => $composableBuilder(
+      column: $table.area, builder: (column) => ColumnFilters(column));
 
-  ColumnFilters<String> get no => $state.composableBuilder(
-      column: $state.table.no,
-      builder: (column, joinBuilders) =>
-          ColumnFilters(column, joinBuilders: joinBuilders));
+  ColumnFilters<String> get no => $composableBuilder(
+      column: $table.no, builder: (column) => ColumnFilters(column));
 
   $$CirclesTableFilterComposer get circle {
-    final $$CirclesTableFilterComposer composer = $state.composerBuilder(
+    final $$CirclesTableFilterComposer composer = $composerBuilder(
         composer: this,
         getCurrentColumn: (t) => t.circle,
-        referencedTable: $state.db.circles,
+        referencedTable: $db.circles,
         getReferencedColumn: (t) => t.id,
-        builder: (joinBuilder, parentComposers) => $$CirclesTableFilterComposer(
-            ComposerState(
-                $state.db, $state.db.circles, joinBuilder, parentComposers)));
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $$CirclesTableFilterComposer(
+              $db: $db,
+              $table: $db.circles,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
     return composer;
   }
 }
 
 class $$WebSpsTableOrderingComposer
-    extends OrderingComposer<_$CircleDatabase, $WebSpsTable> {
-  $$WebSpsTableOrderingComposer(super.$state);
-  ColumnOrderings<int> get id => $state.composableBuilder(
-      column: $state.table.id,
-      builder: (column, joinBuilders) =>
-          ColumnOrderings(column, joinBuilders: joinBuilders));
+    extends Composer<_$CircleDatabase, $WebSpsTable> {
+  $$WebSpsTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<int> get id => $composableBuilder(
+      column: $table.id, builder: (column) => ColumnOrderings(column));
 
-  ColumnOrderings<String> get area => $state.composableBuilder(
-      column: $state.table.area,
-      builder: (column, joinBuilders) =>
-          ColumnOrderings(column, joinBuilders: joinBuilders));
+  ColumnOrderings<String> get area => $composableBuilder(
+      column: $table.area, builder: (column) => ColumnOrderings(column));
 
-  ColumnOrderings<String> get no => $state.composableBuilder(
-      column: $state.table.no,
-      builder: (column, joinBuilders) =>
-          ColumnOrderings(column, joinBuilders: joinBuilders));
+  ColumnOrderings<String> get no => $composableBuilder(
+      column: $table.no, builder: (column) => ColumnOrderings(column));
 
   $$CirclesTableOrderingComposer get circle {
-    final $$CirclesTableOrderingComposer composer = $state.composerBuilder(
+    final $$CirclesTableOrderingComposer composer = $composerBuilder(
         composer: this,
         getCurrentColumn: (t) => t.circle,
-        referencedTable: $state.db.circles,
+        referencedTable: $db.circles,
         getReferencedColumn: (t) => t.id,
-        builder: (joinBuilder, parentComposers) =>
-            $$CirclesTableOrderingComposer(ComposerState(
-                $state.db, $state.db.circles, joinBuilder, parentComposers)));
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $$CirclesTableOrderingComposer(
+              $db: $db,
+              $table: $db.circles,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return composer;
+  }
+}
+
+class $$WebSpsTableAnnotationComposer
+    extends Composer<_$CircleDatabase, $WebSpsTable> {
+  $$WebSpsTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<int> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<String> get area =>
+      $composableBuilder(column: $table.area, builder: (column) => column);
+
+  GeneratedColumn<String> get no =>
+      $composableBuilder(column: $table.no, builder: (column) => column);
+
+  $$CirclesTableAnnotationComposer get circle {
+    final $$CirclesTableAnnotationComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.circle,
+        referencedTable: $db.circles,
+        getReferencedColumn: (t) => t.id,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $$CirclesTableAnnotationComposer(
+              $db: $db,
+              $table: $db.circles,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
     return composer;
   }
 }
@@ -3099,6 +3405,7 @@ class $$WebSpsTableTableManager extends RootTableManager<
     WebSp,
     $$WebSpsTableFilterComposer,
     $$WebSpsTableOrderingComposer,
+    $$WebSpsTableAnnotationComposer,
     $$WebSpsTableCreateCompanionBuilder,
     $$WebSpsTableUpdateCompanionBuilder,
     (WebSp, $$WebSpsTableReferences),
@@ -3108,10 +3415,12 @@ class $$WebSpsTableTableManager extends RootTableManager<
       : super(TableManagerState(
           db: db,
           table: table,
-          filteringComposer:
-              $$WebSpsTableFilterComposer(ComposerState(db, table)),
-          orderingComposer:
-              $$WebSpsTableOrderingComposer(ComposerState(db, table)),
+          createFilteringComposer: () =>
+              $$WebSpsTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$WebSpsTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$WebSpsTableAnnotationComposer($db: db, $table: table),
           updateCompanionCallback: ({
             Value<int> id = const Value.absent(),
             Value<int> circle = const Value.absent(),
@@ -3155,6 +3464,7 @@ class $$WebSpsTableTableManager extends RootTableManager<
                       dynamic,
                       dynamic,
                       dynamic,
+                      dynamic,
                       dynamic>>(state) {
                 if (circle) {
                   state = state.withJoin(
@@ -3182,6 +3492,7 @@ typedef $$WebSpsTableProcessedTableManager = ProcessedTableManager<
     WebSp,
     $$WebSpsTableFilterComposer,
     $$WebSpsTableOrderingComposer,
+    $$WebSpsTableAnnotationComposer,
     $$WebSpsTableCreateCompanionBuilder,
     $$WebSpsTableUpdateCompanionBuilder,
     (WebSp, $$WebSpsTableReferences),
@@ -3207,10 +3518,11 @@ final class $$KeywordsTableReferences
   static $CirclesTable _circleIdTable(_$CircleDatabase db) => db.circles
       .createAlias($_aliasNameGenerator(db.keywords.circleId, db.circles.id));
 
-  $$CirclesTableProcessedTableManager? get circleId {
-    if ($_item.circleId == null) return null;
+  $$CirclesTableProcessedTableManager get circleId {
+    final $_column = $_itemColumn<int>('circle_id')!;
+
     final manager = $$CirclesTableTableManager($_db, $_db.circles)
-        .filter((f) => f.id($_item.circleId!));
+        .filter((f) => f.id.sqlEquals($_column));
     final item = $_typedResult.readTableOrNull(_circleIdTable($_db));
     if (item == null) return manager;
     return ProcessedTableManager(
@@ -3219,63 +3531,118 @@ final class $$KeywordsTableReferences
 }
 
 class $$KeywordsTableFilterComposer
-    extends FilterComposer<_$CircleDatabase, $KeywordsTable> {
-  $$KeywordsTableFilterComposer(super.$state);
-  ColumnFilters<int> get id => $state.composableBuilder(
-      column: $state.table.id,
-      builder: (column, joinBuilders) =>
-          ColumnFilters(column, joinBuilders: joinBuilders));
+    extends Composer<_$CircleDatabase, $KeywordsTable> {
+  $$KeywordsTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<int> get id => $composableBuilder(
+      column: $table.id, builder: (column) => ColumnFilters(column));
 
-  ColumnFilters<String> get keywordText => $state.composableBuilder(
-      column: $state.table.keywordText,
-      builder: (column, joinBuilders) =>
-          ColumnFilters(column, joinBuilders: joinBuilders));
+  ColumnFilters<String> get keywordText => $composableBuilder(
+      column: $table.keywordText, builder: (column) => ColumnFilters(column));
 
-  ColumnFilters<String> get phonetic => $state.composableBuilder(
-      column: $state.table.phonetic,
-      builder: (column, joinBuilders) =>
-          ColumnFilters(column, joinBuilders: joinBuilders));
+  ColumnFilters<String> get phonetic => $composableBuilder(
+      column: $table.phonetic, builder: (column) => ColumnFilters(column));
 
   $$CirclesTableFilterComposer get circleId {
-    final $$CirclesTableFilterComposer composer = $state.composerBuilder(
+    final $$CirclesTableFilterComposer composer = $composerBuilder(
         composer: this,
         getCurrentColumn: (t) => t.circleId,
-        referencedTable: $state.db.circles,
+        referencedTable: $db.circles,
         getReferencedColumn: (t) => t.id,
-        builder: (joinBuilder, parentComposers) => $$CirclesTableFilterComposer(
-            ComposerState(
-                $state.db, $state.db.circles, joinBuilder, parentComposers)));
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $$CirclesTableFilterComposer(
+              $db: $db,
+              $table: $db.circles,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
     return composer;
   }
 }
 
 class $$KeywordsTableOrderingComposer
-    extends OrderingComposer<_$CircleDatabase, $KeywordsTable> {
-  $$KeywordsTableOrderingComposer(super.$state);
-  ColumnOrderings<int> get id => $state.composableBuilder(
-      column: $state.table.id,
-      builder: (column, joinBuilders) =>
-          ColumnOrderings(column, joinBuilders: joinBuilders));
+    extends Composer<_$CircleDatabase, $KeywordsTable> {
+  $$KeywordsTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<int> get id => $composableBuilder(
+      column: $table.id, builder: (column) => ColumnOrderings(column));
 
-  ColumnOrderings<String> get keywordText => $state.composableBuilder(
-      column: $state.table.keywordText,
-      builder: (column, joinBuilders) =>
-          ColumnOrderings(column, joinBuilders: joinBuilders));
+  ColumnOrderings<String> get keywordText => $composableBuilder(
+      column: $table.keywordText, builder: (column) => ColumnOrderings(column));
 
-  ColumnOrderings<String> get phonetic => $state.composableBuilder(
-      column: $state.table.phonetic,
-      builder: (column, joinBuilders) =>
-          ColumnOrderings(column, joinBuilders: joinBuilders));
+  ColumnOrderings<String> get phonetic => $composableBuilder(
+      column: $table.phonetic, builder: (column) => ColumnOrderings(column));
 
   $$CirclesTableOrderingComposer get circleId {
-    final $$CirclesTableOrderingComposer composer = $state.composerBuilder(
+    final $$CirclesTableOrderingComposer composer = $composerBuilder(
         composer: this,
         getCurrentColumn: (t) => t.circleId,
-        referencedTable: $state.db.circles,
+        referencedTable: $db.circles,
         getReferencedColumn: (t) => t.id,
-        builder: (joinBuilder, parentComposers) =>
-            $$CirclesTableOrderingComposer(ComposerState(
-                $state.db, $state.db.circles, joinBuilder, parentComposers)));
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $$CirclesTableOrderingComposer(
+              $db: $db,
+              $table: $db.circles,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return composer;
+  }
+}
+
+class $$KeywordsTableAnnotationComposer
+    extends Composer<_$CircleDatabase, $KeywordsTable> {
+  $$KeywordsTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<int> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<String> get keywordText => $composableBuilder(
+      column: $table.keywordText, builder: (column) => column);
+
+  GeneratedColumn<String> get phonetic =>
+      $composableBuilder(column: $table.phonetic, builder: (column) => column);
+
+  $$CirclesTableAnnotationComposer get circleId {
+    final $$CirclesTableAnnotationComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.circleId,
+        referencedTable: $db.circles,
+        getReferencedColumn: (t) => t.id,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $$CirclesTableAnnotationComposer(
+              $db: $db,
+              $table: $db.circles,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
     return composer;
   }
 }
@@ -3286,6 +3653,7 @@ class $$KeywordsTableTableManager extends RootTableManager<
     Keyword,
     $$KeywordsTableFilterComposer,
     $$KeywordsTableOrderingComposer,
+    $$KeywordsTableAnnotationComposer,
     $$KeywordsTableCreateCompanionBuilder,
     $$KeywordsTableUpdateCompanionBuilder,
     (Keyword, $$KeywordsTableReferences),
@@ -3295,10 +3663,12 @@ class $$KeywordsTableTableManager extends RootTableManager<
       : super(TableManagerState(
           db: db,
           table: table,
-          filteringComposer:
-              $$KeywordsTableFilterComposer(ComposerState(db, table)),
-          orderingComposer:
-              $$KeywordsTableOrderingComposer(ComposerState(db, table)),
+          createFilteringComposer: () =>
+              $$KeywordsTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$KeywordsTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$KeywordsTableAnnotationComposer($db: db, $table: table),
           updateCompanionCallback: ({
             Value<int> id = const Value.absent(),
             Value<int> circleId = const Value.absent(),
@@ -3342,6 +3712,7 @@ class $$KeywordsTableTableManager extends RootTableManager<
                       dynamic,
                       dynamic,
                       dynamic,
+                      dynamic,
                       dynamic>>(state) {
                 if (circleId) {
                   state = state.withJoin(
@@ -3370,6 +3741,7 @@ typedef $$KeywordsTableProcessedTableManager = ProcessedTableManager<
     Keyword,
     $$KeywordsTableFilterComposer,
     $$KeywordsTableOrderingComposer,
+    $$KeywordsTableAnnotationComposer,
     $$KeywordsTableCreateCompanionBuilder,
     $$KeywordsTableUpdateCompanionBuilder,
     (Keyword, $$KeywordsTableReferences),
@@ -3404,10 +3776,11 @@ final class $$WishesTableReferences
       db.circles.createAlias(
           $_aliasNameGenerator(db.wishes.isFavorite, db.circles.isFavorite));
 
-  $$CirclesTableProcessedTableManager? get isFavorite {
-    if ($_item.isFavorite == null) return null;
+  $$CirclesTableProcessedTableManager get isFavorite {
+    final $_column = $_itemColumn<bool>('is_favorite')!;
+
     final manager = $$CirclesTableTableManager($_db, $_db.circles)
-        .filter((f) => f.isFavorite($_item.isFavorite!));
+        .filter((f) => f.isFavorite.sqlEquals($_column));
     final item = $_typedResult.readTableOrNull(_isFavoriteTable($_db));
     if (item == null) return manager;
     return ProcessedTableManager(
@@ -3417,10 +3790,11 @@ final class $$WishesTableReferences
   static $CirclesTable _circleIdTable(_$CircleDatabase db) => db.circles
       .createAlias($_aliasNameGenerator(db.wishes.circleId, db.circles.id));
 
-  $$CirclesTableProcessedTableManager? get circleId {
-    if ($_item.circleId == null) return null;
+  $$CirclesTableProcessedTableManager get circleId {
+    final $_column = $_itemColumn<int>('circle_id')!;
+
     final manager = $$CirclesTableTableManager($_db, $_db.circles)
-        .filter((f) => f.id($_item.circleId!));
+        .filter((f) => f.id.sqlEquals($_column));
     final item = $_typedResult.readTableOrNull(_circleIdTable($_db));
     if (item == null) return manager;
     return ProcessedTableManager(
@@ -3430,10 +3804,11 @@ final class $$WishesTableReferences
   static $CirclesTable _circleNameTable(_$CircleDatabase db) => db.circles
       .createAlias($_aliasNameGenerator(db.wishes.circleName, db.circles.name));
 
-  $$CirclesTableProcessedTableManager? get circleName {
-    if ($_item.circleName == null) return null;
+  $$CirclesTableProcessedTableManager get circleName {
+    final $_column = $_itemColumn<String>('circle_name')!;
+
     final manager = $$CirclesTableTableManager($_db, $_db.circles)
-        .filter((f) => f.name($_item.circleName!));
+        .filter((f) => f.name.sqlEquals($_column));
     final item = $_typedResult.readTableOrNull(_circleNameTable($_db));
     if (item == null) return manager;
     return ProcessedTableManager(
@@ -3442,131 +3817,256 @@ final class $$WishesTableReferences
 }
 
 class $$WishesTableFilterComposer
-    extends FilterComposer<_$CircleDatabase, $WishesTable> {
-  $$WishesTableFilterComposer(super.$state);
-  ColumnFilters<int> get id => $state.composableBuilder(
-      column: $state.table.id,
-      builder: (column, joinBuilders) =>
-          ColumnFilters(column, joinBuilders: joinBuilders));
+    extends Composer<_$CircleDatabase, $WishesTable> {
+  $$WishesTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<int> get id => $composableBuilder(
+      column: $table.id, builder: (column) => ColumnFilters(column));
 
-  ColumnFilters<bool> get done => $state.composableBuilder(
-      column: $state.table.done,
-      builder: (column, joinBuilders) =>
-          ColumnFilters(column, joinBuilders: joinBuilders));
+  ColumnFilters<bool> get done => $composableBuilder(
+      column: $table.done, builder: (column) => ColumnFilters(column));
 
-  ColumnFilters<String> get space => $state.composableBuilder(
-      column: $state.table.space,
-      builder: (column, joinBuilders) =>
-          ColumnFilters(column, joinBuilders: joinBuilders));
+  ColumnFilters<String> get space => $composableBuilder(
+      column: $table.space, builder: (column) => ColumnFilters(column));
 
-  ColumnFilters<int> get amount => $state.composableBuilder(
-      column: $state.table.amount,
-      builder: (column, joinBuilders) =>
-          ColumnFilters(column, joinBuilders: joinBuilders));
+  ColumnFilters<int> get amount => $composableBuilder(
+      column: $table.amount, builder: (column) => ColumnFilters(column));
 
-  ColumnFilters<String> get memo => $state.composableBuilder(
-      column: $state.table.memo,
-      builder: (column, joinBuilders) =>
-          ColumnFilters(column, joinBuilders: joinBuilders));
+  ColumnFilters<String> get memo => $composableBuilder(
+      column: $table.memo, builder: (column) => ColumnFilters(column));
 
   $$CirclesTableFilterComposer get isFavorite {
-    final $$CirclesTableFilterComposer composer = $state.composerBuilder(
+    final $$CirclesTableFilterComposer composer = $composerBuilder(
         composer: this,
         getCurrentColumn: (t) => t.isFavorite,
-        referencedTable: $state.db.circles,
+        referencedTable: $db.circles,
         getReferencedColumn: (t) => t.isFavorite,
-        builder: (joinBuilder, parentComposers) => $$CirclesTableFilterComposer(
-            ComposerState(
-                $state.db, $state.db.circles, joinBuilder, parentComposers)));
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $$CirclesTableFilterComposer(
+              $db: $db,
+              $table: $db.circles,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
     return composer;
   }
 
   $$CirclesTableFilterComposer get circleId {
-    final $$CirclesTableFilterComposer composer = $state.composerBuilder(
+    final $$CirclesTableFilterComposer composer = $composerBuilder(
         composer: this,
         getCurrentColumn: (t) => t.circleId,
-        referencedTable: $state.db.circles,
+        referencedTable: $db.circles,
         getReferencedColumn: (t) => t.id,
-        builder: (joinBuilder, parentComposers) => $$CirclesTableFilterComposer(
-            ComposerState(
-                $state.db, $state.db.circles, joinBuilder, parentComposers)));
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $$CirclesTableFilterComposer(
+              $db: $db,
+              $table: $db.circles,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
     return composer;
   }
 
   $$CirclesTableFilterComposer get circleName {
-    final $$CirclesTableFilterComposer composer = $state.composerBuilder(
+    final $$CirclesTableFilterComposer composer = $composerBuilder(
         composer: this,
         getCurrentColumn: (t) => t.circleName,
-        referencedTable: $state.db.circles,
+        referencedTable: $db.circles,
         getReferencedColumn: (t) => t.name,
-        builder: (joinBuilder, parentComposers) => $$CirclesTableFilterComposer(
-            ComposerState(
-                $state.db, $state.db.circles, joinBuilder, parentComposers)));
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $$CirclesTableFilterComposer(
+              $db: $db,
+              $table: $db.circles,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
     return composer;
   }
 }
 
 class $$WishesTableOrderingComposer
-    extends OrderingComposer<_$CircleDatabase, $WishesTable> {
-  $$WishesTableOrderingComposer(super.$state);
-  ColumnOrderings<int> get id => $state.composableBuilder(
-      column: $state.table.id,
-      builder: (column, joinBuilders) =>
-          ColumnOrderings(column, joinBuilders: joinBuilders));
+    extends Composer<_$CircleDatabase, $WishesTable> {
+  $$WishesTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<int> get id => $composableBuilder(
+      column: $table.id, builder: (column) => ColumnOrderings(column));
 
-  ColumnOrderings<bool> get done => $state.composableBuilder(
-      column: $state.table.done,
-      builder: (column, joinBuilders) =>
-          ColumnOrderings(column, joinBuilders: joinBuilders));
+  ColumnOrderings<bool> get done => $composableBuilder(
+      column: $table.done, builder: (column) => ColumnOrderings(column));
 
-  ColumnOrderings<String> get space => $state.composableBuilder(
-      column: $state.table.space,
-      builder: (column, joinBuilders) =>
-          ColumnOrderings(column, joinBuilders: joinBuilders));
+  ColumnOrderings<String> get space => $composableBuilder(
+      column: $table.space, builder: (column) => ColumnOrderings(column));
 
-  ColumnOrderings<int> get amount => $state.composableBuilder(
-      column: $state.table.amount,
-      builder: (column, joinBuilders) =>
-          ColumnOrderings(column, joinBuilders: joinBuilders));
+  ColumnOrderings<int> get amount => $composableBuilder(
+      column: $table.amount, builder: (column) => ColumnOrderings(column));
 
-  ColumnOrderings<String> get memo => $state.composableBuilder(
-      column: $state.table.memo,
-      builder: (column, joinBuilders) =>
-          ColumnOrderings(column, joinBuilders: joinBuilders));
+  ColumnOrderings<String> get memo => $composableBuilder(
+      column: $table.memo, builder: (column) => ColumnOrderings(column));
 
   $$CirclesTableOrderingComposer get isFavorite {
-    final $$CirclesTableOrderingComposer composer = $state.composerBuilder(
+    final $$CirclesTableOrderingComposer composer = $composerBuilder(
         composer: this,
         getCurrentColumn: (t) => t.isFavorite,
-        referencedTable: $state.db.circles,
+        referencedTable: $db.circles,
         getReferencedColumn: (t) => t.isFavorite,
-        builder: (joinBuilder, parentComposers) =>
-            $$CirclesTableOrderingComposer(ComposerState(
-                $state.db, $state.db.circles, joinBuilder, parentComposers)));
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $$CirclesTableOrderingComposer(
+              $db: $db,
+              $table: $db.circles,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
     return composer;
   }
 
   $$CirclesTableOrderingComposer get circleId {
-    final $$CirclesTableOrderingComposer composer = $state.composerBuilder(
+    final $$CirclesTableOrderingComposer composer = $composerBuilder(
         composer: this,
         getCurrentColumn: (t) => t.circleId,
-        referencedTable: $state.db.circles,
+        referencedTable: $db.circles,
         getReferencedColumn: (t) => t.id,
-        builder: (joinBuilder, parentComposers) =>
-            $$CirclesTableOrderingComposer(ComposerState(
-                $state.db, $state.db.circles, joinBuilder, parentComposers)));
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $$CirclesTableOrderingComposer(
+              $db: $db,
+              $table: $db.circles,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
     return composer;
   }
 
   $$CirclesTableOrderingComposer get circleName {
-    final $$CirclesTableOrderingComposer composer = $state.composerBuilder(
+    final $$CirclesTableOrderingComposer composer = $composerBuilder(
         composer: this,
         getCurrentColumn: (t) => t.circleName,
-        referencedTable: $state.db.circles,
+        referencedTable: $db.circles,
         getReferencedColumn: (t) => t.name,
-        builder: (joinBuilder, parentComposers) =>
-            $$CirclesTableOrderingComposer(ComposerState(
-                $state.db, $state.db.circles, joinBuilder, parentComposers)));
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $$CirclesTableOrderingComposer(
+              $db: $db,
+              $table: $db.circles,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return composer;
+  }
+}
+
+class $$WishesTableAnnotationComposer
+    extends Composer<_$CircleDatabase, $WishesTable> {
+  $$WishesTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<int> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<bool> get done =>
+      $composableBuilder(column: $table.done, builder: (column) => column);
+
+  GeneratedColumn<String> get space =>
+      $composableBuilder(column: $table.space, builder: (column) => column);
+
+  GeneratedColumn<int> get amount =>
+      $composableBuilder(column: $table.amount, builder: (column) => column);
+
+  GeneratedColumn<String> get memo =>
+      $composableBuilder(column: $table.memo, builder: (column) => column);
+
+  $$CirclesTableAnnotationComposer get isFavorite {
+    final $$CirclesTableAnnotationComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.isFavorite,
+        referencedTable: $db.circles,
+        getReferencedColumn: (t) => t.isFavorite,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $$CirclesTableAnnotationComposer(
+              $db: $db,
+              $table: $db.circles,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return composer;
+  }
+
+  $$CirclesTableAnnotationComposer get circleId {
+    final $$CirclesTableAnnotationComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.circleId,
+        referencedTable: $db.circles,
+        getReferencedColumn: (t) => t.id,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $$CirclesTableAnnotationComposer(
+              $db: $db,
+              $table: $db.circles,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return composer;
+  }
+
+  $$CirclesTableAnnotationComposer get circleName {
+    final $$CirclesTableAnnotationComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.circleName,
+        referencedTable: $db.circles,
+        getReferencedColumn: (t) => t.name,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $$CirclesTableAnnotationComposer(
+              $db: $db,
+              $table: $db.circles,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
     return composer;
   }
 }
@@ -3577,6 +4077,7 @@ class $$WishesTableTableManager extends RootTableManager<
     Wish,
     $$WishesTableFilterComposer,
     $$WishesTableOrderingComposer,
+    $$WishesTableAnnotationComposer,
     $$WishesTableCreateCompanionBuilder,
     $$WishesTableUpdateCompanionBuilder,
     (Wish, $$WishesTableReferences),
@@ -3586,10 +4087,12 @@ class $$WishesTableTableManager extends RootTableManager<
       : super(TableManagerState(
           db: db,
           table: table,
-          filteringComposer:
-              $$WishesTableFilterComposer(ComposerState(db, table)),
-          orderingComposer:
-              $$WishesTableOrderingComposer(ComposerState(db, table)),
+          createFilteringComposer: () =>
+              $$WishesTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$WishesTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$WishesTableAnnotationComposer($db: db, $table: table),
           updateCompanionCallback: ({
             Value<int> id = const Value.absent(),
             Value<bool> isFavorite = const Value.absent(),
@@ -3650,6 +4153,7 @@ class $$WishesTableTableManager extends RootTableManager<
                       dynamic,
                       dynamic,
                       dynamic,
+                      dynamic,
                       dynamic>>(state) {
                 if (isFavorite) {
                   state = state.withJoin(
@@ -3697,6 +4201,7 @@ typedef $$WishesTableProcessedTableManager = ProcessedTableManager<
     Wish,
     $$WishesTableFilterComposer,
     $$WishesTableOrderingComposer,
+    $$WishesTableAnnotationComposer,
     $$WishesTableCreateCompanionBuilder,
     $$WishesTableUpdateCompanionBuilder,
     (Wish, $$WishesTableReferences),

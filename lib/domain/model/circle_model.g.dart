@@ -6,8 +6,8 @@ part of 'circle_model.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$SnsLinksModelImpl _$$SnsLinksModelImplFromJson(Map<String, dynamic> json) =>
-    _$SnsLinksModelImpl(
+_SnsLinksModel _$SnsLinksModelFromJson(Map<String, dynamic> json) =>
+    _SnsLinksModel(
       site: json['site'] == null
           ? null
           : SocialLink.fromJson(json['site'] as Map<String, dynamic>),
@@ -22,7 +22,7 @@ _$SnsLinksModelImpl _$$SnsLinksModelImplFromJson(Map<String, dynamic> json) =>
           : SocialLink.fromJson(json['sns'] as Map<String, dynamic>),
     );
 
-Map<String, dynamic> _$$SnsLinksModelImplToJson(_$SnsLinksModelImpl instance) =>
+Map<String, dynamic> _$SnsLinksModelToJson(_SnsLinksModel instance) =>
     <String, dynamic>{
       'site': instance.site,
       'twitter': instance.twitter,
@@ -30,49 +30,46 @@ Map<String, dynamic> _$$SnsLinksModelImplToJson(_$SnsLinksModelImpl instance) =>
       'sns': instance.sns,
     };
 
-_$SocialLinkImpl _$$SocialLinkImplFromJson(Map<String, dynamic> json) =>
-    _$SocialLinkImpl(
+_SocialLink _$SocialLinkFromJson(Map<String, dynamic> json) => _SocialLink(
       text: json['text'] as String,
       url: json['url'] as String,
     );
 
-Map<String, dynamic> _$$SocialLinkImplToJson(_$SocialLinkImpl instance) =>
+Map<String, dynamic> _$SocialLinkToJson(_SocialLink instance) =>
     <String, dynamic>{
       'text': instance.text,
       'url': instance.url,
     };
 
-_$KeywordModelImpl _$$KeywordModelImplFromJson(Map<String, dynamic> json) =>
-    _$KeywordModelImpl(
+_KeywordModel _$KeywordModelFromJson(Map<String, dynamic> json) =>
+    _KeywordModel(
       text: json['text'] as String,
       phonetic: json['phonetic'] as String,
     );
 
-Map<String, dynamic> _$$KeywordModelImplToJson(_$KeywordModelImpl instance) =>
+Map<String, dynamic> _$KeywordModelToJson(_KeywordModel instance) =>
     <String, dynamic>{
       'text': instance.text,
       'phonetic': instance.phonetic,
     };
 
-_$RealSpModelImpl _$$RealSpModelImplFromJson(Map<String, dynamic> json) =>
-    _$RealSpModelImpl(
+_RealSpModel _$RealSpModelFromJson(Map<String, dynamic> json) => _RealSpModel(
       area: json['area'] as String?,
       no: json['no'] as String?,
     );
 
-Map<String, dynamic> _$$RealSpModelImplToJson(_$RealSpModelImpl instance) =>
+Map<String, dynamic> _$RealSpModelToJson(_RealSpModel instance) =>
     <String, dynamic>{
       'area': instance.area,
       'no': instance.no,
     };
 
-_$WebSpModelImpl _$$WebSpModelImplFromJson(Map<String, dynamic> json) =>
-    _$WebSpModelImpl(
+_WebSpModel _$WebSpModelFromJson(Map<String, dynamic> json) => _WebSpModel(
       area: json['area'] as String,
       no: json['no'] as String,
     );
 
-Map<String, dynamic> _$$WebSpModelImplToJson(_$WebSpModelImpl instance) =>
+Map<String, dynamic> _$WebSpModelToJson(_WebSpModel instance) =>
     <String, dynamic>{
       'area': instance.area,
       'no': instance.no,

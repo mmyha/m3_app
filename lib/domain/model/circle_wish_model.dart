@@ -3,7 +3,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'circle_wish_model.freezed.dart';
 
 @freezed
-class CircleWishModel with _$CircleWishModel {
+abstract class CircleWishModel with _$CircleWishModel {
   const factory CircleWishModel({
     required int circleId,
     required String name,

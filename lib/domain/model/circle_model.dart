@@ -6,7 +6,7 @@ part 'circle_model.freezed.dart';
 part 'circle_model.g.dart';
 
 @freezed
-class CircleModel with _$CircleModel {
+abstract class CircleModel with _$CircleModel {
   const factory CircleModel({
     required int id,
     required String name,
@@ -42,7 +42,7 @@ class CircleModel with _$CircleModel {
 }
 
 @freezed
-class SnsLinksModel with _$SnsLinksModel {
+abstract class SnsLinksModel with _$SnsLinksModel {
   const factory SnsLinksModel({
     SocialLink? site, // nullable
     SocialLink? twitter, // nullable
@@ -55,7 +55,7 @@ class SnsLinksModel with _$SnsLinksModel {
 }
 
 @freezed
-class SocialLink with _$SocialLink {
+abstract class SocialLink with _$SocialLink {
   const factory SocialLink({
     required String text,
     required String url,
@@ -66,7 +66,7 @@ class SocialLink with _$SocialLink {
 }
 
 @freezed
-class KeywordModel with _$KeywordModel {
+abstract class KeywordModel with _$KeywordModel {
   const factory KeywordModel({
     required String text,
     required String phonetic,
@@ -77,7 +77,7 @@ class KeywordModel with _$KeywordModel {
 }
 
 @freezed
-class RealSpModel with _$RealSpModel {
+abstract class RealSpModel with _$RealSpModel {
   const factory RealSpModel({
     String? area, // nullable
     String? no, // nullable
@@ -88,7 +88,7 @@ class RealSpModel with _$RealSpModel {
 }
 
 @freezed
-class WebSpModel with _$WebSpModel {
+abstract class WebSpModel with _$WebSpModel {
   const factory WebSpModel({
     required String area,
     required String no,

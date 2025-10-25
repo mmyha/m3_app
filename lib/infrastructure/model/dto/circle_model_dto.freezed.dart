@@ -1,5 +1,5 @@
-// coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
+// coverage:ignore-file
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
@@ -9,46 +9,86 @@ part of 'circle_model_dto.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// dart format off
 T _$identity<T>(T value) => value;
-
-final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
-
-CircleModelDto _$CircleModelDtoFromJson(Map<String, dynamic> json) {
-  return _CircleModelDto.fromJson(json);
-}
 
 /// @nodoc
 mixin _$CircleModelDto {
-  int get id => throw _privateConstructorUsedError;
-  String get name => throw _privateConstructorUsedError;
-  String get phonetic => throw _privateConstructorUsedError;
-  String get genre => throw _privateConstructorUsedError;
+  int get id;
+  String get name;
+  String get phonetic;
+  String get genre;
   @IntOrStringConverter()
-  int? get spaceSize => throw _privateConstructorUsedError;
-  bool get adult => throw _privateConstructorUsedError;
-  String get prText => throw _privateConstructorUsedError;
-  SnsLinksModel get links => throw _privateConstructorUsedError; // nullable
-  List<KeywordModel> get keywords => throw _privateConstructorUsedError;
-  String? get area => throw _privateConstructorUsedError;
-  String? get number => throw _privateConstructorUsedError;
-  bool? get isFavorite => throw _privateConstructorUsedError;
-
-  /// Serializes this CircleModelDto to a JSON map.
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  int? get spaceSize;
+  bool get adult;
+  String get prText;
+  SnsLinksModel get links; // nullable
+  List<KeywordModel> get keywords;
+  String? get area;
+  String? get number;
+  bool? get isFavorite;
 
   /// Create a copy of CircleModelDto
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
   $CircleModelDtoCopyWith<CircleModelDto> get copyWith =>
-      throw _privateConstructorUsedError;
+      _$CircleModelDtoCopyWithImpl<CircleModelDto>(
+          this as CircleModelDto, _$identity);
+
+  /// Serializes this CircleModelDto to a JSON map.
+  Map<String, dynamic> toJson();
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is CircleModelDto &&
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.name, name) || other.name == name) &&
+            (identical(other.phonetic, phonetic) ||
+                other.phonetic == phonetic) &&
+            (identical(other.genre, genre) || other.genre == genre) &&
+            (identical(other.spaceSize, spaceSize) ||
+                other.spaceSize == spaceSize) &&
+            (identical(other.adult, adult) || other.adult == adult) &&
+            (identical(other.prText, prText) || other.prText == prText) &&
+            (identical(other.links, links) || other.links == links) &&
+            const DeepCollectionEquality().equals(other.keywords, keywords) &&
+            (identical(other.area, area) || other.area == area) &&
+            (identical(other.number, number) || other.number == number) &&
+            (identical(other.isFavorite, isFavorite) ||
+                other.isFavorite == isFavorite));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode => Object.hash(
+      runtimeType,
+      id,
+      name,
+      phonetic,
+      genre,
+      spaceSize,
+      adult,
+      prText,
+      links,
+      const DeepCollectionEquality().hash(keywords),
+      area,
+      number,
+      isFavorite);
+
+  @override
+  String toString() {
+    return 'CircleModelDto(id: $id, name: $name, phonetic: $phonetic, genre: $genre, spaceSize: $spaceSize, adult: $adult, prText: $prText, links: $links, keywords: $keywords, area: $area, number: $number, isFavorite: $isFavorite)';
+  }
 }
 
 /// @nodoc
-abstract class $CircleModelDtoCopyWith<$Res> {
+abstract mixin class $CircleModelDtoCopyWith<$Res> {
   factory $CircleModelDtoCopyWith(
-          CircleModelDto value, $Res Function(CircleModelDto) then) =
-      _$CircleModelDtoCopyWithImpl<$Res, CircleModelDto>;
+          CircleModelDto value, $Res Function(CircleModelDto) _then) =
+      _$CircleModelDtoCopyWithImpl;
   @useResult
   $Res call(
       {int id,
@@ -68,14 +108,12 @@ abstract class $CircleModelDtoCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$CircleModelDtoCopyWithImpl<$Res, $Val extends CircleModelDto>
+class _$CircleModelDtoCopyWithImpl<$Res>
     implements $CircleModelDtoCopyWith<$Res> {
-  _$CircleModelDtoCopyWithImpl(this._value, this._then);
+  _$CircleModelDtoCopyWithImpl(this._self, this._then);
 
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
+  final CircleModelDto _self;
+  final $Res Function(CircleModelDto) _then;
 
   /// Create a copy of CircleModelDto
   /// with the given fields replaced by the non-null parameter values.
@@ -95,56 +133,56 @@ class _$CircleModelDtoCopyWithImpl<$Res, $Val extends CircleModelDto>
     Object? number = freezed,
     Object? isFavorite = freezed,
   }) {
-    return _then(_value.copyWith(
+    return _then(_self.copyWith(
       id: null == id
-          ? _value.id
+          ? _self.id
           : id // ignore: cast_nullable_to_non_nullable
               as int,
       name: null == name
-          ? _value.name
+          ? _self.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
       phonetic: null == phonetic
-          ? _value.phonetic
+          ? _self.phonetic
           : phonetic // ignore: cast_nullable_to_non_nullable
               as String,
       genre: null == genre
-          ? _value.genre
+          ? _self.genre
           : genre // ignore: cast_nullable_to_non_nullable
               as String,
       spaceSize: freezed == spaceSize
-          ? _value.spaceSize
+          ? _self.spaceSize
           : spaceSize // ignore: cast_nullable_to_non_nullable
               as int?,
       adult: null == adult
-          ? _value.adult
+          ? _self.adult
           : adult // ignore: cast_nullable_to_non_nullable
               as bool,
       prText: null == prText
-          ? _value.prText
+          ? _self.prText
           : prText // ignore: cast_nullable_to_non_nullable
               as String,
       links: null == links
-          ? _value.links
+          ? _self.links
           : links // ignore: cast_nullable_to_non_nullable
               as SnsLinksModel,
       keywords: null == keywords
-          ? _value.keywords
+          ? _self.keywords
           : keywords // ignore: cast_nullable_to_non_nullable
               as List<KeywordModel>,
       area: freezed == area
-          ? _value.area
+          ? _self.area
           : area // ignore: cast_nullable_to_non_nullable
               as String?,
       number: freezed == number
-          ? _value.number
+          ? _self.number
           : number // ignore: cast_nullable_to_non_nullable
               as String?,
       isFavorite: freezed == isFavorite
-          ? _value.isFavorite
+          ? _self.isFavorite
           : isFavorite // ignore: cast_nullable_to_non_nullable
               as bool?,
-    ) as $Val);
+    ));
   }
 
   /// Create a copy of CircleModelDto
@@ -152,121 +190,248 @@ class _$CircleModelDtoCopyWithImpl<$Res, $Val extends CircleModelDto>
   @override
   @pragma('vm:prefer-inline')
   $SnsLinksModelCopyWith<$Res> get links {
-    return $SnsLinksModelCopyWith<$Res>(_value.links, (value) {
-      return _then(_value.copyWith(links: value) as $Val);
+    return $SnsLinksModelCopyWith<$Res>(_self.links, (value) {
+      return _then(_self.copyWith(links: value));
     });
   }
 }
 
-/// @nodoc
-abstract class _$$CircleModelDtoImplCopyWith<$Res>
-    implements $CircleModelDtoCopyWith<$Res> {
-  factory _$$CircleModelDtoImplCopyWith(_$CircleModelDtoImpl value,
-          $Res Function(_$CircleModelDtoImpl) then) =
-      __$$CircleModelDtoImplCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call(
-      {int id,
-      String name,
-      String phonetic,
-      String genre,
-      @IntOrStringConverter() int? spaceSize,
-      bool adult,
-      String prText,
-      SnsLinksModel links,
-      List<KeywordModel> keywords,
-      String? area,
-      String? number,
-      bool? isFavorite});
+/// Adds pattern-matching-related methods to [CircleModelDto].
+extension CircleModelDtoPatterns on CircleModelDto {
+  /// A variant of `map` that fallback to returning `orElse`.
+  ///
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case final Subclass value:
+  ///     return ...;
+  ///   case _:
+  ///     return orElse();
+  /// }
+  /// ```
 
-  @override
-  $SnsLinksModelCopyWith<$Res> get links;
-}
-
-/// @nodoc
-class __$$CircleModelDtoImplCopyWithImpl<$Res>
-    extends _$CircleModelDtoCopyWithImpl<$Res, _$CircleModelDtoImpl>
-    implements _$$CircleModelDtoImplCopyWith<$Res> {
-  __$$CircleModelDtoImplCopyWithImpl(
-      _$CircleModelDtoImpl _value, $Res Function(_$CircleModelDtoImpl) _then)
-      : super(_value, _then);
-
-  /// Create a copy of CircleModelDto
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? id = null,
-    Object? name = null,
-    Object? phonetic = null,
-    Object? genre = null,
-    Object? spaceSize = freezed,
-    Object? adult = null,
-    Object? prText = null,
-    Object? links = null,
-    Object? keywords = null,
-    Object? area = freezed,
-    Object? number = freezed,
-    Object? isFavorite = freezed,
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>(
+    TResult Function(_CircleModelDto value)? $default, {
+    required TResult orElse(),
   }) {
-    return _then(_$CircleModelDtoImpl(
-      id: null == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as int,
-      name: null == name
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
-              as String,
-      phonetic: null == phonetic
-          ? _value.phonetic
-          : phonetic // ignore: cast_nullable_to_non_nullable
-              as String,
-      genre: null == genre
-          ? _value.genre
-          : genre // ignore: cast_nullable_to_non_nullable
-              as String,
-      spaceSize: freezed == spaceSize
-          ? _value.spaceSize
-          : spaceSize // ignore: cast_nullable_to_non_nullable
-              as int?,
-      adult: null == adult
-          ? _value.adult
-          : adult // ignore: cast_nullable_to_non_nullable
-              as bool,
-      prText: null == prText
-          ? _value.prText
-          : prText // ignore: cast_nullable_to_non_nullable
-              as String,
-      links: null == links
-          ? _value.links
-          : links // ignore: cast_nullable_to_non_nullable
-              as SnsLinksModel,
-      keywords: null == keywords
-          ? _value._keywords
-          : keywords // ignore: cast_nullable_to_non_nullable
-              as List<KeywordModel>,
-      area: freezed == area
-          ? _value.area
-          : area // ignore: cast_nullable_to_non_nullable
-              as String?,
-      number: freezed == number
-          ? _value.number
-          : number // ignore: cast_nullable_to_non_nullable
-              as String?,
-      isFavorite: freezed == isFavorite
-          ? _value.isFavorite
-          : isFavorite // ignore: cast_nullable_to_non_nullable
-              as bool?,
-    ));
+    final _that = this;
+    switch (_that) {
+      case _CircleModelDto() when $default != null:
+        return $default(_that);
+      case _:
+        return orElse();
+    }
+  }
+
+  /// A `switch`-like method, using callbacks.
+  ///
+  /// Callbacks receives the raw object, upcasted.
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case final Subclass value:
+  ///     return ...;
+  ///   case final Subclass2 value:
+  ///     return ...;
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>(
+    TResult Function(_CircleModelDto value) $default,
+  ) {
+    final _that = this;
+    switch (_that) {
+      case _CircleModelDto():
+        return $default(_that);
+      case _:
+        throw StateError('Unexpected subclass');
+    }
+  }
+
+  /// A variant of `map` that fallback to returning `null`.
+  ///
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case final Subclass value:
+  ///     return ...;
+  ///   case _:
+  ///     return null;
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>(
+    TResult? Function(_CircleModelDto value)? $default,
+  ) {
+    final _that = this;
+    switch (_that) {
+      case _CircleModelDto() when $default != null:
+        return $default(_that);
+      case _:
+        return null;
+    }
+  }
+
+  /// A variant of `when` that fallback to an `orElse` callback.
+  ///
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case Subclass(:final field):
+  ///     return ...;
+  ///   case _:
+  ///     return orElse();
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>(
+    TResult Function(
+            int id,
+            String name,
+            String phonetic,
+            String genre,
+            @IntOrStringConverter() int? spaceSize,
+            bool adult,
+            String prText,
+            SnsLinksModel links,
+            List<KeywordModel> keywords,
+            String? area,
+            String? number,
+            bool? isFavorite)?
+        $default, {
+    required TResult orElse(),
+  }) {
+    final _that = this;
+    switch (_that) {
+      case _CircleModelDto() when $default != null:
+        return $default(
+            _that.id,
+            _that.name,
+            _that.phonetic,
+            _that.genre,
+            _that.spaceSize,
+            _that.adult,
+            _that.prText,
+            _that.links,
+            _that.keywords,
+            _that.area,
+            _that.number,
+            _that.isFavorite);
+      case _:
+        return orElse();
+    }
+  }
+
+  /// A `switch`-like method, using callbacks.
+  ///
+  /// As opposed to `map`, this offers destructuring.
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case Subclass(:final field):
+  ///     return ...;
+  ///   case Subclass2(:final field2):
+  ///     return ...;
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>(
+    TResult Function(
+            int id,
+            String name,
+            String phonetic,
+            String genre,
+            @IntOrStringConverter() int? spaceSize,
+            bool adult,
+            String prText,
+            SnsLinksModel links,
+            List<KeywordModel> keywords,
+            String? area,
+            String? number,
+            bool? isFavorite)
+        $default,
+  ) {
+    final _that = this;
+    switch (_that) {
+      case _CircleModelDto():
+        return $default(
+            _that.id,
+            _that.name,
+            _that.phonetic,
+            _that.genre,
+            _that.spaceSize,
+            _that.adult,
+            _that.prText,
+            _that.links,
+            _that.keywords,
+            _that.area,
+            _that.number,
+            _that.isFavorite);
+      case _:
+        throw StateError('Unexpected subclass');
+    }
+  }
+
+  /// A variant of `when` that fallback to returning `null`
+  ///
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case Subclass(:final field):
+  ///     return ...;
+  ///   case _:
+  ///     return null;
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>(
+    TResult? Function(
+            int id,
+            String name,
+            String phonetic,
+            String genre,
+            @IntOrStringConverter() int? spaceSize,
+            bool adult,
+            String prText,
+            SnsLinksModel links,
+            List<KeywordModel> keywords,
+            String? area,
+            String? number,
+            bool? isFavorite)?
+        $default,
+  ) {
+    final _that = this;
+    switch (_that) {
+      case _CircleModelDto() when $default != null:
+        return $default(
+            _that.id,
+            _that.name,
+            _that.phonetic,
+            _that.genre,
+            _that.spaceSize,
+            _that.adult,
+            _that.prText,
+            _that.links,
+            _that.keywords,
+            _that.area,
+            _that.number,
+            _that.isFavorite);
+      case _:
+        return null;
+    }
   }
 }
 
 /// @nodoc
 @JsonSerializable()
-class _$CircleModelDtoImpl implements _CircleModelDto {
-  const _$CircleModelDtoImpl(
+class _CircleModelDto implements CircleModelDto {
+  const _CircleModelDto(
       {required this.id,
       required this.name,
       required this.phonetic,
@@ -280,9 +445,8 @@ class _$CircleModelDtoImpl implements _CircleModelDto {
       this.number,
       this.isFavorite = false})
       : _keywords = keywords;
-
-  factory _$CircleModelDtoImpl.fromJson(Map<String, dynamic> json) =>
-      _$$CircleModelDtoImplFromJson(json);
+  factory _CircleModelDto.fromJson(Map<String, dynamic> json) =>
+      _$CircleModelDtoFromJson(json);
 
   @override
   final int id;
@@ -320,16 +484,26 @@ class _$CircleModelDtoImpl implements _CircleModelDto {
   @JsonKey()
   final bool? isFavorite;
 
+  /// Create a copy of CircleModelDto
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  String toString() {
-    return 'CircleModelDto(id: $id, name: $name, phonetic: $phonetic, genre: $genre, spaceSize: $spaceSize, adult: $adult, prText: $prText, links: $links, keywords: $keywords, area: $area, number: $number, isFavorite: $isFavorite)';
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  _$CircleModelDtoCopyWith<_CircleModelDto> get copyWith =>
+      __$CircleModelDtoCopyWithImpl<_CircleModelDto>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$CircleModelDtoToJson(
+      this,
+    );
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$CircleModelDtoImpl &&
+            other is _CircleModelDto &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.name, name) || other.name == name) &&
             (identical(other.phonetic, phonetic) ||
@@ -364,71 +538,125 @@ class _$CircleModelDtoImpl implements _CircleModelDto {
       number,
       isFavorite);
 
-  /// Create a copy of CircleModelDto
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  @pragma('vm:prefer-inline')
-  _$$CircleModelDtoImplCopyWith<_$CircleModelDtoImpl> get copyWith =>
-      __$$CircleModelDtoImplCopyWithImpl<_$CircleModelDtoImpl>(
-          this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$CircleModelDtoImplToJson(
-      this,
-    );
+  String toString() {
+    return 'CircleModelDto(id: $id, name: $name, phonetic: $phonetic, genre: $genre, spaceSize: $spaceSize, adult: $adult, prText: $prText, links: $links, keywords: $keywords, area: $area, number: $number, isFavorite: $isFavorite)';
   }
 }
 
-abstract class _CircleModelDto implements CircleModelDto {
-  const factory _CircleModelDto(
-      {required final int id,
-      required final String name,
-      required final String phonetic,
-      required final String genre,
-      @IntOrStringConverter() required final int? spaceSize,
-      required final bool adult,
-      required final String prText,
-      final SnsLinksModel links,
-      required final List<KeywordModel> keywords,
-      final String? area,
-      final String? number,
-      final bool? isFavorite}) = _$CircleModelDtoImpl;
+/// @nodoc
+abstract mixin class _$CircleModelDtoCopyWith<$Res>
+    implements $CircleModelDtoCopyWith<$Res> {
+  factory _$CircleModelDtoCopyWith(
+          _CircleModelDto value, $Res Function(_CircleModelDto) _then) =
+      __$CircleModelDtoCopyWithImpl;
+  @override
+  @useResult
+  $Res call(
+      {int id,
+      String name,
+      String phonetic,
+      String genre,
+      @IntOrStringConverter() int? spaceSize,
+      bool adult,
+      String prText,
+      SnsLinksModel links,
+      List<KeywordModel> keywords,
+      String? area,
+      String? number,
+      bool? isFavorite});
 
-  factory _CircleModelDto.fromJson(Map<String, dynamic> json) =
-      _$CircleModelDtoImpl.fromJson;
+  @override
+  $SnsLinksModelCopyWith<$Res> get links;
+}
 
-  @override
-  int get id;
-  @override
-  String get name;
-  @override
-  String get phonetic;
-  @override
-  String get genre;
-  @override
-  @IntOrStringConverter()
-  int? get spaceSize;
-  @override
-  bool get adult;
-  @override
-  String get prText;
-  @override
-  SnsLinksModel get links; // nullable
-  @override
-  List<KeywordModel> get keywords;
-  @override
-  String? get area;
-  @override
-  String? get number;
-  @override
-  bool? get isFavorite;
+/// @nodoc
+class __$CircleModelDtoCopyWithImpl<$Res>
+    implements _$CircleModelDtoCopyWith<$Res> {
+  __$CircleModelDtoCopyWithImpl(this._self, this._then);
+
+  final _CircleModelDto _self;
+  final $Res Function(_CircleModelDto) _then;
 
   /// Create a copy of CircleModelDto
   /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$CircleModelDtoImplCopyWith<_$CircleModelDtoImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+  @pragma('vm:prefer-inline')
+  $Res call({
+    Object? id = null,
+    Object? name = null,
+    Object? phonetic = null,
+    Object? genre = null,
+    Object? spaceSize = freezed,
+    Object? adult = null,
+    Object? prText = null,
+    Object? links = null,
+    Object? keywords = null,
+    Object? area = freezed,
+    Object? number = freezed,
+    Object? isFavorite = freezed,
+  }) {
+    return _then(_CircleModelDto(
+      id: null == id
+          ? _self.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int,
+      name: null == name
+          ? _self.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      phonetic: null == phonetic
+          ? _self.phonetic
+          : phonetic // ignore: cast_nullable_to_non_nullable
+              as String,
+      genre: null == genre
+          ? _self.genre
+          : genre // ignore: cast_nullable_to_non_nullable
+              as String,
+      spaceSize: freezed == spaceSize
+          ? _self.spaceSize
+          : spaceSize // ignore: cast_nullable_to_non_nullable
+              as int?,
+      adult: null == adult
+          ? _self.adult
+          : adult // ignore: cast_nullable_to_non_nullable
+              as bool,
+      prText: null == prText
+          ? _self.prText
+          : prText // ignore: cast_nullable_to_non_nullable
+              as String,
+      links: null == links
+          ? _self.links
+          : links // ignore: cast_nullable_to_non_nullable
+              as SnsLinksModel,
+      keywords: null == keywords
+          ? _self._keywords
+          : keywords // ignore: cast_nullable_to_non_nullable
+              as List<KeywordModel>,
+      area: freezed == area
+          ? _self.area
+          : area // ignore: cast_nullable_to_non_nullable
+              as String?,
+      number: freezed == number
+          ? _self.number
+          : number // ignore: cast_nullable_to_non_nullable
+              as String?,
+      isFavorite: freezed == isFavorite
+          ? _self.isFavorite
+          : isFavorite // ignore: cast_nullable_to_non_nullable
+              as bool?,
+    ));
+  }
+
+  /// Create a copy of CircleModelDto
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $SnsLinksModelCopyWith<$Res> get links {
+    return $SnsLinksModelCopyWith<$Res>(_self.links, (value) {
+      return _then(_self.copyWith(links: value));
+    });
+  }
 }
+
+// dart format on

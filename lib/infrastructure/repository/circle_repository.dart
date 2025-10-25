@@ -60,7 +60,8 @@ class CircleRepository {
           .getLatestEventCircles(CircleEventNameConst.CURRENT_EVENT);
 
       return response;
-    } on Exception catch (_) {
+    } on Exception catch (e, st) {
+      print('Error fetching circle info from API: $e \n $st');
       rethrow;
     }
   }
