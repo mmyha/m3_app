@@ -1,5 +1,5 @@
 // ignore_for_file: constant_identifier_names
 
 class CircleEventNameConst {
-  static const String CURRENT_EVENT = '2025s';
+  static const String CURRENT_EVENT = '2025f';
 }

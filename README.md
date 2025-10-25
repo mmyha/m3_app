@@ -4,12 +4,10 @@
 
 ## 更新
 
-(2025/4/25)
-2025 春に一時的に対応
+(2025/10/26)
+2025 秋に一時的に対応
 
-branch → ver2025spring
-
-(レスポンスのデータ構造が前回若干ことなっており、互換対応ができていないのでmainにはマージしていない)
+2025春版はアンインストールしてください。
 
 [androidAPK](https://drive.google.com/drive/folders/1yLqPOpCbROfYeZSzF7jMl8pq716PPKSq?usp=sharing)
 
@@ -18,12 +16,12 @@ branch → ver2025spring
 ## 環境
 
 2024/10/9 created
+2025/10/26 updated
 
 **version**  
-Flutter 3.24.3 • channel stable • https://github.com/flutter/flutter.git
-Framework • revision 2663184aa7 (4 weeks ago) • 2024-09-11 16:27:48 -0500
-Engine • revision 36335019a8
-Tools • Dart 3.5.3 • DevTools 2.37.3
+Flutter 3.35.6 • channel stable • https://github.com/flutter/flutter.git
+Framework • revision 9f455d2486 (2 weeks ago) • 2025-10-08 14:55:31 -0500
+Engine • hash a5f2c36e367c13f868cfe98db5806f562c52c35e (revision d2913632a4) (18 days ago)
 
 ### 環境構築
 
