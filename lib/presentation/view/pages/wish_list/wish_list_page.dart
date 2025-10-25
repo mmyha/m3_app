@@ -36,7 +36,7 @@ class WishListPage extends ConsumerWidget {
             var totalEstimatedAmount = 0;
             var totalDoneAmount = 0;
             for (var i = 0; i < data.length; i++) {
-              totalEstimatedAmount += data[i].amount;
+              totalEstimatedAmount += data[i].isFavorite ? data[i].amount : 0;
               totalDoneAmount += data[i].isDone ? data[i].amount : 0;
             }
             return Column(
