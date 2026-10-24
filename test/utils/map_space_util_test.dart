@@ -110,4 +110,26 @@ void main() {
       );
     });
   });
+
+  group('findSpace', () {
+    const spaces = {
+      'A-01': MapSpaceModel(
+        pageNumber: 1,
+        rect: Rect.fromLTRB(0, 0, 6, 12),
+        direction: MapSpaceDirection.down,
+      ),
+    };
+
+    test('スペース名から分割した位置を返す', () {
+      expect(
+        MapSpaceUtil.findSpace(spaces, 'A-01b'),
+        (pageNumber: 1, rect: const Rect.fromLTRB(0, 6, 6, 12)),
+      );
+    });
+
+    test('マップにないスペースならnull', () {
+      expect(MapSpaceUtil.findSpace(spaces, '藍-19'), isNull);
+      expect(MapSpaceUtil.findSpace(spaces, ''), isNull);
+    });
+  });
 }

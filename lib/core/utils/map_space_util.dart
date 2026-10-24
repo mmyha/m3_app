@@ -19,6 +19,22 @@ class MapSpaceUtil {
     return (key: '${match.group(1)}-$number', suffix: match.group(3)!);
   }
 
+  /// スペース名("A-01a" など)のマップ上の位置。マップにないスペースならnull
+  static ({int pageNumber, Rect rect})? findSpace(
+    Map<String, MapSpaceModel> spaces,
+    String spaceName,
+  ) {
+    final parsed = parseSpaceName(spaceName);
+    final space = parsed == null ? null : spaces[parsed.key];
+    if (parsed == null || space == null) {
+      return null;
+    }
+    return (
+      pageNumber: space.pageNumber,
+      rect: partRect(space, parsed.suffix),
+    );
+  }
+
   /// スペースのうち、分割位置([suffix])の部分の矩形
   ///
   /// a/b は2分割、x/y/z は3分割。"ab" のように続けて書かれていればまとめて返す

@@ -5,11 +5,15 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:m3_app/core/theme/m3_theme_config.dart';
+import 'package:m3_app/core/utils/map_space_util.dart';
+import 'package:m3_app/domain/model/circle_wish_model.dart';
 import 'package:m3_app/domain/model/map_space_model.dart';
 import 'package:m3_app/domain/model/map_stroke_model.dart';
 import 'package:m3_app/presentation/controller/circle_map/circle_map_controller.dart';
 import 'package:m3_app/presentation/controller/map_space/map_space_controller.dart';
 import 'package:m3_app/presentation/controller/map_stroke/map_stroke_controller.dart';
+import 'package:m3_app/presentation/controller/wish_list/wish_list_controller.dart';
 import 'package:m3_app/presentation/view/components/common/error_page.dart';
 import 'package:m3_app/presentation/view/components/common/loading_page.dart';
 import 'package:material_symbols_icons/symbols.dart';
@@ -54,6 +58,7 @@ class CircleMapPage extends HookConsumerWidget {
     final isPenMode = useState(false);
     final tool = useState<_MapTool>(_penTools.first);
     final showSpaces = useState(false);
+    final showWishes = useState(true);
 
     return Scaffold(
       appBar: AppBar(
@@ -67,6 +72,16 @@ class CircleMapPage extends HookConsumerWidget {
               icon: const Icon(Icons.grid_on_outlined),
               selectedIcon: const Icon(Icons.grid_on),
               onPressed: () => showSpaces.value = !showSpaces.value,
+            ),
+          if (mapController.hasValue)
+            IconButton(
+              tooltip: showWishes.value
+                  ? 'ウィッシュリストのハイライトを消す'
+                  : 'ウィッシュリストをハイライト',
+              isSelected: showWishes.value,
+              icon: const Icon(Icons.star_outline),
+              selectedIcon: const Icon(Icons.star),
+              onPressed: () => showWishes.value = !showWishes.value,
             ),
           if (mapController.hasValue)
             IconButton(
@@ -87,6 +102,7 @@ class CircleMapPage extends HookConsumerWidget {
                   filePath: data,
                   tool: isPenMode.value ? tool.value : null,
                   showSpaces: showSpaces.value,
+                  showWishes: showWishes.value,
                 ),
               ),
               if (isPenMode.value)
@@ -115,9 +131,11 @@ class _MapPdfView extends HookConsumerWidget {
     required this.filePath,
     required this.tool,
     required this.showSpaces,
+    required this.showWishes,
   });
   final String filePath;
   final bool showSpaces;
+  final bool showWishes;
 
   /// nullなら閲覧モード
   final _MapTool? tool;
@@ -125,9 +143,17 @@ class _MapPdfView extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final strokes = ref.watch(mapStrokeControllerProvider).value ?? const [];
-    final spaces = showSpaces
+    final spaces = showSpaces || showWishes
         ? ref.watch(mapSpaceControllerProvider).value ?? const {}
         : const <String, MapSpaceModel>{};
+    final wishes = showWishes
+        ? ref.watch(wishListControllerProvider).value ?? const []
+        : const <CircleWishModel>[];
+    final highlights = [
+      for (final wish in wishes)
+        if (MapSpaceUtil.findSpace(spaces, wish.spaceName) case final space?)
+          (space: space, state: _WishState.of(wish)),
+    ];
     final isPenMode = tool != null;
     // 指の数はページの外(余白)に触れた指も含めて、ビューア全体で数える
     final pointers = useRef(<int>{});
@@ -160,6 +186,13 @@ class _MapPdfView extends HookConsumerWidget {
         onGeneralTap: isPenMode ? (_, _, _) => true : null,
         pageOverlaysBuilder: (context, pageRect, page) {
           return [
+            _WishHighlightLayer(
+              highlights: [
+                for (final highlight in highlights)
+                  if (highlight.space.pageNumber == page.pageNumber)
+                    (rect: highlight.space.rect, state: highlight.state),
+              ],
+            ),
             if (showSpaces)
               _SpaceDebugLayer(
                 spaces: [
@@ -184,11 +217,17 @@ class _MapPdfView extends HookConsumerWidget {
       ),
     );
 
-    return Listener(
-      onPointerDown: onPointerDown,
-      onPointerUp: onPointerUp,
-      onPointerCancel: onPointerUp,
-      child: viewer,
+    return Stack(
+      children: [
+        Listener(
+          onPointerDown: onPointerDown,
+          onPointerUp: onPointerUp,
+          onPointerCancel: onPointerUp,
+          child: viewer,
+        ),
+        if (showWishes)
+          const Positioned(left: 8, bottom: 8, child: _WishLegend()),
+      ],
     );
   }
 }
@@ -412,6 +451,172 @@ class _StrokePainter extends CustomPainter {
   bool shouldRepaint(_StrokePainter oldDelegate) {
     return oldDelegate.strokes != strokes ||
         oldDelegate.eraserPosition != eraserPosition;
+  }
+}
+
+/// ウィッシュリストでの状態
+enum _WishState {
+  going('行くかも'),
+  // 行くかものチェックを外した
+  undecided('未チェック'),
+  done('済');
+
+  const _WishState(this.label);
+
+  /// 凡例に出す名前
+  final String label;
+
+  static _WishState of(CircleWishModel wish) {
+    if (wish.isDone) {
+      return done;
+    }
+    return wish.isFavorite ? going : undecided;
+  }
+}
+
+/// ウィッシュリストのスペースをハイライトする
+class _WishHighlightLayer extends StatelessWidget {
+  const _WishHighlightLayer({required this.highlights});
+  final List<({Rect rect, _WishState state})> highlights;
+
+  @override
+  Widget build(BuildContext context) {
+    return IgnorePointer(
+      child: CustomPaint(
+        size: Size.infinite,
+        painter: _WishHighlightPainter(
+          highlights: highlights,
+          color: M3ThemeConfig.customColor.favoriteButton,
+        ),
+      ),
+    );
+  }
+}
+
+class _WishHighlightPainter extends CustomPainter {
+  _WishHighlightPainter({required this.highlights, required this.color});
+  final List<({Rect rect, _WishState state})> highlights;
+  final Color color;
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    for (final (:rect, :state) in highlights) {
+      paintHighlight(
+        canvas,
+        Rect.fromLTRB(
+          rect.left * size.width,
+          rect.top * size.height,
+          rect.right * size.width,
+          rect.bottom * size.height,
+        ),
+        state: state,
+        color: color,
+        outlineWidth: size.width * 0.0012,
+      );
+    }
+  }
+
+  /// 凡例の見本と同じ描き方にするため共通にしている
+  static void paintHighlight(
+    Canvas canvas,
+    Rect rect, {
+    required _WishState state,
+    required Color color,
+    required double outlineWidth,
+  }) {
+    // 番号が読めるように半透明にする
+    switch (state) {
+      case _WishState.going:
+        canvas.drawRect(rect, Paint()..color = color.withValues(alpha: 0.55));
+      case _WishState.undecided:
+        canvas.drawRect(
+          rect.deflate(outlineWidth / 2),
+          Paint()
+            ..color = color
+            ..style = PaintingStyle.stroke
+            ..strokeWidth = outlineWidth,
+        );
+      case _WishState.done:
+        canvas.drawRect(rect, Paint()..color = const Color(0x80757575));
+    }
+  }
+
+  @override
+  bool shouldRepaint(_WishHighlightPainter oldDelegate) {
+    return !listEquals(oldDelegate.highlights, highlights) ||
+        oldDelegate.color != color;
+  }
+}
+
+/// ハイライトの凡例
+class _WishLegend extends StatelessWidget {
+  const _WishLegend();
+
+  @override
+  Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+    final color = M3ThemeConfig.customColor.favoriteButton;
+
+    // 地図の操作を邪魔しない
+    return IgnorePointer(
+      child: DecoratedBox(
+        decoration: BoxDecoration(
+          color: colorScheme.surface.withValues(alpha: 0.9),
+          borderRadius: BorderRadius.circular(4),
+          border: Border.all(color: colorScheme.outlineVariant),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            spacing: 4,
+            children: [
+              for (final state in _WishState.values)
+                Row(
+                  mainAxisSize: MainAxisSize.min,
+                  spacing: 6,
+                  children: [
+                    CustomPaint(
+                      size: const Size(16, 12),
+                      painter: _WishSwatchPainter(state: state, color: color),
+                    ),
+                    Text(
+                      state.label,
+                      style: TextStyle(fontSize: M3ThemeConfig.fontSize.small),
+                    ),
+                  ],
+                ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _WishSwatchPainter extends CustomPainter {
+  _WishSwatchPainter({required this.state, required this.color});
+  final _WishState state;
+  final Color color;
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    // 地図と同じく白地の上に描く
+    final rect = Offset.zero & size;
+    canvas.drawRect(rect, Paint()..color = const Color(0xFFFFFFFF));
+    _WishHighlightPainter.paintHighlight(
+      canvas,
+      rect,
+      state: state,
+      color: color,
+      outlineWidth: 2,
+    );
+  }
+
+  @override
+  bool shouldRepaint(_WishSwatchPainter oldDelegate) {
+    return oldDelegate.state != state || oldDelegate.color != color;
   }
 }
 
