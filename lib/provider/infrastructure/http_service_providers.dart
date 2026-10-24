@@ -1,5 +1,5 @@
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../infrastructure/http/circle_api/circle_api_service.dart';
 import '../common/dio/dio_provider.dart';

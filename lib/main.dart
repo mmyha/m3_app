@@ -15,6 +15,8 @@ Future<void> main() async {
   final prefs = await SharedPreferences.getInstance();
   runApp(
     ProviderScope(
+      // Riverpod 3 で追加された失敗時の自動リトライを無効化 (v2 と同じ挙動)
+      retry: (_, __) => null,
       overrides: [
         sharedPreferencesProvider.overrideWithValue(
           prefs,

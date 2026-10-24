@@ -6,22 +6,47 @@ part of 'circle_map_controller.dart';
 // RiverpodGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// ignore_for_file: type=lint, type=warning
+
+@ProviderFor(CircleMapController)
+final circleMapControllerProvider = CircleMapControllerProvider._();
+
+final class CircleMapControllerProvider
+    extends $AsyncNotifierProvider<CircleMapController, String> {
+  CircleMapControllerProvider._()
+      : super(
+          from: null,
+          argument: null,
+          retry: null,
+          name: r'circleMapControllerProvider',
+          isAutoDispose: true,
+          dependencies: null,
+          $allTransitiveDependencies: null,
+        );
+
+  @override
+  String debugGetCreateSourceHash() => _$circleMapControllerHash();
+
+  @$internal
+  @override
+  CircleMapController create() => CircleMapController();
+}
+
 String _$circleMapControllerHash() =>
     r'7741d8d2930ee86a5bd139e73656097ba870ccff';
 
-/// See also [CircleMapController].
-@ProviderFor(CircleMapController)
-final circleMapControllerProvider =
-    AutoDisposeAsyncNotifierProvider<CircleMapController, String>.internal(
-  CircleMapController.new,
-  name: r'circleMapControllerProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$circleMapControllerHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
-
-typedef _$CircleMapController = AutoDisposeAsyncNotifier<String>;
-// ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package
+abstract class _$CircleMapController extends $AsyncNotifier<String> {
+  FutureOr<String> build();
+  @$mustCallSuper
+  @override
+  WhenComplete runBuild() {
+    final ref = this.ref as $Ref<AsyncValue<String>, String>;
+    final element = ref.element as $ClassProviderElement<
+        AnyNotifier<AsyncValue<String>, String>,
+        AsyncValue<String>,
+        Object?,
+        Object?>;
+    return element.handleCreate(ref, build);
+  }
+}

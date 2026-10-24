@@ -2179,7 +2179,7 @@ final class $$CirclesTableReferences
   static MultiTypedResultKey<$SnsLinksTable, List<SnsLink>> _snsLinksRefsTable(
           _$CircleDatabase db) =>
       MultiTypedResultKey.fromTable(db.snsLinks,
-          aliasName: $_aliasNameGenerator(db.circles.id, db.snsLinks.circleId));
+          aliasName: 'circles__id__sns_links__circle_id');
 
   $$SnsLinksTableProcessedTableManager get snsLinksRefs {
     final manager = $$SnsLinksTableTableManager($_db, $_db.snsLinks)
@@ -2193,7 +2193,7 @@ final class $$CirclesTableReferences
   static MultiTypedResultKey<$RealSpsTable, List<RealSp>> _realSpsRefsTable(
           _$CircleDatabase db) =>
       MultiTypedResultKey.fromTable(db.realSps,
-          aliasName: $_aliasNameGenerator(db.circles.id, db.realSps.circleId));
+          aliasName: 'circles__id__real_sps__circle_id');
 
   $$RealSpsTableProcessedTableManager get realSpsRefs {
     final manager = $$RealSpsTableTableManager($_db, $_db.realSps)
@@ -2207,7 +2207,7 @@ final class $$CirclesTableReferences
   static MultiTypedResultKey<$WebSpsTable, List<WebSp>> _webSpsRefsTable(
           _$CircleDatabase db) =>
       MultiTypedResultKey.fromTable(db.webSps,
-          aliasName: $_aliasNameGenerator(db.circles.id, db.webSps.circle));
+          aliasName: 'circles__id__web_sps__circle');
 
   $$WebSpsTableProcessedTableManager get webSpsRefs {
     final manager = $$WebSpsTableTableManager($_db, $_db.webSps)
@@ -2221,7 +2221,7 @@ final class $$CirclesTableReferences
   static MultiTypedResultKey<$KeywordsTable, List<Keyword>> _keywordsRefsTable(
           _$CircleDatabase db) =>
       MultiTypedResultKey.fromTable(db.keywords,
-          aliasName: $_aliasNameGenerator(db.circles.id, db.keywords.circleId));
+          aliasName: 'circles__id__keywords__circle_id');
 
   $$KeywordsTableProcessedTableManager get keywordsRefs {
     final manager = $$KeywordsTableTableManager($_db, $_db.keywords)
@@ -2574,8 +2574,10 @@ class $$CirclesTableTableManager extends RootTableManager<
             rowid: rowid,
           ),
           withReferenceMapper: (p0) => p0
-              .map((e) =>
-                  (e.readTable(table), $$CirclesTableReferences(db, table, e)))
+              .map((e) => (
+                    e.readTable<$CirclesTable, Circle>(table),
+                    $$CirclesTableReferences(db, table, e)
+                  ))
               .toList(),
           prefetchHooksCallback: (
               {snsLinksRefs = false,
@@ -2594,50 +2596,50 @@ class $$CirclesTableTableManager extends RootTableManager<
               getPrefetchedDataCallback: (items) async {
                 return [
                   if (snsLinksRefs)
-                    await $_getPrefetchedData<Circle, $CirclesTable, SnsLink>(
+                    await $_getPrefetchedDataByColumns<Circle, $CirclesTable,
+                            SnsLink, $SnsLinksTable>(
                         currentTable: table,
                         referencedTable:
                             $$CirclesTableReferences._snsLinksRefsTable(db),
                         managerFromTypedResult: (p0) =>
                             $$CirclesTableReferences(db, table, p0)
                                 .snsLinksRefs,
-                        referencedItemsForCurrentItem: (item,
-                                referencedItems) =>
-                            referencedItems.where((e) => e.circleId == item.id),
+                        currentColumn: 'id',
+                        referencedColumn: 'circle_id',
                         typedResults: items),
                   if (realSpsRefs)
-                    await $_getPrefetchedData<Circle, $CirclesTable, RealSp>(
+                    await $_getPrefetchedDataByColumns<Circle, $CirclesTable,
+                            RealSp, $RealSpsTable>(
                         currentTable: table,
                         referencedTable:
                             $$CirclesTableReferences._realSpsRefsTable(db),
                         managerFromTypedResult: (p0) =>
                             $$CirclesTableReferences(db, table, p0).realSpsRefs,
-                        referencedItemsForCurrentItem: (item,
-                                referencedItems) =>
-                            referencedItems.where((e) => e.circleId == item.id),
+                        currentColumn: 'id',
+                        referencedColumn: 'circle_id',
                         typedResults: items),
                   if (webSpsRefs)
-                    await $_getPrefetchedData<Circle, $CirclesTable, WebSp>(
+                    await $_getPrefetchedDataByColumns<Circle, $CirclesTable,
+                            WebSp, $WebSpsTable>(
                         currentTable: table,
                         referencedTable:
                             $$CirclesTableReferences._webSpsRefsTable(db),
                         managerFromTypedResult: (p0) =>
                             $$CirclesTableReferences(db, table, p0).webSpsRefs,
-                        referencedItemsForCurrentItem: (item,
-                                referencedItems) =>
-                            referencedItems.where((e) => e.circle == item.id),
+                        currentColumn: 'id',
+                        referencedColumn: 'circle',
                         typedResults: items),
                   if (keywordsRefs)
-                    await $_getPrefetchedData<Circle, $CirclesTable, Keyword>(
+                    await $_getPrefetchedDataByColumns<Circle, $CirclesTable,
+                            Keyword, $KeywordsTable>(
                         currentTable: table,
                         referencedTable:
                             $$CirclesTableReferences._keywordsRefsTable(db),
                         managerFromTypedResult: (p0) =>
                             $$CirclesTableReferences(db, table, p0)
                                 .keywordsRefs,
-                        referencedItemsForCurrentItem: (item,
-                                referencedItems) =>
-                            referencedItems.where((e) => e.circleId == item.id),
+                        currentColumn: 'id',
+                        referencedColumn: 'circle_id',
                         typedResults: items)
                 ];
               },
@@ -2691,8 +2693,8 @@ final class $$SnsLinksTableReferences
     extends BaseReferences<_$CircleDatabase, $SnsLinksTable, SnsLink> {
   $$SnsLinksTableReferences(super.$_db, super.$_table, super.$_typedResult);
 
-  static $CirclesTable _circleIdTable(_$CircleDatabase db) => db.circles
-      .createAlias($_aliasNameGenerator(db.snsLinks.circleId, db.circles.id));
+  static $CirclesTable _circleIdTable(_$CircleDatabase db) =>
+      db.circles.createAlias('sns_links__circle_id__circles__id');
 
   $$CirclesTableProcessedTableManager get circleId {
     final $_column = $_itemColumn<int>('circle_id')!;
@@ -2948,8 +2950,10 @@ class $$SnsLinksTableTableManager extends RootTableManager<
             snsUrl: snsUrl,
           ),
           withReferenceMapper: (p0) => p0
-              .map((e) =>
-                  (e.readTable(table), $$SnsLinksTableReferences(db, table, e)))
+              .map((e) => (
+                    e.readTable<$SnsLinksTable, SnsLink>(table),
+                    $$SnsLinksTableReferences(db, table, e)
+                  ))
               .toList(),
           prefetchHooksCallback: ({circleId = false}) {
             return PrefetchHooks(
@@ -3018,8 +3022,8 @@ final class $$RealSpsTableReferences
     extends BaseReferences<_$CircleDatabase, $RealSpsTable, RealSp> {
   $$RealSpsTableReferences(super.$_db, super.$_table, super.$_typedResult);
 
-  static $CirclesTable _circleIdTable(_$CircleDatabase db) => db.circles
-      .createAlias($_aliasNameGenerator(db.realSps.circleId, db.circles.id));
+  static $CirclesTable _circleIdTable(_$CircleDatabase db) =>
+      db.circles.createAlias('real_sps__circle_id__circles__id');
 
   $$CirclesTableProcessedTableManager get circleId {
     final $_column = $_itemColumn<int>('circle_id')!;
@@ -3197,8 +3201,10 @@ class $$RealSpsTableTableManager extends RootTableManager<
             no: no,
           ),
           withReferenceMapper: (p0) => p0
-              .map((e) =>
-                  (e.readTable(table), $$RealSpsTableReferences(db, table, e)))
+              .map((e) => (
+                    e.readTable<$RealSpsTable, RealSp>(table),
+                    $$RealSpsTableReferences(db, table, e)
+                  ))
               .toList(),
           prefetchHooksCallback: ({circleId = false}) {
             return PrefetchHooks(
@@ -3267,8 +3273,8 @@ final class $$WebSpsTableReferences
     extends BaseReferences<_$CircleDatabase, $WebSpsTable, WebSp> {
   $$WebSpsTableReferences(super.$_db, super.$_table, super.$_typedResult);
 
-  static $CirclesTable _circleTable(_$CircleDatabase db) => db.circles
-      .createAlias($_aliasNameGenerator(db.webSps.circle, db.circles.id));
+  static $CirclesTable _circleTable(_$CircleDatabase db) =>
+      db.circles.createAlias('web_sps__circle__circles__id');
 
   $$CirclesTableProcessedTableManager get circle {
     final $_column = $_itemColumn<int>('circle')!;
@@ -3446,8 +3452,10 @@ class $$WebSpsTableTableManager extends RootTableManager<
             no: no,
           ),
           withReferenceMapper: (p0) => p0
-              .map((e) =>
-                  (e.readTable(table), $$WebSpsTableReferences(db, table, e)))
+              .map((e) => (
+                    e.readTable<$WebSpsTable, WebSp>(table),
+                    $$WebSpsTableReferences(db, table, e)
+                  ))
               .toList(),
           prefetchHooksCallback: ({circle = false}) {
             return PrefetchHooks(
@@ -3515,8 +3523,8 @@ final class $$KeywordsTableReferences
     extends BaseReferences<_$CircleDatabase, $KeywordsTable, Keyword> {
   $$KeywordsTableReferences(super.$_db, super.$_table, super.$_typedResult);
 
-  static $CirclesTable _circleIdTable(_$CircleDatabase db) => db.circles
-      .createAlias($_aliasNameGenerator(db.keywords.circleId, db.circles.id));
+  static $CirclesTable _circleIdTable(_$CircleDatabase db) =>
+      db.circles.createAlias('keywords__circle_id__circles__id');
 
   $$CirclesTableProcessedTableManager get circleId {
     final $_column = $_itemColumn<int>('circle_id')!;
@@ -3694,8 +3702,10 @@ class $$KeywordsTableTableManager extends RootTableManager<
             phonetic: phonetic,
           ),
           withReferenceMapper: (p0) => p0
-              .map((e) =>
-                  (e.readTable(table), $$KeywordsTableReferences(db, table, e)))
+              .map((e) => (
+                    e.readTable<$KeywordsTable, Keyword>(table),
+                    $$KeywordsTableReferences(db, table, e)
+                  ))
               .toList(),
           prefetchHooksCallback: ({circleId = false}) {
             return PrefetchHooks(
@@ -3773,8 +3783,7 @@ final class $$WishesTableReferences
   $$WishesTableReferences(super.$_db, super.$_table, super.$_typedResult);
 
   static $CirclesTable _isFavoriteTable(_$CircleDatabase db) =>
-      db.circles.createAlias(
-          $_aliasNameGenerator(db.wishes.isFavorite, db.circles.isFavorite));
+      db.circles.createAlias('wishes__is_favorite__circles__is_favorite');
 
   $$CirclesTableProcessedTableManager get isFavorite {
     final $_column = $_itemColumn<bool>('is_favorite')!;
@@ -3787,8 +3796,8 @@ final class $$WishesTableReferences
         manager.$state.copyWith(prefetchedData: [item]));
   }
 
-  static $CirclesTable _circleIdTable(_$CircleDatabase db) => db.circles
-      .createAlias($_aliasNameGenerator(db.wishes.circleId, db.circles.id));
+  static $CirclesTable _circleIdTable(_$CircleDatabase db) =>
+      db.circles.createAlias('wishes__circle_id__circles__id');
 
   $$CirclesTableProcessedTableManager get circleId {
     final $_column = $_itemColumn<int>('circle_id')!;
@@ -3801,8 +3810,8 @@ final class $$WishesTableReferences
         manager.$state.copyWith(prefetchedData: [item]));
   }
 
-  static $CirclesTable _circleNameTable(_$CircleDatabase db) => db.circles
-      .createAlias($_aliasNameGenerator(db.wishes.circleName, db.circles.name));
+  static $CirclesTable _circleNameTable(_$CircleDatabase db) =>
+      db.circles.createAlias('wishes__circle_name__circles__name');
 
   $$CirclesTableProcessedTableManager get circleName {
     final $_column = $_itemColumn<String>('circle_name')!;
@@ -4134,8 +4143,10 @@ class $$WishesTableTableManager extends RootTableManager<
             memo: memo,
           ),
           withReferenceMapper: (p0) => p0
-              .map((e) =>
-                  (e.readTable(table), $$WishesTableReferences(db, table, e)))
+              .map((e) => (
+                    e.readTable<$WishesTable, Wish>(table),
+                    $$WishesTableReferences(db, table, e)
+                  ))
               .toList(),
           prefetchHooksCallback: (
               {isFavorite = false, circleId = false, circleName = false}) {

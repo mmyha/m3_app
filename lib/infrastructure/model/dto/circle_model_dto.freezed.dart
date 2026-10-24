@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // coverage:ignore-file
-// ignore_for_file: type=lint
+// ignore_for_file: type=lint, type=warning, deprecated_member_use, deprecated_member_use_from_same_package
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'circle_model_dto.dart';
@@ -9,6 +9,7 @@ part of 'circle_model_dto.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format off
 T _$identity<T>(T value) => value;
 
@@ -22,7 +23,7 @@ mixin _$CircleModelDto {
   int? get spaceSize;
   bool get adult;
   String get prText;
-  SnsLinksModel get links; // nullable
+  SnsLinksModel get links;
   List<KeywordModel> get keywords;
   String? get area;
   String? get number;
@@ -41,46 +42,57 @@ mixin _$CircleModelDto {
 
   @override
   bool operator ==(Object other) {
+    final _this = this as CircleModelDto;
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is CircleModelDto &&
-            (identical(other.id, id) || other.id == id) &&
-            (identical(other.name, name) || other.name == name) &&
-            (identical(other.phonetic, phonetic) ||
-                other.phonetic == phonetic) &&
-            (identical(other.genre, genre) || other.genre == genre) &&
-            (identical(other.spaceSize, spaceSize) ||
-                other.spaceSize == spaceSize) &&
-            (identical(other.adult, adult) || other.adult == adult) &&
-            (identical(other.prText, prText) || other.prText == prText) &&
-            (identical(other.links, links) || other.links == links) &&
-            const DeepCollectionEquality().equals(other.keywords, keywords) &&
-            (identical(other.area, area) || other.area == area) &&
-            (identical(other.number, number) || other.number == number) &&
-            (identical(other.isFavorite, isFavorite) ||
-                other.isFavorite == isFavorite));
+            (identical(other.id, _this.id) || other.id == _this.id) &&
+            (identical(other.name, _this.name) || other.name == _this.name) &&
+            (identical(other.phonetic, _this.phonetic) ||
+                other.phonetic == _this.phonetic) &&
+            (identical(other.genre, _this.genre) ||
+                other.genre == _this.genre) &&
+            (identical(other.spaceSize, _this.spaceSize) ||
+                other.spaceSize == _this.spaceSize) &&
+            (identical(other.adult, _this.adult) ||
+                other.adult == _this.adult) &&
+            (identical(other.prText, _this.prText) ||
+                other.prText == _this.prText) &&
+            (identical(other.links, _this.links) ||
+                other.links == _this.links) &&
+            const DeepCollectionEquality()
+                .equals(other.keywords, _this.keywords) &&
+            (identical(other.area, _this.area) || other.area == _this.area) &&
+            (identical(other.number, _this.number) ||
+                other.number == _this.number) &&
+            (identical(other.isFavorite, _this.isFavorite) ||
+                other.isFavorite == _this.isFavorite));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      id,
-      name,
-      phonetic,
-      genre,
-      spaceSize,
-      adult,
-      prText,
-      links,
-      const DeepCollectionEquality().hash(keywords),
-      area,
-      number,
-      isFavorite);
+  int get hashCode {
+    final _this = this as CircleModelDto;
+    return Object.hash(
+        runtimeType,
+        _this.id,
+        _this.name,
+        _this.phonetic,
+        _this.genre,
+        _this.spaceSize,
+        _this.adult,
+        _this.prText,
+        _this.links,
+        const DeepCollectionEquality().hash(_this.keywords),
+        _this.area,
+        _this.number,
+        _this.isFavorite);
+  }
 
   @override
   String toString() {
-    return 'CircleModelDto(id: $id, name: $name, phonetic: $phonetic, genre: $genre, spaceSize: $spaceSize, adult: $adult, prText: $prText, links: $links, keywords: $keywords, area: $area, number: $number, isFavorite: $isFavorite)';
+    final _this = this as CircleModelDto;
+    return 'CircleModelDto(id: ${_this.id}, name: ${_this.name}, phonetic: ${_this.phonetic}, genre: ${_this.genre}, spaceSize: ${_this.spaceSize}, adult: ${_this.adult}, prText: ${_this.prText}, links: ${_this.links}, keywords: ${_this.keywords}, area: ${_this.area}, number: ${_this.number}, isFavorite: ${_this.isFavorite})';
   }
 }
 
@@ -133,7 +145,7 @@ class _$CircleModelDtoCopyWithImpl<$Res>
     Object? number = freezed,
     Object? isFavorite = freezed,
   }) {
-    return _then(_self.copyWith(
+    return _then(CircleModelDto(
       id: null == id
           ? _self.id
           : id // ignore: cast_nullable_to_non_nullable
@@ -440,7 +452,7 @@ class _CircleModelDto implements CircleModelDto {
       required this.adult,
       required this.prText,
       this.links = const SnsLinksModel(),
-      required final List<KeywordModel> keywords,
+      required List<KeywordModel> keywords,
       this.area,
       this.number,
       this.isFavorite = false})
@@ -466,9 +478,7 @@ class _CircleModelDto implements CircleModelDto {
   @override
   @JsonKey()
   final SnsLinksModel links;
-// nullable
   final List<KeywordModel> _keywords;
-// nullable
   @override
   List<KeywordModel> get keywords {
     if (_keywords is EqualUnmodifiableListView) return _keywords;
@@ -514,7 +524,7 @@ class _CircleModelDto implements CircleModelDto {
             (identical(other.adult, adult) || other.adult == adult) &&
             (identical(other.prText, prText) || other.prText == prText) &&
             (identical(other.links, links) || other.links == links) &&
-            const DeepCollectionEquality().equals(other._keywords, _keywords) &&
+            const DeepCollectionEquality().equals(other.keywords, _keywords) &&
             (identical(other.area, area) || other.area == area) &&
             (identical(other.number, number) || other.number == number) &&
             (identical(other.isFavorite, isFavorite) ||
@@ -523,20 +533,22 @@ class _CircleModelDto implements CircleModelDto {
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      id,
-      name,
-      phonetic,
-      genre,
-      spaceSize,
-      adult,
-      prText,
-      links,
-      const DeepCollectionEquality().hash(_keywords),
-      area,
-      number,
-      isFavorite);
+  int get hashCode {
+    return Object.hash(
+        runtimeType,
+        id,
+        name,
+        phonetic,
+        genre,
+        spaceSize,
+        adult,
+        prText,
+        links,
+        const DeepCollectionEquality().hash(_keywords),
+        area,
+        number,
+        isFavorite);
+  }
 
   @override
   String toString() {

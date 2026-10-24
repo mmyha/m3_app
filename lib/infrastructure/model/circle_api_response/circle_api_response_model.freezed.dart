@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // coverage:ignore-file
-// ignore_for_file: type=lint
+// ignore_for_file: type=lint, type=warning, deprecated_member_use, deprecated_member_use_from_same_package
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'circle_api_response_model.dart';
@@ -9,6 +9,7 @@ part of 'circle_api_response_model.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format off
 T _$identity<T>(T value) => value;
 
@@ -29,20 +30,25 @@ mixin _$CircleApiResponse {
 
   @override
   bool operator ==(Object other) {
+    final _this = this as CircleApiResponse;
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is CircleApiResponse &&
-            const DeepCollectionEquality().equals(other.items, items));
+            const DeepCollectionEquality().equals(other.items, _this.items));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(items));
+  int get hashCode {
+    final _this = this as CircleApiResponse;
+    return Object.hash(
+        runtimeType, const DeepCollectionEquality().hash(_this.items));
+  }
 
   @override
   String toString() {
-    return 'CircleApiResponse(items: $items)';
+    final _this = this as CircleApiResponse;
+    return 'CircleApiResponse(items: ${_this.items})';
   }
 }
 
@@ -70,7 +76,7 @@ class _$CircleApiResponseCopyWithImpl<$Res>
   $Res call({
     Object? items = null,
   }) {
-    return _then(_self.copyWith(
+    return _then(CircleApiResponse(
       items: null == items
           ? _self.items
           : items // ignore: cast_nullable_to_non_nullable
@@ -239,7 +245,7 @@ extension CircleApiResponsePatterns on CircleApiResponse {
 /// @nodoc
 @JsonSerializable()
 class _CircleApiResponse implements CircleApiResponse {
-  const _CircleApiResponse({required final List<CircleModelDto> items})
+  const _CircleApiResponse({required List<CircleModelDto> items})
       : _items = items;
   factory _CircleApiResponse.fromJson(Map<String, dynamic> json) =>
       _$CircleApiResponseFromJson(json);
@@ -272,13 +278,15 @@ class _CircleApiResponse implements CircleApiResponse {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _CircleApiResponse &&
-            const DeepCollectionEquality().equals(other._items, _items));
+            const DeepCollectionEquality().equals(other.items, _items));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(_items));
+  int get hashCode {
+    return Object.hash(
+        runtimeType, const DeepCollectionEquality().hash(_items));
+  }
 
   @override
   String toString() {

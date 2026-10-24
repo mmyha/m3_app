@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // coverage:ignore-file
-// ignore_for_file: type=lint
+// ignore_for_file: type=lint, type=warning, deprecated_member_use, deprecated_member_use_from_same_package
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'circle_wish_model.dart';
@@ -9,6 +9,7 @@ part of 'circle_wish_model.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format off
 T _$identity<T>(T value) => value;
 
@@ -32,28 +33,35 @@ mixin _$CircleWishModel {
 
   @override
   bool operator ==(Object other) {
+    final _this = this as CircleWishModel;
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is CircleWishModel &&
-            (identical(other.circleId, circleId) ||
-                other.circleId == circleId) &&
-            (identical(other.name, name) || other.name == name) &&
-            (identical(other.spaceName, spaceName) ||
-                other.spaceName == spaceName) &&
-            (identical(other.isFavorite, isFavorite) ||
-                other.isFavorite == isFavorite) &&
-            (identical(other.isDone, isDone) || other.isDone == isDone) &&
-            (identical(other.amount, amount) || other.amount == amount) &&
-            (identical(other.memo, memo) || other.memo == memo));
+            (identical(other.circleId, _this.circleId) ||
+                other.circleId == _this.circleId) &&
+            (identical(other.name, _this.name) || other.name == _this.name) &&
+            (identical(other.spaceName, _this.spaceName) ||
+                other.spaceName == _this.spaceName) &&
+            (identical(other.isFavorite, _this.isFavorite) ||
+                other.isFavorite == _this.isFavorite) &&
+            (identical(other.isDone, _this.isDone) ||
+                other.isDone == _this.isDone) &&
+            (identical(other.amount, _this.amount) ||
+                other.amount == _this.amount) &&
+            (identical(other.memo, _this.memo) || other.memo == _this.memo));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType, circleId, name, spaceName, isFavorite, isDone, amount, memo);
+  int get hashCode {
+    final _this = this as CircleWishModel;
+    return Object.hash(runtimeType, _this.circleId, _this.name, _this.spaceName,
+        _this.isFavorite, _this.isDone, _this.amount, _this.memo);
+  }
 
   @override
   String toString() {
-    return 'CircleWishModel(circleId: $circleId, name: $name, spaceName: $spaceName, isFavorite: $isFavorite, isDone: $isDone, amount: $amount, memo: $memo)';
+    final _this = this as CircleWishModel;
+    return 'CircleWishModel(circleId: ${_this.circleId}, name: ${_this.name}, spaceName: ${_this.spaceName}, isFavorite: ${_this.isFavorite}, isDone: ${_this.isDone}, amount: ${_this.amount}, memo: ${_this.memo})';
   }
 }
 
@@ -94,7 +102,7 @@ class _$CircleWishModelCopyWithImpl<$Res>
     Object? amount = null,
     Object? memo = null,
   }) {
-    return _then(_self.copyWith(
+    return _then(CircleWishModel(
       circleId: null == circleId
           ? _self.circleId
           : circleId // ignore: cast_nullable_to_non_nullable
@@ -346,8 +354,10 @@ class _CircleWishModel implements CircleWishModel {
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType, circleId, name, spaceName, isFavorite, isDone, amount, memo);
+  int get hashCode {
+    return Object.hash(runtimeType, circleId, name, spaceName, isFavorite,
+        isDone, amount, memo);
+  }
 
   @override
   String toString() {

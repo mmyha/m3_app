@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // coverage:ignore-file
-// ignore_for_file: type=lint
+// ignore_for_file: type=lint, type=warning, deprecated_member_use, deprecated_member_use_from_same_package
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'circle_model.dart';
@@ -9,6 +9,7 @@ part of 'circle_model.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format off
 T _$identity<T>(T value) => value;
 
@@ -22,9 +23,9 @@ mixin _$CircleModel {
   int? get spaceSize;
   bool get adult;
   String get prText;
-  SnsLinksModel get links; // nullable
+  SnsLinksModel get links;
   List<KeywordModel> get keywords;
-  RealSpModel? get realSp; // nullable
+  RealSpModel? get realSp;
   WebSpModel? get webSp;
   bool? get isFavorite;
 
@@ -37,45 +38,57 @@ mixin _$CircleModel {
 
   @override
   bool operator ==(Object other) {
+    final _this = this as CircleModel;
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is CircleModel &&
-            (identical(other.id, id) || other.id == id) &&
-            (identical(other.name, name) || other.name == name) &&
-            (identical(other.phonetic, phonetic) ||
-                other.phonetic == phonetic) &&
-            (identical(other.genre, genre) || other.genre == genre) &&
-            (identical(other.spaceSize, spaceSize) ||
-                other.spaceSize == spaceSize) &&
-            (identical(other.adult, adult) || other.adult == adult) &&
-            (identical(other.prText, prText) || other.prText == prText) &&
-            (identical(other.links, links) || other.links == links) &&
-            const DeepCollectionEquality().equals(other.keywords, keywords) &&
-            (identical(other.realSp, realSp) || other.realSp == realSp) &&
-            (identical(other.webSp, webSp) || other.webSp == webSp) &&
-            (identical(other.isFavorite, isFavorite) ||
-                other.isFavorite == isFavorite));
+            (identical(other.id, _this.id) || other.id == _this.id) &&
+            (identical(other.name, _this.name) || other.name == _this.name) &&
+            (identical(other.phonetic, _this.phonetic) ||
+                other.phonetic == _this.phonetic) &&
+            (identical(other.genre, _this.genre) ||
+                other.genre == _this.genre) &&
+            (identical(other.spaceSize, _this.spaceSize) ||
+                other.spaceSize == _this.spaceSize) &&
+            (identical(other.adult, _this.adult) ||
+                other.adult == _this.adult) &&
+            (identical(other.prText, _this.prText) ||
+                other.prText == _this.prText) &&
+            (identical(other.links, _this.links) ||
+                other.links == _this.links) &&
+            const DeepCollectionEquality()
+                .equals(other.keywords, _this.keywords) &&
+            (identical(other.realSp, _this.realSp) ||
+                other.realSp == _this.realSp) &&
+            (identical(other.webSp, _this.webSp) ||
+                other.webSp == _this.webSp) &&
+            (identical(other.isFavorite, _this.isFavorite) ||
+                other.isFavorite == _this.isFavorite));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      id,
-      name,
-      phonetic,
-      genre,
-      spaceSize,
-      adult,
-      prText,
-      links,
-      const DeepCollectionEquality().hash(keywords),
-      realSp,
-      webSp,
-      isFavorite);
+  int get hashCode {
+    final _this = this as CircleModel;
+    return Object.hash(
+        runtimeType,
+        _this.id,
+        _this.name,
+        _this.phonetic,
+        _this.genre,
+        _this.spaceSize,
+        _this.adult,
+        _this.prText,
+        _this.links,
+        const DeepCollectionEquality().hash(_this.keywords),
+        _this.realSp,
+        _this.webSp,
+        _this.isFavorite);
+  }
 
   @override
   String toString() {
-    return 'CircleModel(id: $id, name: $name, phonetic: $phonetic, genre: $genre, spaceSize: $spaceSize, adult: $adult, prText: $prText, links: $links, keywords: $keywords, realSp: $realSp, webSp: $webSp, isFavorite: $isFavorite)';
+    final _this = this as CircleModel;
+    return 'CircleModel(id: ${_this.id}, name: ${_this.name}, phonetic: ${_this.phonetic}, genre: ${_this.genre}, spaceSize: ${_this.spaceSize}, adult: ${_this.adult}, prText: ${_this.prText}, links: ${_this.links}, keywords: ${_this.keywords}, realSp: ${_this.realSp}, webSp: ${_this.webSp}, isFavorite: ${_this.isFavorite})';
   }
 }
 
@@ -129,7 +142,7 @@ class _$CircleModelCopyWithImpl<$Res> implements $CircleModelCopyWith<$Res> {
     Object? webSp = freezed,
     Object? isFavorite = freezed,
   }) {
-    return _then(_self.copyWith(
+    return _then(CircleModel(
       id: null == id
           ? _self.id
           : id // ignore: cast_nullable_to_non_nullable
@@ -464,7 +477,7 @@ class _CircleModel implements CircleModel {
       required this.adult,
       required this.prText,
       this.links = const SnsLinksModel(),
-      required final List<KeywordModel> keywords,
+      required List<KeywordModel> keywords,
       this.realSp,
       this.webSp,
       this.isFavorite = false})
@@ -488,9 +501,7 @@ class _CircleModel implements CircleModel {
   @override
   @JsonKey()
   final SnsLinksModel links;
-// nullable
   final List<KeywordModel> _keywords;
-// nullable
   @override
   List<KeywordModel> get keywords {
     if (_keywords is EqualUnmodifiableListView) return _keywords;
@@ -500,7 +511,6 @@ class _CircleModel implements CircleModel {
 
   @override
   final RealSpModel? realSp;
-// nullable
   @override
   final WebSpModel? webSp;
   @override
@@ -530,7 +540,7 @@ class _CircleModel implements CircleModel {
             (identical(other.adult, adult) || other.adult == adult) &&
             (identical(other.prText, prText) || other.prText == prText) &&
             (identical(other.links, links) || other.links == links) &&
-            const DeepCollectionEquality().equals(other._keywords, _keywords) &&
+            const DeepCollectionEquality().equals(other.keywords, _keywords) &&
             (identical(other.realSp, realSp) || other.realSp == realSp) &&
             (identical(other.webSp, webSp) || other.webSp == webSp) &&
             (identical(other.isFavorite, isFavorite) ||
@@ -538,20 +548,22 @@ class _CircleModel implements CircleModel {
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      id,
-      name,
-      phonetic,
-      genre,
-      spaceSize,
-      adult,
-      prText,
-      links,
-      const DeepCollectionEquality().hash(_keywords),
-      realSp,
-      webSp,
-      isFavorite);
+  int get hashCode {
+    return Object.hash(
+        runtimeType,
+        id,
+        name,
+        phonetic,
+        genre,
+        spaceSize,
+        adult,
+        prText,
+        links,
+        const DeepCollectionEquality().hash(_keywords),
+        realSp,
+        webSp,
+        isFavorite);
+  }
 
   @override
   String toString() {
@@ -707,9 +719,9 @@ class __$CircleModelCopyWithImpl<$Res> implements _$CircleModelCopyWith<$Res> {
 
 /// @nodoc
 mixin _$SnsLinksModel {
-  SocialLink? get site; // nullable
-  SocialLink? get twitter; // nullable
-  SocialLink? get youtube; // nullable
+  SocialLink? get site;
+  SocialLink? get twitter;
+  SocialLink? get youtube;
   SocialLink? get sns;
 
   /// Create a copy of SnsLinksModel
@@ -725,22 +737,30 @@ mixin _$SnsLinksModel {
 
   @override
   bool operator ==(Object other) {
+    final _this = this as SnsLinksModel;
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is SnsLinksModel &&
-            (identical(other.site, site) || other.site == site) &&
-            (identical(other.twitter, twitter) || other.twitter == twitter) &&
-            (identical(other.youtube, youtube) || other.youtube == youtube) &&
-            (identical(other.sns, sns) || other.sns == sns));
+            (identical(other.site, _this.site) || other.site == _this.site) &&
+            (identical(other.twitter, _this.twitter) ||
+                other.twitter == _this.twitter) &&
+            (identical(other.youtube, _this.youtube) ||
+                other.youtube == _this.youtube) &&
+            (identical(other.sns, _this.sns) || other.sns == _this.sns));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, site, twitter, youtube, sns);
+  int get hashCode {
+    final _this = this as SnsLinksModel;
+    return Object.hash(
+        runtimeType, _this.site, _this.twitter, _this.youtube, _this.sns);
+  }
 
   @override
   String toString() {
-    return 'SnsLinksModel(site: $site, twitter: $twitter, youtube: $youtube, sns: $sns)';
+    final _this = this as SnsLinksModel;
+    return 'SnsLinksModel(site: ${_this.site}, twitter: ${_this.twitter}, youtube: ${_this.youtube}, sns: ${_this.sns})';
   }
 }
 
@@ -780,7 +800,7 @@ class _$SnsLinksModelCopyWithImpl<$Res>
     Object? youtube = freezed,
     Object? sns = freezed,
   }) {
-    return _then(_self.copyWith(
+    return _then(SnsLinksModel(
       site: freezed == site
           ? _self.site
           : site // ignore: cast_nullable_to_non_nullable
@@ -1029,13 +1049,10 @@ class _SnsLinksModel implements SnsLinksModel {
 
   @override
   final SocialLink? site;
-// nullable
   @override
   final SocialLink? twitter;
-// nullable
   @override
   final SocialLink? youtube;
-// nullable
   @override
   final SocialLink? sns;
 
@@ -1067,7 +1084,9 @@ class _SnsLinksModel implements SnsLinksModel {
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, site, twitter, youtube, sns);
+  int get hashCode {
+    return Object.hash(runtimeType, site, twitter, youtube, sns);
+  }
 
   @override
   String toString() {
@@ -1211,20 +1230,25 @@ mixin _$SocialLink {
 
   @override
   bool operator ==(Object other) {
+    final _this = this as SocialLink;
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is SocialLink &&
-            (identical(other.text, text) || other.text == text) &&
-            (identical(other.url, url) || other.url == url));
+            (identical(other.text, _this.text) || other.text == _this.text) &&
+            (identical(other.url, _this.url) || other.url == _this.url));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, text, url);
+  int get hashCode {
+    final _this = this as SocialLink;
+    return Object.hash(runtimeType, _this.text, _this.url);
+  }
 
   @override
   String toString() {
-    return 'SocialLink(text: $text, url: $url)';
+    final _this = this as SocialLink;
+    return 'SocialLink(text: ${_this.text}, url: ${_this.url})';
   }
 }
 
@@ -1252,7 +1276,7 @@ class _$SocialLinkCopyWithImpl<$Res> implements $SocialLinkCopyWith<$Res> {
     Object? text = null,
     Object? url = null,
   }) {
-    return _then(_self.copyWith(
+    return _then(SocialLink(
       text: null == text
           ? _self.text
           : text // ignore: cast_nullable_to_non_nullable
@@ -1460,7 +1484,9 @@ class _SocialLink implements SocialLink {
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, text, url);
+  int get hashCode {
+    return Object.hash(runtimeType, text, url);
+  }
 
   @override
   String toString() {
@@ -1525,21 +1551,26 @@ mixin _$KeywordModel {
 
   @override
   bool operator ==(Object other) {
+    final _this = this as KeywordModel;
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is KeywordModel &&
-            (identical(other.text, text) || other.text == text) &&
-            (identical(other.phonetic, phonetic) ||
-                other.phonetic == phonetic));
+            (identical(other.text, _this.text) || other.text == _this.text) &&
+            (identical(other.phonetic, _this.phonetic) ||
+                other.phonetic == _this.phonetic));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, text, phonetic);
+  int get hashCode {
+    final _this = this as KeywordModel;
+    return Object.hash(runtimeType, _this.text, _this.phonetic);
+  }
 
   @override
   String toString() {
-    return 'KeywordModel(text: $text, phonetic: $phonetic)';
+    final _this = this as KeywordModel;
+    return 'KeywordModel(text: ${_this.text}, phonetic: ${_this.phonetic})';
   }
 }
 
@@ -1567,7 +1598,7 @@ class _$KeywordModelCopyWithImpl<$Res> implements $KeywordModelCopyWith<$Res> {
     Object? text = null,
     Object? phonetic = null,
   }) {
-    return _then(_self.copyWith(
+    return _then(KeywordModel(
       text: null == text
           ? _self.text
           : text // ignore: cast_nullable_to_non_nullable
@@ -1776,7 +1807,9 @@ class _KeywordModel implements KeywordModel {
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, text, phonetic);
+  int get hashCode {
+    return Object.hash(runtimeType, text, phonetic);
+  }
 
   @override
   String toString() {
@@ -1826,7 +1859,7 @@ class __$KeywordModelCopyWithImpl<$Res>
 
 /// @nodoc
 mixin _$RealSpModel {
-  String? get area; // nullable
+  String? get area;
   String? get no;
 
   /// Create a copy of RealSpModel
@@ -1841,20 +1874,25 @@ mixin _$RealSpModel {
 
   @override
   bool operator ==(Object other) {
+    final _this = this as RealSpModel;
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is RealSpModel &&
-            (identical(other.area, area) || other.area == area) &&
-            (identical(other.no, no) || other.no == no));
+            (identical(other.area, _this.area) || other.area == _this.area) &&
+            (identical(other.no, _this.no) || other.no == _this.no));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, area, no);
+  int get hashCode {
+    final _this = this as RealSpModel;
+    return Object.hash(runtimeType, _this.area, _this.no);
+  }
 
   @override
   String toString() {
-    return 'RealSpModel(area: $area, no: $no)';
+    final _this = this as RealSpModel;
+    return 'RealSpModel(area: ${_this.area}, no: ${_this.no})';
   }
 }
 
@@ -1882,7 +1920,7 @@ class _$RealSpModelCopyWithImpl<$Res> implements $RealSpModelCopyWith<$Res> {
     Object? area = freezed,
     Object? no = freezed,
   }) {
-    return _then(_self.copyWith(
+    return _then(RealSpModel(
       area: freezed == area
           ? _self.area
           : area // ignore: cast_nullable_to_non_nullable
@@ -2061,7 +2099,6 @@ class _RealSpModel implements RealSpModel {
 
   @override
   final String? area;
-// nullable
   @override
   final String? no;
 
@@ -2091,7 +2128,9 @@ class _RealSpModel implements RealSpModel {
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, area, no);
+  int get hashCode {
+    return Object.hash(runtimeType, area, no);
+  }
 
   @override
   String toString() {
@@ -2155,20 +2194,25 @@ mixin _$WebSpModel {
 
   @override
   bool operator ==(Object other) {
+    final _this = this as WebSpModel;
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is WebSpModel &&
-            (identical(other.area, area) || other.area == area) &&
-            (identical(other.no, no) || other.no == no));
+            (identical(other.area, _this.area) || other.area == _this.area) &&
+            (identical(other.no, _this.no) || other.no == _this.no));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, area, no);
+  int get hashCode {
+    final _this = this as WebSpModel;
+    return Object.hash(runtimeType, _this.area, _this.no);
+  }
 
   @override
   String toString() {
-    return 'WebSpModel(area: $area, no: $no)';
+    final _this = this as WebSpModel;
+    return 'WebSpModel(area: ${_this.area}, no: ${_this.no})';
   }
 }
 
@@ -2196,7 +2240,7 @@ class _$WebSpModelCopyWithImpl<$Res> implements $WebSpModelCopyWith<$Res> {
     Object? area = null,
     Object? no = null,
   }) {
-    return _then(_self.copyWith(
+    return _then(WebSpModel(
       area: null == area
           ? _self.area
           : area // ignore: cast_nullable_to_non_nullable
@@ -2404,7 +2448,9 @@ class _WebSpModel implements WebSpModel {
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, area, no);
+  int get hashCode {
+    return Object.hash(runtimeType, area, no);
+  }
 
   @override
   String toString() {
