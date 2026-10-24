@@ -1,0 +1,21 @@
+name: Setup Flutter
+description: .fvmrc と同じバージョンの Flutter をセットアップして依存を取得する
+
+runs:
+  using: composite
+  steps:
+    # .fvmrc と同じ Flutter バージョンを使う
+    - name: Read Flutter version
+      id: fvm
+      shell: bash
+      run: echo "version=$(jq -r .flutter .fvmrc)" >> "$GITHUB_OUTPUT"
+
+    - uses: subosito/flutter-action@v2
+      with:
+        flutter-version: ${{ steps.fvm.outputs.version }}
+        channel: stable
+        cache: true
+
+    - name: Install dependencies
+      shell: bash
+      run: flutter pub get

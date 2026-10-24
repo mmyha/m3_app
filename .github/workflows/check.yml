@@ -15,20 +15,7 @@ jobs:
     timeout-minutes: 20
     steps:
       - uses: actions/checkout@v5
-
-      # .fvmrc と同じ Flutter バージョンを使う
-      - name: Read Flutter version
-        id: fvm
-        run: echo "version=$(jq -r .flutter .fvmrc)" >> "$GITHUB_OUTPUT"
-
-      - uses: subosito/flutter-action@v2
-        with:
-          flutter-version: ${{ steps.fvm.outputs.version }}
-          channel: stable
-          cache: true
-
-      - name: Install dependencies
-        run: flutter pub get
+      - uses: ./.github/actions/setup-flutter
 
       - name: Check format
         run: dart format --output=none --set-exit-if-changed lib test
@@ -47,20 +34,7 @@ jobs:
     timeout-minutes: 20
     steps:
       - uses: actions/checkout@v5
-
-      # .fvmrc と同じ Flutter バージョンを使う
-      - name: Read Flutter version
-        id: fvm
-        run: echo "version=$(jq -r .flutter .fvmrc)" >> "$GITHUB_OUTPUT"
-
-      - uses: subosito/flutter-action@v2
-        with:
-          flutter-version: ${{ steps.fvm.outputs.version }}
-          channel: stable
-          cache: true
-
-      - name: Install dependencies
-        run: flutter pub get
+      - uses: ./.github/actions/setup-flutter
 
       - name: Test
         run: flutter test
