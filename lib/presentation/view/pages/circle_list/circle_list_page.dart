@@ -23,7 +23,7 @@ class CircleListPage extends HookConsumerWidget {
     return Scaffold(
       appBar: AppBar(
         // TODO(mmyha): イベント名
-        title: const Text('M3-2026春'),
+        title: const Text('M3-2026秋'),
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 10),
