@@ -81,7 +81,11 @@ final router = GoRouter(
           routes: <RouteBase>[
             GoRoute(
               path: RoutingPathConst.map,
-              builder: (context, state) => const CircleMapPage(),
+              builder: (context, state) {
+                // 子のサークル詳細へ移動したときは extra が CircleModel になる
+                final extra = state.extra;
+                return CircleMapPage(focus: extra is MapFocus ? extra : null);
+              },
               routes: [
                 GoRoute(
                   path: RoutingPathConst.circleDetails,

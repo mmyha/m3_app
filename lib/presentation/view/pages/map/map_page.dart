@@ -55,8 +55,19 @@ const _penTools = [
 
 const _eraserTool = _EraserTool();
 
+/// サークル詳細などからマップのスペースへ移動するときに渡す
+///
+/// 同じスペースへもう一度移動できるよう、インスタンスごとに別の移動として扱う
+class MapFocus {
+  MapFocus(this.spaceName);
+
+  /// "A-01a" のようなスペース名
+  final String spaceName;
+}
+
 class CircleMapPage extends HookConsumerWidget {
-  const CircleMapPage({super.key});
+  const CircleMapPage({super.key, this.focus});
+  final MapFocus? focus;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -109,6 +120,7 @@ class CircleMapPage extends HookConsumerWidget {
                   tool: isPenMode.value ? tool.value : null,
                   showSpaces: showSpaces.value,
                   showWishes: showWishes.value,
+                  focus: focus,
                 ),
               ),
               if (isPenMode.value)
@@ -138,10 +150,12 @@ class _MapPdfView extends HookConsumerWidget {
     required this.tool,
     required this.showSpaces,
     required this.showWishes,
+    required this.focus,
   });
   final String filePath;
   final bool showSpaces;
   final bool showWishes;
+  final MapFocus? focus;
 
   /// nullなら閲覧モード
   final _MapTool? tool;
@@ -162,6 +176,70 @@ class _MapPdfView extends HookConsumerWidget {
     ];
     // サークル一覧を出している間、タップしたスペースを枠で示す
     final selectedSpace = useState<String?>(null);
+
+    final controller = useMemoized(PdfViewerController.new);
+    final isViewerReady = useState(false);
+    // 移動したスペースを少しの間だけ枠で示す
+    final focusedSpace = useState<({int pageNumber, Rect rect})?>(null);
+    final handledFocus = useRef<MapFocus?>(null);
+
+    void moveToFocus() {
+      final target = focus;
+      // 詳細画面から戻ったときなどに、同じ移動を繰り返さない
+      if (target == null ||
+          identical(target, handledFocus.value) ||
+          !controller.isReady) {
+        return;
+      }
+      final space = MapSpaceUtil.findSpace(spaces, target.spaceName);
+      if (space == null) {
+        return;
+      }
+      handledFocus.value = target;
+
+      // スペースだけだと拡大しすぎるので、周りのスペースも見える範囲にする
+      const area = 80.0;
+      final page = controller.document.pages[space.pageNumber - 1];
+      final center = Offset(
+        space.rect.center.dx * page.width,
+        (1 - space.rect.center.dy) * page.height,
+      );
+      unawaited(
+        controller.goToRectInsidePage(
+          pageNumber: space.pageNumber,
+          rect: PdfRect(
+            center.dx - area / 2,
+            center.dy + area / 2,
+            center.dx + area / 2,
+            center.dy - area / 2,
+          ),
+          anchor: PdfPageAnchor.center,
+        ),
+      );
+      focusedSpace.value = space;
+    }
+
+    // マップやスペース位置の読み込みが終わってから移動する
+    useEffect(
+      () {
+        WidgetsBinding.instance.addPostFrameCallback((_) => moveToFocus());
+        return null;
+      },
+      [focus, spaces.isNotEmpty, isViewerReady.value],
+    );
+    useEffect(
+      () {
+        if (focusedSpace.value == null) {
+          return null;
+        }
+        final timer = Timer(
+          const Duration(seconds: 3),
+          () => focusedSpace.value = null,
+        );
+        return timer.cancel;
+      },
+      [focusedSpace.value],
+    );
     final isPenMode = tool != null;
     // 指の数はページの外(余白)に触れた指も含めて、ビューア全体で数える
     final pointers = useRef(<int>{});
@@ -185,7 +263,9 @@ class _MapPdfView extends HookConsumerWidget {
 
     final viewer = PdfViewer.file(
       filePath,
+      controller: controller,
       params: PdfViewerParams(
+        onViewerReady: (_, _) => isViewerReady.value = true,
         // 地図なので長押しでテキスト選択されないようにする
         textSelectionParams: const PdfTextSelectionParams(enabled: false),
         // 書き込みモード中は1本指を線に使い、2本指で移動・拡大縮小する
@@ -225,6 +305,9 @@ class _MapPdfView extends HookConsumerWidget {
             if (spaces[selectedSpace.value] case final selected?
                 when selected.pageNumber == page.pageNumber)
               _SelectedSpaceLayer(rect: selected.rect),
+            if (focusedSpace.value case final focused?
+                when focused.pageNumber == page.pageNumber)
+              _SelectedSpaceLayer(rect: focused.rect),
             if (showSpaces)
               _SpaceDebugLayer(
                 spaces: [
