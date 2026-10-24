@@ -2519,6 +2519,403 @@ class WishesCompanion extends UpdateCompanion<Wish> {
   }
 }
 
+class $MapStrokesTable extends MapStrokes
+    with TableInfo<$MapStrokesTable, MapStroke> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $MapStrokesTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<int> id = GeneratedColumn<int>(
+    'id',
+    aliasedName,
+    false,
+    hasAutoIncrement: true,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'PRIMARY KEY AUTOINCREMENT',
+    ),
+  );
+  static const VerificationMeta _pageNumberMeta = const VerificationMeta(
+    'pageNumber',
+  );
+  @override
+  late final GeneratedColumn<int> pageNumber = GeneratedColumn<int>(
+    'page_number',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _colorMeta = const VerificationMeta('color');
+  @override
+  late final GeneratedColumn<int> color = GeneratedColumn<int>(
+    'color',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _widthMeta = const VerificationMeta('width');
+  @override
+  late final GeneratedColumn<double> width = GeneratedColumn<double>(
+    'width',
+    aliasedName,
+    false,
+    type: DriftSqlType.double,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _pointsMeta = const VerificationMeta('points');
+  @override
+  late final GeneratedColumn<String> points = GeneratedColumn<String>(
+    'points',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _isEraserMeta = const VerificationMeta(
+    'isEraser',
+  );
+  @override
+  late final GeneratedColumn<bool> isEraser = GeneratedColumn<bool>(
+    'is_eraser',
+    aliasedName,
+    false,
+    type: DriftSqlType.bool,
+    requiredDuringInsert: false,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'CHECK ("is_eraser" IN (0, 1))',
+    ),
+    defaultValue: const Constant(false),
+  );
+  @override
+  List<GeneratedColumn> get $columns => [
+    id,
+    pageNumber,
+    color,
+    width,
+    points,
+    isEraser,
+  ];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'map_strokes';
+  @override
+  VerificationContext validateIntegrity(
+    Insertable<MapStroke> instance, {
+    bool isInserting = false,
+  }) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    }
+    if (data.containsKey('page_number')) {
+      context.handle(
+        _pageNumberMeta,
+        pageNumber.isAcceptableOrUnknown(data['page_number']!, _pageNumberMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_pageNumberMeta);
+    }
+    if (data.containsKey('color')) {
+      context.handle(
+        _colorMeta,
+        color.isAcceptableOrUnknown(data['color']!, _colorMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_colorMeta);
+    }
+    if (data.containsKey('width')) {
+      context.handle(
+        _widthMeta,
+        width.isAcceptableOrUnknown(data['width']!, _widthMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_widthMeta);
+    }
+    if (data.containsKey('points')) {
+      context.handle(
+        _pointsMeta,
+        points.isAcceptableOrUnknown(data['points']!, _pointsMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_pointsMeta);
+    }
+    if (data.containsKey('is_eraser')) {
+      context.handle(
+        _isEraserMeta,
+        isEraser.isAcceptableOrUnknown(data['is_eraser']!, _isEraserMeta),
+      );
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  MapStroke map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return MapStroke(
+      id: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}id'],
+      )!,
+      pageNumber: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}page_number'],
+      )!,
+      color: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}color'],
+      )!,
+      width: attachedDatabase.typeMapping.read(
+        DriftSqlType.double,
+        data['${effectivePrefix}width'],
+      )!,
+      points: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}points'],
+      )!,
+      isEraser: attachedDatabase.typeMapping.read(
+        DriftSqlType.bool,
+        data['${effectivePrefix}is_eraser'],
+      )!,
+    );
+  }
+
+  @override
+  $MapStrokesTable createAlias(String alias) {
+    return $MapStrokesTable(attachedDatabase, alias);
+  }
+}
+
+class MapStroke extends DataClass implements Insertable<MapStroke> {
+  final int id;
+  final int pageNumber;
+  final int color;
+  final double width;
+  final String points;
+  final bool isEraser;
+  const MapStroke({
+    required this.id,
+    required this.pageNumber,
+    required this.color,
+    required this.width,
+    required this.points,
+    required this.isEraser,
+  });
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<int>(id);
+    map['page_number'] = Variable<int>(pageNumber);
+    map['color'] = Variable<int>(color);
+    map['width'] = Variable<double>(width);
+    map['points'] = Variable<String>(points);
+    map['is_eraser'] = Variable<bool>(isEraser);
+    return map;
+  }
+
+  MapStrokesCompanion toCompanion(bool nullToAbsent) {
+    return MapStrokesCompanion(
+      id: Value(id),
+      pageNumber: Value(pageNumber),
+      color: Value(color),
+      width: Value(width),
+      points: Value(points),
+      isEraser: Value(isEraser),
+    );
+  }
+
+  factory MapStroke.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return MapStroke(
+      id: serializer.fromJson<int>(json['id']),
+      pageNumber: serializer.fromJson<int>(json['pageNumber']),
+      color: serializer.fromJson<int>(json['color']),
+      width: serializer.fromJson<double>(json['width']),
+      points: serializer.fromJson<String>(json['points']),
+      isEraser: serializer.fromJson<bool>(json['isEraser']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<int>(id),
+      'pageNumber': serializer.toJson<int>(pageNumber),
+      'color': serializer.toJson<int>(color),
+      'width': serializer.toJson<double>(width),
+      'points': serializer.toJson<String>(points),
+      'isEraser': serializer.toJson<bool>(isEraser),
+    };
+  }
+
+  MapStroke copyWith({
+    int? id,
+    int? pageNumber,
+    int? color,
+    double? width,
+    String? points,
+    bool? isEraser,
+  }) => MapStroke(
+    id: id ?? this.id,
+    pageNumber: pageNumber ?? this.pageNumber,
+    color: color ?? this.color,
+    width: width ?? this.width,
+    points: points ?? this.points,
+    isEraser: isEraser ?? this.isEraser,
+  );
+  MapStroke copyWithCompanion(MapStrokesCompanion data) {
+    return MapStroke(
+      id: data.id.present ? data.id.value : this.id,
+      pageNumber: data.pageNumber.present
+          ? data.pageNumber.value
+          : this.pageNumber,
+      color: data.color.present ? data.color.value : this.color,
+      width: data.width.present ? data.width.value : this.width,
+      points: data.points.present ? data.points.value : this.points,
+      isEraser: data.isEraser.present ? data.isEraser.value : this.isEraser,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('MapStroke(')
+          ..write('id: $id, ')
+          ..write('pageNumber: $pageNumber, ')
+          ..write('color: $color, ')
+          ..write('width: $width, ')
+          ..write('points: $points, ')
+          ..write('isEraser: $isEraser')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode =>
+      Object.hash(id, pageNumber, color, width, points, isEraser);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is MapStroke &&
+          other.id == this.id &&
+          other.pageNumber == this.pageNumber &&
+          other.color == this.color &&
+          other.width == this.width &&
+          other.points == this.points &&
+          other.isEraser == this.isEraser);
+}
+
+class MapStrokesCompanion extends UpdateCompanion<MapStroke> {
+  final Value<int> id;
+  final Value<int> pageNumber;
+  final Value<int> color;
+  final Value<double> width;
+  final Value<String> points;
+  final Value<bool> isEraser;
+  const MapStrokesCompanion({
+    this.id = const Value.absent(),
+    this.pageNumber = const Value.absent(),
+    this.color = const Value.absent(),
+    this.width = const Value.absent(),
+    this.points = const Value.absent(),
+    this.isEraser = const Value.absent(),
+  });
+  MapStrokesCompanion.insert({
+    this.id = const Value.absent(),
+    required int pageNumber,
+    required int color,
+    required double width,
+    required String points,
+    this.isEraser = const Value.absent(),
+  }) : pageNumber = Value(pageNumber),
+       color = Value(color),
+       width = Value(width),
+       points = Value(points);
+  static Insertable<MapStroke> custom({
+    Expression<int>? id,
+    Expression<int>? pageNumber,
+    Expression<int>? color,
+    Expression<double>? width,
+    Expression<String>? points,
+    Expression<bool>? isEraser,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (pageNumber != null) 'page_number': pageNumber,
+      if (color != null) 'color': color,
+      if (width != null) 'width': width,
+      if (points != null) 'points': points,
+      if (isEraser != null) 'is_eraser': isEraser,
+    });
+  }
+
+  MapStrokesCompanion copyWith({
+    Value<int>? id,
+    Value<int>? pageNumber,
+    Value<int>? color,
+    Value<double>? width,
+    Value<String>? points,
+    Value<bool>? isEraser,
+  }) {
+    return MapStrokesCompanion(
+      id: id ?? this.id,
+      pageNumber: pageNumber ?? this.pageNumber,
+      color: color ?? this.color,
+      width: width ?? this.width,
+      points: points ?? this.points,
+      isEraser: isEraser ?? this.isEraser,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<int>(id.value);
+    }
+    if (pageNumber.present) {
+      map['page_number'] = Variable<int>(pageNumber.value);
+    }
+    if (color.present) {
+      map['color'] = Variable<int>(color.value);
+    }
+    if (width.present) {
+      map['width'] = Variable<double>(width.value);
+    }
+    if (points.present) {
+      map['points'] = Variable<String>(points.value);
+    }
+    if (isEraser.present) {
+      map['is_eraser'] = Variable<bool>(isEraser.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('MapStrokesCompanion(')
+          ..write('id: $id, ')
+          ..write('pageNumber: $pageNumber, ')
+          ..write('color: $color, ')
+          ..write('width: $width, ')
+          ..write('points: $points, ')
+          ..write('isEraser: $isEraser')
+          ..write(')'))
+        .toString();
+  }
+}
+
 abstract class _$CircleDatabase extends GeneratedDatabase {
   _$CircleDatabase(QueryExecutor e) : super(e);
   $CircleDatabaseManager get managers => $CircleDatabaseManager(this);
@@ -2528,6 +2925,7 @@ abstract class _$CircleDatabase extends GeneratedDatabase {
   late final $WebSpsTable webSps = $WebSpsTable(this);
   late final $KeywordsTable keywords = $KeywordsTable(this);
   late final $WishesTable wishes = $WishesTable(this);
+  late final $MapStrokesTable mapStrokes = $MapStrokesTable(this);
   @override
   Iterable<TableInfo<Table, Object?>> get allTables =>
       allSchemaEntities.whereType<TableInfo<Table, Object?>>();
@@ -2539,6 +2937,7 @@ abstract class _$CircleDatabase extends GeneratedDatabase {
     webSps,
     keywords,
     wishes,
+    mapStrokes,
   ];
 }
 
@@ -5024,6 +5423,230 @@ typedef $$WishesTableProcessedTableManager =
       Wish,
       PrefetchHooks Function({bool isFavorite, bool circleId, bool circleName})
     >;
+typedef $$MapStrokesTableCreateCompanionBuilder =
+    MapStrokesCompanion Function({
+      Value<int> id,
+      required int pageNumber,
+      required int color,
+      required double width,
+      required String points,
+      Value<bool> isEraser,
+    });
+typedef $$MapStrokesTableUpdateCompanionBuilder =
+    MapStrokesCompanion Function({
+      Value<int> id,
+      Value<int> pageNumber,
+      Value<int> color,
+      Value<double> width,
+      Value<String> points,
+      Value<bool> isEraser,
+    });
+
+class $$MapStrokesTableFilterComposer
+    extends Composer<_$CircleDatabase, $MapStrokesTable> {
+  $$MapStrokesTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<int> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get pageNumber => $composableBuilder(
+    column: $table.pageNumber,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get color => $composableBuilder(
+    column: $table.color,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<double> get width => $composableBuilder(
+    column: $table.width,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get points => $composableBuilder(
+    column: $table.points,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<bool> get isEraser => $composableBuilder(
+    column: $table.isEraser,
+    builder: (column) => ColumnFilters(column),
+  );
+}
+
+class $$MapStrokesTableOrderingComposer
+    extends Composer<_$CircleDatabase, $MapStrokesTable> {
+  $$MapStrokesTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<int> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get pageNumber => $composableBuilder(
+    column: $table.pageNumber,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get color => $composableBuilder(
+    column: $table.color,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<double> get width => $composableBuilder(
+    column: $table.width,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get points => $composableBuilder(
+    column: $table.points,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<bool> get isEraser => $composableBuilder(
+    column: $table.isEraser,
+    builder: (column) => ColumnOrderings(column),
+  );
+}
+
+class $$MapStrokesTableAnnotationComposer
+    extends Composer<_$CircleDatabase, $MapStrokesTable> {
+  $$MapStrokesTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<int> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<int> get pageNumber => $composableBuilder(
+    column: $table.pageNumber,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<int> get color =>
+      $composableBuilder(column: $table.color, builder: (column) => column);
+
+  GeneratedColumn<double> get width =>
+      $composableBuilder(column: $table.width, builder: (column) => column);
+
+  GeneratedColumn<String> get points =>
+      $composableBuilder(column: $table.points, builder: (column) => column);
+
+  GeneratedColumn<bool> get isEraser =>
+      $composableBuilder(column: $table.isEraser, builder: (column) => column);
+}
+
+class $$MapStrokesTableTableManager
+    extends
+        RootTableManager<
+          _$CircleDatabase,
+          $MapStrokesTable,
+          MapStroke,
+          $$MapStrokesTableFilterComposer,
+          $$MapStrokesTableOrderingComposer,
+          $$MapStrokesTableAnnotationComposer,
+          $$MapStrokesTableCreateCompanionBuilder,
+          $$MapStrokesTableUpdateCompanionBuilder,
+          (
+            MapStroke,
+            BaseReferences<_$CircleDatabase, $MapStrokesTable, MapStroke>,
+          ),
+          MapStroke,
+          PrefetchHooks Function()
+        > {
+  $$MapStrokesTableTableManager(_$CircleDatabase db, $MapStrokesTable table)
+    : super(
+        TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$MapStrokesTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$MapStrokesTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$MapStrokesTableAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback:
+              ({
+                Value<int> id = const Value.absent(),
+                Value<int> pageNumber = const Value.absent(),
+                Value<int> color = const Value.absent(),
+                Value<double> width = const Value.absent(),
+                Value<String> points = const Value.absent(),
+                Value<bool> isEraser = const Value.absent(),
+              }) => MapStrokesCompanion(
+                id: id,
+                pageNumber: pageNumber,
+                color: color,
+                width: width,
+                points: points,
+                isEraser: isEraser,
+              ),
+          createCompanionCallback:
+              ({
+                Value<int> id = const Value.absent(),
+                required int pageNumber,
+                required int color,
+                required double width,
+                required String points,
+                Value<bool> isEraser = const Value.absent(),
+              }) => MapStrokesCompanion.insert(
+                id: id,
+                pageNumber: pageNumber,
+                color: color,
+                width: width,
+                points: points,
+                isEraser: isEraser,
+              ),
+          withReferenceMapper: (p0) => p0
+              .map(
+                (e) => (
+                  e.readTable<$MapStrokesTable, MapStroke>(table),
+                  BaseReferences<_$CircleDatabase, $MapStrokesTable, MapStroke>(
+                    db,
+                    table,
+                    e,
+                  ),
+                ),
+              )
+              .toList(),
+          prefetchHooksCallback: null,
+        ),
+      );
+}
+
+typedef $$MapStrokesTableProcessedTableManager =
+    ProcessedTableManager<
+      _$CircleDatabase,
+      $MapStrokesTable,
+      MapStroke,
+      $$MapStrokesTableFilterComposer,
+      $$MapStrokesTableOrderingComposer,
+      $$MapStrokesTableAnnotationComposer,
+      $$MapStrokesTableCreateCompanionBuilder,
+      $$MapStrokesTableUpdateCompanionBuilder,
+      (
+        MapStroke,
+        BaseReferences<_$CircleDatabase, $MapStrokesTable, MapStroke>,
+      ),
+      MapStroke,
+      PrefetchHooks Function()
+    >;
 
 class $CircleDatabaseManager {
   final _$CircleDatabase _db;
@@ -5040,4 +5663,6 @@ class $CircleDatabaseManager {
       $$KeywordsTableTableManager(_db, _db.keywords);
   $$WishesTableTableManager get wishes =>
       $$WishesTableTableManager(_db, _db.wishes);
+  $$MapStrokesTableTableManager get mapStrokes =>
+      $$MapStrokesTableTableManager(_db, _db.mapStrokes);
 }

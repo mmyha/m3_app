@@ -15,7 +15,6 @@ dependencies:
     sdk: flutter
   flutter_dotenv: 5.2.1
   flutter_hooks: 0.21.3+1
-  flutter_pdfview: 1.4.5
   flutter_svg: 2.3.0
   fluttertoast: 10.0.2
   freezed: 4.0.3
@@ -26,6 +25,7 @@ dependencies:
   material_symbols_icons: 4.2960.0
   path: 1.9.1
   path_provider: 2.1.6
+  pdfrx: ^2.10.1
   retrofit: 4.10.0
   riverpod_annotation: 4.0.7
   shared_preferences: 2.5.6
@@ -38,6 +38,7 @@ dev_dependencies:
     sdk: flutter
   json_serializable: 6.15.2
   mockito: 5.8.1
+  pdfrx_engine: 0.8.0
   pedantic_mono: 1.38.1
   retrofit_generator: 10.3.2
   riverpod_generator: 4.0.9
@@ -56,6 +57,7 @@ flutter:
   assets:
     - .env
     - assets/
+    - assets/map/
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
 

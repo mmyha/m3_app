@@ -1,3 +1,4 @@
+import 'package:flutter/services.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:m3_app/infrastructure/repository/circle_repository.dart';
 import 'package:m3_app/provider/infrastructure/dao_provider.dart';
@@ -5,6 +6,8 @@ import 'package:m3_app/provider/infrastructure/http_service_providers.dart';
 
 import '../../../provider/infrastructure/map_pdf_service_provider.dart';
 import '../map_pdf_repository.dart';
+import '../map_space_repository.dart';
+import '../map_stroke_repository.dart';
 import '../wish_list_repository.dart';
 
 final circleRepositoryProvider = Provider<CircleRepository>(
@@ -24,4 +27,14 @@ final mapPdfRepositoryProvider = Provider<MapPdfRepository>(
   (ref) => MapPdfRepository(
     ref.read(mapPdfServiceProvider),
   ),
+);
+
+final mapStrokeRepositoryProvider = Provider<MapStrokeRepository>(
+  (ref) => MapStrokeRepository(
+    ref.read(mapStrokeDaoProvider),
+  ),
+);
+
+final mapSpaceRepositoryProvider = Provider<MapSpaceRepository>(
+  (ref) => MapSpaceRepository(rootBundle),
 );

@@ -5,6 +5,11 @@ import 'package:m3_app/domain/usecase/wish_list/delete_wish_usecase.dart';
 import '../../domain/usecase/circle/fetch_circle_from_id_usecase.dart';
 import '../../domain/usecase/circle/fetch_circle_usecase.dart';
 import '../../domain/usecase/map_pdf/get_map_pdf_usecase.dart';
+import '../../domain/usecase/map_space/fetch_map_spaces_usecase.dart';
+import '../../domain/usecase/map_stroke/add_map_stroke_usecase.dart';
+import '../../domain/usecase/map_stroke/clear_map_strokes_usecase.dart';
+import '../../domain/usecase/map_stroke/delete_map_strokes_usecase.dart';
+import '../../domain/usecase/map_stroke/fetch_map_strokes_usecase.dart';
 import '../../domain/usecase/wish_list/add_wish_list_usecase.dart';
 import '../../domain/usecase/wish_list/fetch_wish_list_usecase.dart';
 import '../../domain/usecase/wish_list/update_wish_list_usecase.dart';
@@ -52,5 +57,29 @@ final Provider<UpdateWishListUseCase> updateWishListUseCaseProvider = Provider(
 final Provider<GetMapPdfUseCase> getMapPdfUseCaseProvider = Provider(
   (ref) => GetMapPdfUseCase(
     ref.read(mapPdfRepositoryProvider),
+    ref.read(mapStrokeRepositoryProvider),
   ),
+);
+
+final Provider<FetchMapStrokesUseCase> fetchMapStrokesUseCaseProvider =
+    Provider(
+      (ref) => FetchMapStrokesUseCase(ref.read(mapStrokeRepositoryProvider)),
+    );
+
+final Provider<AddMapStrokeUseCase> addMapStrokeUseCaseProvider = Provider(
+  (ref) => AddMapStrokeUseCase(ref.read(mapStrokeRepositoryProvider)),
+);
+
+final Provider<DeleteMapStrokesUseCase> deleteMapStrokesUseCaseProvider =
+    Provider(
+      (ref) => DeleteMapStrokesUseCase(ref.read(mapStrokeRepositoryProvider)),
+    );
+
+final Provider<ClearMapStrokesUseCase> clearMapStrokesUseCaseProvider =
+    Provider(
+      (ref) => ClearMapStrokesUseCase(ref.read(mapStrokeRepositoryProvider)),
+    );
+
+final Provider<FetchMapSpacesUseCase> fetchMapSpacesUseCaseProvider = Provider(
+  (ref) => FetchMapSpacesUseCase(ref.read(mapSpaceRepositoryProvider)),
 );

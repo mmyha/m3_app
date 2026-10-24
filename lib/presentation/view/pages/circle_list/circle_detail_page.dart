@@ -1,12 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:m3_app/core/router/routing_path_const.dart';
 import 'package:m3_app/core/theme/m3_theme.dart';
 import 'package:m3_app/core/theme/m3_theme_config.dart';
 import 'package:m3_app/core/utils/circle_util.dart';
+import 'package:m3_app/core/utils/map_space_util.dart';
+import 'package:m3_app/presentation/controller/map_space/map_space_controller.dart';
 import 'package:m3_app/presentation/view/components/circle_list/favorite_button.dart';
 import 'package:m3_app/presentation/view/components/common/margin.dart';
 import 'package:m3_app/presentation/view/components/common/toast.dart';
+import 'package:m3_app/presentation/view/pages/map/map_page.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../../../domain/model/circle_model.dart';
@@ -37,6 +42,12 @@ class CircleDetailPage extends StatelessWidget {
               _CircleSpaceArea(
                 realSp: circle.realSp,
                 webSp: circle.webSp,
+              ),
+              _ShowOnMapButton(
+                spaceName: CircleUtil.generateSpaceName(
+                  realSp: circle.realSp,
+                  webSp: circle.webSp,
+                ),
               ),
               const MarginVertical(15),
               _CirclePrText(prText: circle.prText),
@@ -108,6 +119,27 @@ class _CircleSpaceArea extends StatelessWidget {
         if (realSp != null && webSp != null) const MarginVertical(15),
         if (webSp != null) Text('Web: ${webSp!.area}-${webSp!.no}'),
       ],
+    );
+  }
+}
+
+class _ShowOnMapButton extends ConsumerWidget {
+  const _ShowOnMapButton({required this.spaceName});
+  final String spaceName;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final spaces = ref.watch(mapSpaceControllerProvider).value ?? const {};
+    // マップにないスペース(Webのみなど)では出さない
+    if (MapSpaceUtil.findSpace(spaces, spaceName) == null) {
+      return const SizedBox.shrink();
+    }
+    return TextButton.icon(
+      icon: const Icon(Icons.map_outlined),
+      label: const Text('マップで見る'),
+      onPressed: () {
+        context.go(RoutingPathConst.map, extra: MapFocus(spaceName));
+      },
     );
   }
 }

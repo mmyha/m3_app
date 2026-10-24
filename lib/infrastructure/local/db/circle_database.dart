@@ -7,6 +7,7 @@ import 'package:path/path.dart' as p;
 import 'package:path_provider/path_provider.dart';
 
 import '../../../domain/model/circle_wish_model.dart';
+import '../../../domain/model/map_stroke_model.dart';
 
 part 'circle_database.g.dart';
 
@@ -72,7 +73,19 @@ class Wishes extends Table {
   TextColumn get memo => text().nullable()();
 }
 
-@DriftDatabase(tables: [Circles, SnsLinks, RealSps, WebSps, Keywords, Wishes])
+@DataClassName('MapStroke')
+class MapStrokes extends Table {
+  IntColumn get id => integer().autoIncrement()(); // 主キー
+  IntColumn get pageNumber => integer()();
+  IntColumn get color => integer()();
+  RealColumn get width => real()();
+  TextColumn get points => text()(); // [x0, y0, x1, y1, ...] のJSON
+  BoolColumn get isEraser => boolean().withDefault(const Constant(false))();
+}
+
+@DriftDatabase(
+  tables: [Circles, SnsLinks, RealSps, WebSps, Keywords, Wishes, MapStrokes],
+)
 class CircleDatabase extends _$CircleDatabase {
   // SQLite用のファクトリー
   factory CircleDatabase() {
@@ -93,7 +106,18 @@ class CircleDatabase extends _$CircleDatabase {
 
   // マイグレーションを行う場合に使用ため、テーブルを追加／変更／削除する場合はこの値をインクリメントする
   @override
-  int get schemaVersion => 1;
+  int get schemaVersion => 3;
+
+  @override
+  MigrationStrategy get migration => MigrationStrategy(
+    onUpgrade: (m, from, to) async {
+      if (from < 2) {
+        await m.createTable(mapStrokes);
+      } else if (from < 3) {
+        await m.addColumn(mapStrokes, mapStrokes.isEraser);
+      }
+    },
+  );
 
   // サークル全件取得
   Future<List<Circle>> getAllCircle() async {
@@ -315,6 +339,39 @@ class CircleDatabase extends _$CircleDatabase {
     required int circleId,
   }) async {
     await (delete(wishes)..where((tbl) => tbl.circleId.equals(circleId))).go();
+  }
+
+  // -----------------------------
+
+  Future<List<MapStroke>> getAllMapStrokes() async {
+    final data = await (select(
+      mapStrokes,
+    )..orderBy([(tbl) => OrderingTerm.asc(tbl.id)])).get();
+    return data;
+  }
+
+  Future<int> addMapStroke({
+    required MapStrokeModel stroke,
+    required String points,
+  }) async {
+    final id = await into(mapStrokes).insert(
+      MapStrokesCompanion(
+        pageNumber: Value(stroke.pageNumber),
+        color: Value(stroke.color),
+        width: Value(stroke.width),
+        points: Value(points),
+        isEraser: Value(stroke.isEraser),
+      ),
+    );
+    return id;
+  }
+
+  Future<void> deleteMapStrokes({required List<int> ids}) async {
+    await (delete(mapStrokes)..where((tbl) => tbl.id.isIn(ids))).go();
+  }
+
+  Future<void> deleteAllMapStrokes() async {
+    await delete(mapStrokes).go();
   }
 }
 
