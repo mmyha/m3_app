@@ -3,6 +3,7 @@ import 'package:m3_app/provider/infrastructure/database_provider.dart';
 
 import '../../infrastructure/local/dao/circle_dao.dart';
 import '../../infrastructure/local/dao/circle_fav_dao.dart';
+import '../../infrastructure/local/dao/map_stroke_dao.dart';
 
 final circleDaoProvider = Provider<CircleInfoDao>(
   (ref) => CircleInfoDao(ref.read(databaseProvider)),
@@ -10,4 +11,8 @@ final circleDaoProvider = Provider<CircleInfoDao>(
 
 final circleFavDaoProvider = Provider<CircleFavDao>(
   (ref) => CircleFavDao(ref.read(databaseProvider)),
+);
+
+final mapStrokeDaoProvider = Provider<MapStrokeDao>(
+  (ref) => MapStrokeDao(ref.read(databaseProvider)),
 );
