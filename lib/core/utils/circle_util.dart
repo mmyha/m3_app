@@ -18,6 +18,37 @@ class CircleUtil {
     return spaceName;
   }
 
+  static final _spaceNoRegExp = RegExp(r'^(\d+)(.*)$');
+
+  /// 会場のスペース順(エリア → 番号 → a, b などの分割位置)で比較する
+  ///
+  /// スペースがないサークルは後ろに並べる
+  static int compareBySpace(CircleModel a, CircleModel b) {
+    final spA = a.realSp;
+    final spB = b.realSp;
+    if (spA?.area == null || spB?.area == null) {
+      return (spA?.area == null ? 1 : 0) - (spB?.area == null ? 1 : 0);
+    }
+
+    final area = spA!.area!.compareTo(spB!.area!);
+    if (area != 0) {
+      return area;
+    }
+
+    final matchA = _spaceNoRegExp.firstMatch(spA.no ?? '');
+    final matchB = _spaceNoRegExp.firstMatch(spB.no ?? '');
+    if (matchA == null || matchB == null) {
+      return (spA.no ?? '').compareTo(spB.no ?? '');
+    }
+    final number = int.parse(
+      matchA.group(1)!,
+    ).compareTo(int.parse(matchB.group(1)!));
+    if (number != 0) {
+      return number;
+    }
+    return matchA.group(2)!.compareTo(matchB.group(2)!);
+  }
+
   static bool isUpperCaseEnglish(String input) {
     final upperCaseRegExp = RegExp(r'^[A-Z]+$');
     return upperCaseRegExp.hasMatch(input);
