@@ -1,6 +1,7 @@
 import 'package:flutter/painting.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:m3_app/core/utils/map_space_util.dart';
+import 'package:m3_app/domain/model/circle_model.dart';
 import 'package:m3_app/domain/model/map_space_model.dart';
 
 void main() {
@@ -130,6 +131,40 @@ void main() {
     test('マップにないスペースならnull', () {
       expect(MapSpaceUtil.findSpace(spaces, '藍-19'), isNull);
       expect(MapSpaceUtil.findSpace(spaces, ''), isNull);
+    });
+  });
+
+  group('groupBySpace', () {
+    CircleModel circle(int id, String area, String no) => CircleModel(
+      id: id,
+      name: 'circle$id',
+      phonetic: '',
+      genre: '',
+      spaceSize: 1,
+      adult: false,
+      prText: '',
+      keywords: const [],
+      realSp: RealSpModel(area: area, no: no),
+    );
+
+    test('スペースごとにa, bの順でまとめる', () {
+      final grouped = MapSpaceUtil.groupBySpace([
+        circle(1, 'A', '01b'),
+        circle(2, 'B', '03ab'),
+        circle(3, 'A', '01a'),
+        circle(4, 'ク', '19z'),
+        circle(5, 'ク', '19x'),
+      ]);
+
+      expect(grouped.keys, unorderedEquals(['A-01', 'B-03', 'ク-19']));
+      expect(grouped['A-01']!.map((c) => c.id), [3, 1]);
+      expect(grouped['B-03']!.map((c) => c.id), [2]);
+      expect(grouped['ク-19']!.map((c) => c.id), [5, 4]);
+    });
+
+    test('スペースがないサークルは除く', () {
+      final noSpace = circle(1, 'A', '01a').copyWith(realSp: null);
+      expect(MapSpaceUtil.groupBySpace([noSpace]), isEmpty);
     });
   });
 }

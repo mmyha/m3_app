@@ -1,6 +1,8 @@
 import 'dart:ui';
 
+import '../../domain/model/circle_model.dart';
 import '../../domain/model/map_space_model.dart';
+import 'circle_util.dart';
 
 // ignore: avoid_classes_with_only_static_members
 class MapSpaceUtil {
@@ -32,6 +34,34 @@ class MapSpaceUtil {
     return (
       pageNumber: space.pageNumber,
       rect: partRect(space, parsed.suffix),
+    );
+  }
+
+  /// サークルをマップのスペース("A-01")ごとにまとめる。スペース内は a, b の順
+  static Map<String, List<CircleModel>> groupBySpace(
+    List<CircleModel> circles,
+  ) {
+    final grouped = <String, List<({String suffix, CircleModel circle})>>{};
+    for (final circle in circles) {
+      final parsed = parseSpaceName(
+        CircleUtil.generateSpaceName(
+          realSp: circle.realSp,
+          webSp: circle.webSp,
+        ),
+      );
+      if (parsed == null) {
+        continue;
+      }
+      grouped.putIfAbsent(parsed.key, () => []).add((
+        suffix: parsed.suffix,
+        circle: circle,
+      ));
+    }
+    return grouped.map(
+      (key, value) => MapEntry(key, [
+        for (final entry in value..sort((a, b) => a.suffix.compareTo(b.suffix)))
+          entry.circle,
+      ]),
     );
   }
 

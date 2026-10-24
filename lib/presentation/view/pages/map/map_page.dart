@@ -1,16 +1,22 @@
+import 'dart:async';
 import 'dart:math' as math;
 import 'dart:ui' show PointMode;
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:m3_app/core/router/routing_path_const.dart';
 import 'package:m3_app/core/theme/m3_theme_config.dart';
+import 'package:m3_app/core/utils/circle_util.dart';
 import 'package:m3_app/core/utils/map_space_util.dart';
+import 'package:m3_app/domain/model/circle_model.dart';
 import 'package:m3_app/domain/model/circle_wish_model.dart';
 import 'package:m3_app/domain/model/map_space_model.dart';
 import 'package:m3_app/domain/model/map_stroke_model.dart';
 import 'package:m3_app/presentation/controller/circle_map/circle_map_controller.dart';
+import 'package:m3_app/presentation/controller/map_space/map_space_circles_controller.dart';
 import 'package:m3_app/presentation/controller/map_space/map_space_controller.dart';
 import 'package:m3_app/presentation/controller/map_stroke/map_stroke_controller.dart';
 import 'package:m3_app/presentation/controller/wish_list/wish_list_controller.dart';
@@ -143,17 +149,19 @@ class _MapPdfView extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final strokes = ref.watch(mapStrokeControllerProvider).value ?? const [];
-    final spaces = showSpaces || showWishes
-        ? ref.watch(mapSpaceControllerProvider).value ?? const {}
-        : const <String, MapSpaceModel>{};
-    final wishes = showWishes
-        ? ref.watch(wishListControllerProvider).value ?? const []
-        : const <CircleWishModel>[];
+    final spaces = ref.watch(mapSpaceControllerProvider).value ?? const {};
+    final wishes = ref.watch(wishListControllerProvider).value ?? const [];
+    // タップしたスペースのサークルをすぐ出せるよう、先に読み込んでおく
+    final spaceCircles =
+        ref.watch(mapSpaceCirclesControllerProvider).value ?? const {};
     final highlights = [
-      for (final wish in wishes)
-        if (MapSpaceUtil.findSpace(spaces, wish.spaceName) case final space?)
-          (space: space, state: _WishState.of(wish)),
+      if (showWishes)
+        for (final wish in wishes)
+          if (MapSpaceUtil.findSpace(spaces, wish.spaceName) case final space?)
+            (space: space, state: _WishState.of(wish)),
     ];
+    // サークル一覧を出している間、タップしたスペースを枠で示す
+    final selectedSpace = useState<String?>(null);
     final isPenMode = tool != null;
     // 指の数はページの外(余白)に触れた指も含めて、ビューア全体で数える
     final pointers = useRef(<int>{});
@@ -183,7 +191,28 @@ class _MapPdfView extends HookConsumerWidget {
         // 書き込みモード中は1本指を線に使い、2本指で移動・拡大縮小する
         panEnabled: !isPenMode || isMultiTouch.value,
         // 書き込みモード中は長押しメニューなどを出さない
-        onGeneralTap: isPenMode ? (_, _, _) => true : null,
+        onGeneralTap: (_, controller, details) {
+          if (isPenMode) {
+            return true;
+          }
+          if (details.type != PdfViewerGeneralTapType.tap) {
+            return false;
+          }
+          final key = _hitSpace(controller, details.documentPosition, spaces);
+          if (key == null) {
+            return false;
+          }
+          selectedSpace.value = key;
+          unawaited(
+            _showSpaceCircles(
+              context,
+              spaceKey: key,
+              circles: spaceCircles[key] ?? const [],
+              wishes: wishes,
+            ).whenComplete(() => selectedSpace.value = null),
+          );
+          return true;
+        },
         pageOverlaysBuilder: (context, pageRect, page) {
           return [
             _WishHighlightLayer(
@@ -193,6 +222,9 @@ class _MapPdfView extends HookConsumerWidget {
                     (rect: highlight.space.rect, state: highlight.state),
               ],
             ),
+            if (spaces[selectedSpace.value] case final selected?
+                when selected.pageNumber == page.pageNumber)
+              _SelectedSpaceLayer(rect: selected.rect),
             if (showSpaces)
               _SpaceDebugLayer(
                 spaces: [
@@ -229,6 +261,174 @@ class _MapPdfView extends HookConsumerWidget {
           const Positioned(left: 8, bottom: 8, child: _WishLegend()),
       ],
     );
+  }
+
+  /// タップした位置のスペース("A-01")
+  String? _hitSpace(
+    PdfViewerController controller,
+    Offset documentPosition,
+    Map<String, MapSpaceModel> spaces,
+  ) {
+    final hit = controller.getPdfPageHitTestResult(
+      documentPosition,
+      useDocumentLayoutCoordinates: true,
+    );
+    if (hit == null) {
+      return null;
+    }
+    // PDFの座標は左下原点なので、ページサイズに対する割合(左上原点)にする
+    final point = Offset(
+      hit.offset.x / hit.page.width,
+      1 - hit.offset.y / hit.page.height,
+    );
+    return spaces.entries
+        .where(
+          (entry) =>
+              entry.value.pageNumber == hit.page.pageNumber &&
+              entry.value.rect.contains(point),
+        )
+        .firstOrNull
+        ?.key;
+  }
+
+  Future<void> _showSpaceCircles(
+    BuildContext context, {
+    required String spaceKey,
+    required List<CircleModel> circles,
+    required List<CircleWishModel> wishes,
+  }) {
+    return showModalBottomSheet<void>(
+      context: context,
+      showDragHandle: true,
+      builder: (sheetContext) {
+        return _SpaceCirclesSheet(
+          spaceKey: spaceKey,
+          circles: circles,
+          wishCircleIds: {for (final wish in wishes) wish.circleId},
+          onTap: (circle) {
+            Navigator.of(sheetContext).pop();
+            context.push(
+              '${RoutingPathConst.map}/${RoutingPathConst.circleDetails}',
+              extra: circle,
+            );
+          },
+        );
+      },
+    );
+  }
+}
+
+/// タップしたスペースのサークル一覧
+class _SpaceCirclesSheet extends StatelessWidget {
+  const _SpaceCirclesSheet({
+    required this.spaceKey,
+    required this.circles,
+    required this.wishCircleIds,
+    required this.onTap,
+  });
+  final String spaceKey;
+  final List<CircleModel> circles;
+  final Set<int> wishCircleIds;
+  final ValueChanged<CircleModel> onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
+
+    return SafeArea(
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: const EdgeInsets.fromLTRB(16, 0, 16, 8),
+            child: Text(spaceKey, style: textTheme.titleMedium),
+          ),
+          if (circles.isEmpty)
+            const Padding(
+              padding: EdgeInsets.fromLTRB(16, 8, 16, 24),
+              child: Text('このスペースのサークルが見つかりませんでした'),
+            ),
+          for (final circle in circles)
+            ListTile(
+              leading: SizedBox(
+                width: 32,
+                child: Text(
+                  MapSpaceUtil.parseSpaceName(
+                        CircleUtil.generateSpaceName(
+                          realSp: circle.realSp,
+                          webSp: circle.webSp,
+                        ),
+                      )?.suffix ??
+                      '',
+                  style: textTheme.titleMedium,
+                ),
+              ),
+              title: Text(circle.name),
+              subtitle: circle.genre.isEmpty ? null : Text(circle.genre),
+              trailing: wishCircleIds.contains(circle.id)
+                  ? Icon(
+                      Icons.star,
+                      color: M3ThemeConfig.customColor.favoriteButton,
+                    )
+                  : null,
+              // DBのお気に入り状態は古いことがあるので、ウィッシュリストに合わせて渡す
+              onTap: () => onTap(
+                circle.copyWith(
+                  isFavorite: wishCircleIds.contains(circle.id),
+                ),
+              ),
+            ),
+        ],
+      ),
+    );
+  }
+}
+
+/// タップしたスペースを枠で示す
+class _SelectedSpaceLayer extends StatelessWidget {
+  const _SelectedSpaceLayer({required this.rect});
+  final Rect rect;
+
+  @override
+  Widget build(BuildContext context) {
+    return IgnorePointer(
+      child: CustomPaint(
+        size: Size.infinite,
+        painter: _SelectedSpacePainter(
+          rect: rect,
+          color: Theme.of(context).colorScheme.primary,
+        ),
+      ),
+    );
+  }
+}
+
+class _SelectedSpacePainter extends CustomPainter {
+  _SelectedSpacePainter({required this.rect, required this.color});
+  final Rect rect;
+  final Color color;
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final strokeWidth = size.width * 0.0015;
+    canvas.drawRect(
+      Rect.fromLTRB(
+        rect.left * size.width,
+        rect.top * size.height,
+        rect.right * size.width,
+        rect.bottom * size.height,
+      ).inflate(strokeWidth / 2),
+      Paint()
+        ..color = color
+        ..style = PaintingStyle.stroke
+        ..strokeWidth = strokeWidth,
+    );
+  }
+
+  @override
+  bool shouldRepaint(_SelectedSpacePainter oldDelegate) {
+    return oldDelegate.rect != rect || oldDelegate.color != color;
   }
 }
 

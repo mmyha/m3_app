@@ -82,6 +82,16 @@ final router = GoRouter(
             GoRoute(
               path: RoutingPathConst.map,
               builder: (context, state) => const CircleMapPage(),
+              routes: [
+                GoRoute(
+                  path: RoutingPathConst.circleDetails,
+                  builder: (context, state) {
+                    return CircleDetailPage(
+                      circle: state.extra! as CircleModel,
+                    );
+                  },
+                ),
+              ],
             ),
           ],
         ),
