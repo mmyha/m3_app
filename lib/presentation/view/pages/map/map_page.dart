@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_pdfview/flutter_pdfview.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:m3_app/presentation/controller/circle_map/circle_map_controller.dart';
 import 'package:m3_app/presentation/view/components/common/error_page.dart';
 import 'package:m3_app/presentation/view/components/common/loading_page.dart';
+import 'package:pdfrx/pdfrx.dart';
 
 class CircleMapPage extends ConsumerWidget {
   const CircleMapPage({super.key});
@@ -38,9 +38,11 @@ class _MapPdfView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: PDFView(
-        filePath: filePath,
+    return PdfViewer.file(
+      filePath,
+      params: const PdfViewerParams(
+        // 地図なので長押しでテキスト選択されないようにする
+        textSelectionParams: PdfTextSelectionParams(enabled: false),
       ),
     );
   }

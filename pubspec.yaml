@@ -15,7 +15,6 @@ dependencies:
     sdk: flutter
   flutter_dotenv: 5.2.1
   flutter_hooks: 0.21.3+1
-  flutter_pdfview: 1.4.5
   flutter_svg: 2.3.0
   fluttertoast: 10.0.2
   freezed: 4.0.3
@@ -26,6 +25,7 @@ dependencies:
   material_symbols_icons: 4.2960.0
   path: 1.9.1
   path_provider: 2.1.6
+  pdfrx: ^2.10.1
   retrofit: 4.10.0
   riverpod_annotation: 4.0.7
   shared_preferences: 2.5.6
