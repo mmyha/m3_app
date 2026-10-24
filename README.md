@@ -4,24 +4,25 @@
 
 ## 更新
 
-(2026/4/26)
-2026春に一時的に対応
+(2026/10/25) v1.1.0
+2026秋に対応
 
-2025秋版はアンインストールしてください。
+[androidAPK (GitHub Releases)](https://github.com/mmyha/m3_app/releases/latest)
 
-[androidAPK](https://drive.google.com/drive/folders/1WXvfFeG9PM1Fcd4qMxm_fygnaX4F5bSK?usp=sharing)
+旧版から上書きインストールできない場合は、アンインストールしてからインストールしてください。
 
 *iosのビルドファイルの配布はできません。
 
 ## 環境
 
 2024/10/9 created
-2025/10/26 updated
+2026/10/25 updated
 
 **version**  
-Flutter 3.35.6 • channel stable • https://github.com/flutter/flutter.git
-Framework • revision 9f455d2486 (2 weeks ago) • 2025-10-08 14:55:31 -0500
-Engine • hash a5f2c36e367c13f868cfe98db5806f562c52c35e (revision d2913632a4) (18 days ago)
+Flutter 3.47.8 • channel stable • https://github.com/flutter/flutter.git
+Framework • revision 737ba8f885 • 2026-10-22 21:37:31 -0700
+Engine • hash dfd2e6cb7d319db05e3bf1503f3e2ac60f6288a2 (revision cf636b1dfb)
+Tools • Dart 3.13.7
 
 ### 環境構築
 
