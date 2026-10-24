@@ -3,4 +3,8 @@ analyzer:
     invalid_annotation_target: ignore
     lines_longer_than_80_chars: ignore
     slash_for_doc_comments: ignore
+  exclude:
+    - build/**
+    - android/**
+    - ios/**
 include: package:pedantic_mono/analysis_options.yaml

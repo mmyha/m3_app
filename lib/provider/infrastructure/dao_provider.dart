@@ -1,5 +1,5 @@
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:m3_app/provider/infrastructure/database_provider.dart';
-import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../infrastructure/local/dao/circle_dao.dart';
 import '../../infrastructure/local/dao/circle_fav_dao.dart';

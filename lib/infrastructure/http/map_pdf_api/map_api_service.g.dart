@@ -2,11 +2,14 @@
 
 part of 'map_api_service.dart';
 
+// dart format off
+
 // **************************************************************************
 // RetrofitGenerator
 // **************************************************************************
 
-// ignore_for_file: unnecessary_brace_in_string_interps,no_leading_underscores_for_local_identifiers,unused_element,unnecessary_string_interpolations,unused_element_parameter
+// ignore_for_file: type=lint
+// ignore_for_file: unnecessary_brace_in_string_interps,no_leading_underscores_for_local_identifiers,unused_element,unnecessary_string_interpolations,unused_element_parameter,avoid_unused_constructor_parameters,unreachable_from_main,avoid_redundant_argument_values
 
 class _MapApiService implements MapApiService {
   _MapApiService(this._dio, {this.baseUrl, this.errorLogger});
@@ -32,7 +35,7 @@ class _MapApiService implements MapApiService {
       )
           .compose(
             _dio.options,
-            '/m3_56/M3tuushin56map_web.pdf',
+            '/m3_57/M3tuushin57map_web.pdf',
             queryParameters: queryParameters,
             data: _data,
           )
@@ -43,7 +46,7 @@ class _MapApiService implements MapApiService {
     try {
       _value = _result.data!.cast<int>();
     } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options);
+      errorLogger?.logError(e, s, _options, response: _result);
       rethrow;
     }
     final httpResponse = HttpResponse(_value, _result);
@@ -77,3 +80,5 @@ class _MapApiService implements MapApiService {
     return Uri.parse(dioBaseUrl).resolveUri(url).toString();
   }
 }
+
+// dart format on

@@ -6,22 +6,47 @@ part of 'circle_db_controller.dart';
 // RiverpodGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// ignore_for_file: type=lint, type=warning
+
+@ProviderFor(CircleDBController)
+final circleDBControllerProvider = CircleDBControllerProvider._();
+
+final class CircleDBControllerProvider
+    extends $AsyncNotifierProvider<CircleDBController, void> {
+  CircleDBControllerProvider._()
+      : super(
+          from: null,
+          argument: null,
+          retry: null,
+          name: r'circleDBControllerProvider',
+          isAutoDispose: true,
+          dependencies: null,
+          $allTransitiveDependencies: null,
+        );
+
+  @override
+  String debugGetCreateSourceHash() => _$circleDBControllerHash();
+
+  @$internal
+  @override
+  CircleDBController create() => CircleDBController();
+}
+
 String _$circleDBControllerHash() =>
     r'af2b9a172974c90f813c12f669d74a9bca584a3c';
 
-/// See also [CircleDBController].
-@ProviderFor(CircleDBController)
-final circleDBControllerProvider =
-    AutoDisposeAsyncNotifierProvider<CircleDBController, void>.internal(
-  CircleDBController.new,
-  name: r'circleDBControllerProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$circleDBControllerHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
-
-typedef _$CircleDBController = AutoDisposeAsyncNotifier<void>;
-// ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package
+abstract class _$CircleDBController extends $AsyncNotifier<void> {
+  FutureOr<void> build();
+  @$mustCallSuper
+  @override
+  WhenComplete runBuild() {
+    final ref = this.ref as $Ref<AsyncValue<void>, void>;
+    final element = ref.element as $ClassProviderElement<
+        AnyNotifier<AsyncValue<void>, void>,
+        AsyncValue<void>,
+        Object?,
+        Object?>;
+    return element.handleCreate(ref, build);
+  }
+}
