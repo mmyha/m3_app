@@ -11,7 +11,7 @@ class WishListController extends _$WishListController {
   WishListController();
 
   @override
-  FutureOr<List<CircleWishModel>> build() async {
+  FutureOr<List<CircleWishModel>> build() {
     state = const AsyncValue.loading();
     return _fetchWishList();
   }

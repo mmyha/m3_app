@@ -8,7 +8,7 @@ part 'circle_map_controller.g.dart';
 @riverpod
 class CircleMapController extends _$CircleMapController {
   @override
-  FutureOr<String> build() async {
+  FutureOr<String> build() {
     state = const AsyncValue.loading();
 
     return _fetch();

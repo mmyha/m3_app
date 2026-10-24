@@ -272,7 +272,7 @@ class CircleDatabase extends _$CircleDatabase {
     );
   }
 
-  //TODO 再取得、更新
+  // TODO(mmyha): 再取得、更新
 
   // -----------------------------
 

@@ -1,3 +1,5 @@
+import 'dart:developer' as dev;
+
 import 'package:m3_app/core/constant/circle_event_name_const.dart';
 import 'package:m3_app/domain/model/circle_model.dart';
 import 'package:m3_app/infrastructure/http/circle_api/circle_api_service.dart';
@@ -61,7 +63,11 @@ class CircleRepository {
 
       return response;
     } on Exception catch (e, st) {
-      print('Error fetching circle info from API: $e \n $st');
+      dev.log(
+        'Error fetching circle info from API',
+        error: e,
+        stackTrace: st,
+      );
       rethrow;
     }
   }

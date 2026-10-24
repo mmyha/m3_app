@@ -5,7 +5,6 @@ import 'package:retrofit/retrofit.dart';
 part 'circle_api_service.g.dart';
 
 @RestApi()
-// ignore: one_member_abstracts
 abstract class CircleApiService {
   factory CircleApiService(Dio dio, {String baseUrl}) = _CircleApiService;
 

@@ -22,7 +22,7 @@ class CircleListPage extends HookConsumerWidget {
     final notifier = ref.read(circleListControllerProvider.notifier);
     return Scaffold(
       appBar: AppBar(
-        // TODO イベント名
+        // TODO(mmyha): イベント名
         title: const Text('M3-2026春'),
       ),
       body: Padding(
@@ -44,8 +44,6 @@ class CircleListPage extends HookConsumerWidget {
                   delegate: SliverChildBuilderDelegate(
                     (context, index) {
                       final circle = data[index];
-                      final a = circle.name;
-
                       return CircleTile(
                         circle: circle,
                         onTap: () {
@@ -63,7 +61,7 @@ class CircleListPage extends HookConsumerWidget {
               error: (error, stackTrace) {
                 return SliverFillRemaining(
                   child: ErrorPage(
-                    retryMethod: () async {
+                    retryMethod: () {
                       ref.invalidate(circleListControllerProvider);
                     },
                   ),

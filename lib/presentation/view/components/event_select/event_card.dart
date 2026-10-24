@@ -7,7 +7,7 @@ class EventCard extends StatelessWidget {
 
   final String eventName;
   final VoidCallback onTap;
-  // TODO: イベント開催
+  // TODO(mmyha): イベント開催
 
   @override
   Widget build(BuildContext context) {
