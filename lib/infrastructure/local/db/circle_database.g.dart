@@ -2576,8 +2576,30 @@ class $MapStrokesTable extends MapStrokes
     type: DriftSqlType.string,
     requiredDuringInsert: true,
   );
+  static const VerificationMeta _isEraserMeta = const VerificationMeta(
+    'isEraser',
+  );
   @override
-  List<GeneratedColumn> get $columns => [id, pageNumber, color, width, points];
+  late final GeneratedColumn<bool> isEraser = GeneratedColumn<bool>(
+    'is_eraser',
+    aliasedName,
+    false,
+    type: DriftSqlType.bool,
+    requiredDuringInsert: false,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'CHECK ("is_eraser" IN (0, 1))',
+    ),
+    defaultValue: const Constant(false),
+  );
+  @override
+  List<GeneratedColumn> get $columns => [
+    id,
+    pageNumber,
+    color,
+    width,
+    points,
+    isEraser,
+  ];
   @override
   String get aliasedName => _alias ?? actualTableName;
   @override
@@ -2625,6 +2647,12 @@ class $MapStrokesTable extends MapStrokes
     } else if (isInserting) {
       context.missing(_pointsMeta);
     }
+    if (data.containsKey('is_eraser')) {
+      context.handle(
+        _isEraserMeta,
+        isEraser.isAcceptableOrUnknown(data['is_eraser']!, _isEraserMeta),
+      );
+    }
     return context;
   }
 
@@ -2654,6 +2682,10 @@ class $MapStrokesTable extends MapStrokes
         DriftSqlType.string,
         data['${effectivePrefix}points'],
       )!,
+      isEraser: attachedDatabase.typeMapping.read(
+        DriftSqlType.bool,
+        data['${effectivePrefix}is_eraser'],
+      )!,
     );
   }
 
@@ -2669,12 +2701,14 @@ class MapStroke extends DataClass implements Insertable<MapStroke> {
   final int color;
   final double width;
   final String points;
+  final bool isEraser;
   const MapStroke({
     required this.id,
     required this.pageNumber,
     required this.color,
     required this.width,
     required this.points,
+    required this.isEraser,
   });
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
@@ -2684,6 +2718,7 @@ class MapStroke extends DataClass implements Insertable<MapStroke> {
     map['color'] = Variable<int>(color);
     map['width'] = Variable<double>(width);
     map['points'] = Variable<String>(points);
+    map['is_eraser'] = Variable<bool>(isEraser);
     return map;
   }
 
@@ -2694,6 +2729,7 @@ class MapStroke extends DataClass implements Insertable<MapStroke> {
       color: Value(color),
       width: Value(width),
       points: Value(points),
+      isEraser: Value(isEraser),
     );
   }
 
@@ -2708,6 +2744,7 @@ class MapStroke extends DataClass implements Insertable<MapStroke> {
       color: serializer.fromJson<int>(json['color']),
       width: serializer.fromJson<double>(json['width']),
       points: serializer.fromJson<String>(json['points']),
+      isEraser: serializer.fromJson<bool>(json['isEraser']),
     );
   }
   @override
@@ -2719,6 +2756,7 @@ class MapStroke extends DataClass implements Insertable<MapStroke> {
       'color': serializer.toJson<int>(color),
       'width': serializer.toJson<double>(width),
       'points': serializer.toJson<String>(points),
+      'isEraser': serializer.toJson<bool>(isEraser),
     };
   }
 
@@ -2728,12 +2766,14 @@ class MapStroke extends DataClass implements Insertable<MapStroke> {
     int? color,
     double? width,
     String? points,
+    bool? isEraser,
   }) => MapStroke(
     id: id ?? this.id,
     pageNumber: pageNumber ?? this.pageNumber,
     color: color ?? this.color,
     width: width ?? this.width,
     points: points ?? this.points,
+    isEraser: isEraser ?? this.isEraser,
   );
   MapStroke copyWithCompanion(MapStrokesCompanion data) {
     return MapStroke(
@@ -2744,6 +2784,7 @@ class MapStroke extends DataClass implements Insertable<MapStroke> {
       color: data.color.present ? data.color.value : this.color,
       width: data.width.present ? data.width.value : this.width,
       points: data.points.present ? data.points.value : this.points,
+      isEraser: data.isEraser.present ? data.isEraser.value : this.isEraser,
     );
   }
 
@@ -2754,13 +2795,15 @@ class MapStroke extends DataClass implements Insertable<MapStroke> {
           ..write('pageNumber: $pageNumber, ')
           ..write('color: $color, ')
           ..write('width: $width, ')
-          ..write('points: $points')
+          ..write('points: $points, ')
+          ..write('isEraser: $isEraser')
           ..write(')'))
         .toString();
   }
 
   @override
-  int get hashCode => Object.hash(id, pageNumber, color, width, points);
+  int get hashCode =>
+      Object.hash(id, pageNumber, color, width, points, isEraser);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -2769,7 +2812,8 @@ class MapStroke extends DataClass implements Insertable<MapStroke> {
           other.pageNumber == this.pageNumber &&
           other.color == this.color &&
           other.width == this.width &&
-          other.points == this.points);
+          other.points == this.points &&
+          other.isEraser == this.isEraser);
 }
 
 class MapStrokesCompanion extends UpdateCompanion<MapStroke> {
@@ -2778,12 +2822,14 @@ class MapStrokesCompanion extends UpdateCompanion<MapStroke> {
   final Value<int> color;
   final Value<double> width;
   final Value<String> points;
+  final Value<bool> isEraser;
   const MapStrokesCompanion({
     this.id = const Value.absent(),
     this.pageNumber = const Value.absent(),
     this.color = const Value.absent(),
     this.width = const Value.absent(),
     this.points = const Value.absent(),
+    this.isEraser = const Value.absent(),
   });
   MapStrokesCompanion.insert({
     this.id = const Value.absent(),
@@ -2791,6 +2837,7 @@ class MapStrokesCompanion extends UpdateCompanion<MapStroke> {
     required int color,
     required double width,
     required String points,
+    this.isEraser = const Value.absent(),
   }) : pageNumber = Value(pageNumber),
        color = Value(color),
        width = Value(width),
@@ -2801,6 +2848,7 @@ class MapStrokesCompanion extends UpdateCompanion<MapStroke> {
     Expression<int>? color,
     Expression<double>? width,
     Expression<String>? points,
+    Expression<bool>? isEraser,
   }) {
     return RawValuesInsertable({
       if (id != null) 'id': id,
@@ -2808,6 +2856,7 @@ class MapStrokesCompanion extends UpdateCompanion<MapStroke> {
       if (color != null) 'color': color,
       if (width != null) 'width': width,
       if (points != null) 'points': points,
+      if (isEraser != null) 'is_eraser': isEraser,
     });
   }
 
@@ -2817,6 +2866,7 @@ class MapStrokesCompanion extends UpdateCompanion<MapStroke> {
     Value<int>? color,
     Value<double>? width,
     Value<String>? points,
+    Value<bool>? isEraser,
   }) {
     return MapStrokesCompanion(
       id: id ?? this.id,
@@ -2824,6 +2874,7 @@ class MapStrokesCompanion extends UpdateCompanion<MapStroke> {
       color: color ?? this.color,
       width: width ?? this.width,
       points: points ?? this.points,
+      isEraser: isEraser ?? this.isEraser,
     );
   }
 
@@ -2845,6 +2896,9 @@ class MapStrokesCompanion extends UpdateCompanion<MapStroke> {
     if (points.present) {
       map['points'] = Variable<String>(points.value);
     }
+    if (isEraser.present) {
+      map['is_eraser'] = Variable<bool>(isEraser.value);
+    }
     return map;
   }
 
@@ -2855,7 +2909,8 @@ class MapStrokesCompanion extends UpdateCompanion<MapStroke> {
           ..write('pageNumber: $pageNumber, ')
           ..write('color: $color, ')
           ..write('width: $width, ')
-          ..write('points: $points')
+          ..write('points: $points, ')
+          ..write('isEraser: $isEraser')
           ..write(')'))
         .toString();
   }
@@ -5375,6 +5430,7 @@ typedef $$MapStrokesTableCreateCompanionBuilder =
       required int color,
       required double width,
       required String points,
+      Value<bool> isEraser,
     });
 typedef $$MapStrokesTableUpdateCompanionBuilder =
     MapStrokesCompanion Function({
@@ -5383,6 +5439,7 @@ typedef $$MapStrokesTableUpdateCompanionBuilder =
       Value<int> color,
       Value<double> width,
       Value<String> points,
+      Value<bool> isEraser,
     });
 
 class $$MapStrokesTableFilterComposer
@@ -5416,6 +5473,11 @@ class $$MapStrokesTableFilterComposer
 
   ColumnFilters<String> get points => $composableBuilder(
     column: $table.points,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<bool> get isEraser => $composableBuilder(
+    column: $table.isEraser,
     builder: (column) => ColumnFilters(column),
   );
 }
@@ -5453,6 +5515,11 @@ class $$MapStrokesTableOrderingComposer
     column: $table.points,
     builder: (column) => ColumnOrderings(column),
   );
+
+  ColumnOrderings<bool> get isEraser => $composableBuilder(
+    column: $table.isEraser,
+    builder: (column) => ColumnOrderings(column),
+  );
 }
 
 class $$MapStrokesTableAnnotationComposer
@@ -5480,6 +5547,9 @@ class $$MapStrokesTableAnnotationComposer
 
   GeneratedColumn<String> get points =>
       $composableBuilder(column: $table.points, builder: (column) => column);
+
+  GeneratedColumn<bool> get isEraser =>
+      $composableBuilder(column: $table.isEraser, builder: (column) => column);
 }
 
 class $$MapStrokesTableTableManager
@@ -5518,12 +5588,14 @@ class $$MapStrokesTableTableManager
                 Value<int> color = const Value.absent(),
                 Value<double> width = const Value.absent(),
                 Value<String> points = const Value.absent(),
+                Value<bool> isEraser = const Value.absent(),
               }) => MapStrokesCompanion(
                 id: id,
                 pageNumber: pageNumber,
                 color: color,
                 width: width,
                 points: points,
+                isEraser: isEraser,
               ),
           createCompanionCallback:
               ({
@@ -5532,12 +5604,14 @@ class $$MapStrokesTableTableManager
                 required int color,
                 required double width,
                 required String points,
+                Value<bool> isEraser = const Value.absent(),
               }) => MapStrokesCompanion.insert(
                 id: id,
                 pageNumber: pageNumber,
                 color: color,
                 width: width,
                 points: points,
+                isEraser: isEraser,
               ),
           withReferenceMapper: (p0) => p0
               .map(

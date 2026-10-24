@@ -87,9 +87,9 @@ class MockMapStrokeRepository extends _i1.Mock
           as _i3.Future<int>);
 
   @override
-  _i3.Future<void> deleteMapStroke(int? id) =>
+  _i3.Future<void> deleteMapStrokes(List<int>? ids) =>
       (super.noSuchMethod(
-            Invocation.method(#deleteMapStroke, [id]),
+            Invocation.method(#deleteMapStrokes, [ids]),
             returnValue: _i3.Future<void>.value(),
             returnValueForMissingStub: _i3.Future<void>.value(),
           )

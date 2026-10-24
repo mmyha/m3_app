@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$MapStrokeModel {
 
- int? get id; int get pageNumber; int get color; double get width; List<Offset> get points;
+ int? get id; int get pageNumber; int get color; double get width; List<Offset> get points; bool get isEraser;
 /// Create a copy of MapStrokeModel
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -27,20 +27,20 @@ $MapStrokeModelCopyWith<MapStrokeModel> get copyWith => _$MapStrokeModelCopyWith
 @override
 bool operator ==(Object other) {
   final _this = this as MapStrokeModel;
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is MapStrokeModel&&(identical(other.id, _this.id) || other.id == _this.id)&&(identical(other.pageNumber, _this.pageNumber) || other.pageNumber == _this.pageNumber)&&(identical(other.color, _this.color) || other.color == _this.color)&&(identical(other.width, _this.width) || other.width == _this.width)&&const DeepCollectionEquality().equals(other.points, _this.points));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is MapStrokeModel&&(identical(other.id, _this.id) || other.id == _this.id)&&(identical(other.pageNumber, _this.pageNumber) || other.pageNumber == _this.pageNumber)&&(identical(other.color, _this.color) || other.color == _this.color)&&(identical(other.width, _this.width) || other.width == _this.width)&&const DeepCollectionEquality().equals(other.points, _this.points)&&(identical(other.isEraser, _this.isEraser) || other.isEraser == _this.isEraser));
 }
 
 
 @override
 int get hashCode {
   final _this = this as MapStrokeModel;
-  return Object.hash(runtimeType,_this.id,_this.pageNumber,_this.color,_this.width,const DeepCollectionEquality().hash(_this.points));
+  return Object.hash(runtimeType,_this.id,_this.pageNumber,_this.color,_this.width,const DeepCollectionEquality().hash(_this.points),_this.isEraser);
 }
 
 @override
 String toString() {
   final _this = this as MapStrokeModel;
-  return 'MapStrokeModel(id: ${_this.id}, pageNumber: ${_this.pageNumber}, color: ${_this.color}, width: ${_this.width}, points: ${_this.points})';
+  return 'MapStrokeModel(id: ${_this.id}, pageNumber: ${_this.pageNumber}, color: ${_this.color}, width: ${_this.width}, points: ${_this.points}, isEraser: ${_this.isEraser})';
 }
 
 
@@ -51,7 +51,7 @@ abstract mixin class $MapStrokeModelCopyWith<$Res>  {
   factory $MapStrokeModelCopyWith(MapStrokeModel value, $Res Function(MapStrokeModel) _then) = _$MapStrokeModelCopyWithImpl;
 @useResult
 $Res call({
- int? id, int pageNumber, int color, double width, List<Offset> points
+ int? id, int pageNumber, int color, double width, List<Offset> points, bool isEraser
 });
 
 
@@ -68,14 +68,15 @@ class _$MapStrokeModelCopyWithImpl<$Res>
 
 /// Create a copy of MapStrokeModel
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = freezed,Object? pageNumber = null,Object? color = null,Object? width = null,Object? points = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = freezed,Object? pageNumber = null,Object? color = null,Object? width = null,Object? points = null,Object? isEraser = null,}) {
   return _then(MapStrokeModel(
 id: freezed == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as int?,pageNumber: null == pageNumber ? _self.pageNumber : pageNumber // ignore: cast_nullable_to_non_nullable
 as int,color: null == color ? _self.color : color // ignore: cast_nullable_to_non_nullable
 as int,width: null == width ? _self.width : width // ignore: cast_nullable_to_non_nullable
 as double,points: null == points ? _self.points : points // ignore: cast_nullable_to_non_nullable
-as List<Offset>,
+as List<Offset>,isEraser: null == isEraser ? _self.isEraser : isEraser // ignore: cast_nullable_to_non_nullable
+as bool,
   ));
 }
 
@@ -160,10 +161,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int? id,  int pageNumber,  int color,  double width,  List<Offset> points)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int? id,  int pageNumber,  int color,  double width,  List<Offset> points,  bool isEraser)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _MapStrokeModel() when $default != null:
-return $default(_that.id,_that.pageNumber,_that.color,_that.width,_that.points);case _:
+return $default(_that.id,_that.pageNumber,_that.color,_that.width,_that.points,_that.isEraser);case _:
   return orElse();
 
 }
@@ -181,10 +182,10 @@ return $default(_that.id,_that.pageNumber,_that.color,_that.width,_that.points);
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int? id,  int pageNumber,  int color,  double width,  List<Offset> points)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int? id,  int pageNumber,  int color,  double width,  List<Offset> points,  bool isEraser)  $default,) {final _that = this;
 switch (_that) {
 case _MapStrokeModel():
-return $default(_that.id,_that.pageNumber,_that.color,_that.width,_that.points);case _:
+return $default(_that.id,_that.pageNumber,_that.color,_that.width,_that.points,_that.isEraser);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -201,10 +202,10 @@ return $default(_that.id,_that.pageNumber,_that.color,_that.width,_that.points);
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int? id,  int pageNumber,  int color,  double width,  List<Offset> points)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int? id,  int pageNumber,  int color,  double width,  List<Offset> points,  bool isEraser)?  $default,) {final _that = this;
 switch (_that) {
 case _MapStrokeModel() when $default != null:
-return $default(_that.id,_that.pageNumber,_that.color,_that.width,_that.points);case _:
+return $default(_that.id,_that.pageNumber,_that.color,_that.width,_that.points,_that.isEraser);case _:
   return null;
 
 }
@@ -216,7 +217,7 @@ return $default(_that.id,_that.pageNumber,_that.color,_that.width,_that.points);
 
 
 class _MapStrokeModel implements MapStrokeModel {
-  const _MapStrokeModel({this.id, required this.pageNumber, required this.color, required this.width, required  List<Offset> points}): _points = points;
+  const _MapStrokeModel({this.id, required this.pageNumber, required this.color, required this.width, required  List<Offset> points, this.isEraser = false}): _points = points;
   
 
 @override final  int? id;
@@ -230,6 +231,7 @@ class _MapStrokeModel implements MapStrokeModel {
   return EqualUnmodifiableListView(_points);
 }
 
+@override@JsonKey() final  bool isEraser;
 
 /// Create a copy of MapStrokeModel
 /// with the given fields replaced by the non-null parameter values.
@@ -241,18 +243,18 @@ _$MapStrokeModelCopyWith<_MapStrokeModel> get copyWith => __$MapStrokeModelCopyW
 
 @override
 bool operator ==(Object other) {
-    return identical(this, other) || (other.runtimeType == runtimeType&&other is _MapStrokeModel&&(identical(other.id, id) || other.id == id)&&(identical(other.pageNumber, pageNumber) || other.pageNumber == pageNumber)&&(identical(other.color, color) || other.color == color)&&(identical(other.width, width) || other.width == width)&&const DeepCollectionEquality().equals(other.points, _points));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _MapStrokeModel&&(identical(other.id, id) || other.id == id)&&(identical(other.pageNumber, pageNumber) || other.pageNumber == pageNumber)&&(identical(other.color, color) || other.color == color)&&(identical(other.width, width) || other.width == width)&&const DeepCollectionEquality().equals(other.points, _points)&&(identical(other.isEraser, isEraser) || other.isEraser == isEraser));
 }
 
 
 @override
 int get hashCode {
-    return Object.hash(runtimeType,id,pageNumber,color,width,const DeepCollectionEquality().hash(_points));
+    return Object.hash(runtimeType,id,pageNumber,color,width,const DeepCollectionEquality().hash(_points),isEraser);
 }
 
 @override
 String toString() {
-    return 'MapStrokeModel(id: $id, pageNumber: $pageNumber, color: $color, width: $width, points: $points)';
+    return 'MapStrokeModel(id: $id, pageNumber: $pageNumber, color: $color, width: $width, points: $points, isEraser: $isEraser)';
 }
 
 
@@ -263,7 +265,7 @@ abstract mixin class _$MapStrokeModelCopyWith<$Res> implements $MapStrokeModelCo
   factory _$MapStrokeModelCopyWith(_MapStrokeModel value, $Res Function(_MapStrokeModel) _then) = __$MapStrokeModelCopyWithImpl;
 @override @useResult
 $Res call({
- int? id, int pageNumber, int color, double width, List<Offset> points
+ int? id, int pageNumber, int color, double width, List<Offset> points, bool isEraser
 });
 
 
@@ -280,14 +282,15 @@ class __$MapStrokeModelCopyWithImpl<$Res>
 
 /// Create a copy of MapStrokeModel
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = freezed,Object? pageNumber = null,Object? color = null,Object? width = null,Object? points = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = freezed,Object? pageNumber = null,Object? color = null,Object? width = null,Object? points = null,Object? isEraser = null,}) {
   return _then(_MapStrokeModel(
 id: freezed == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as int?,pageNumber: null == pageNumber ? _self.pageNumber : pageNumber // ignore: cast_nullable_to_non_nullable
 as int,color: null == color ? _self.color : color // ignore: cast_nullable_to_non_nullable
 as int,width: null == width ? _self.width : width // ignore: cast_nullable_to_non_nullable
 as double,points: null == points ? _self._points : points // ignore: cast_nullable_to_non_nullable
-as List<Offset>,
+as List<Offset>,isEraser: null == isEraser ? _self.isEraser : isEraser // ignore: cast_nullable_to_non_nullable
+as bool,
   ));
 }
 

@@ -15,5 +15,7 @@ abstract class MapStrokeModel with _$MapStrokeModel {
     required int color, // ARGB
     required double width, // ページ幅に対する割合
     required List<Offset> points,
+    // 消しゴムなら、それより前に描いた線を消す
+    @Default(false) bool isEraser,
   }) = _MapStrokeModel;
 }

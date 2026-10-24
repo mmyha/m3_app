@@ -34,7 +34,7 @@ final class MapStrokeControllerProvider
 }
 
 String _$mapStrokeControllerHash() =>
-    r'8edb13374cffe06b2c07854f3680095b6a6e2ead';
+    r'8cff1570d35ebd7eeffe95ba69729a2da6cdc04e';
 
 abstract class _$MapStrokeController
     extends $AsyncNotifier<List<MapStrokeModel>> {

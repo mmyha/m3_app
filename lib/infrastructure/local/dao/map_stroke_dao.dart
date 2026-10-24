@@ -18,6 +18,7 @@ class MapStrokeDao {
         color: stroke.color,
         width: stroke.width,
         points: _decodePoints(stroke.points),
+        isEraser: stroke.isEraser,
       );
     }).toList();
 
@@ -33,8 +34,8 @@ class MapStrokeDao {
     return id;
   }
 
-  Future<void> deleteMapStroke({required int id}) async {
-    await db.deleteMapStroke(id: id);
+  Future<void> deleteMapStrokes({required List<int> ids}) async {
+    await db.deleteMapStrokes(ids: ids);
   }
 
   Future<void> deleteAllMapStrokes() async {

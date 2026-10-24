@@ -80,6 +80,7 @@ class MapStrokes extends Table {
   IntColumn get color => integer()();
   RealColumn get width => real()();
   TextColumn get points => text()(); // [x0, y0, x1, y1, ...] のJSON
+  BoolColumn get isEraser => boolean().withDefault(const Constant(false))();
 }
 
 @DriftDatabase(
@@ -105,13 +106,15 @@ class CircleDatabase extends _$CircleDatabase {
 
   // マイグレーションを行う場合に使用ため、テーブルを追加／変更／削除する場合はこの値をインクリメントする
   @override
-  int get schemaVersion => 2;
+  int get schemaVersion => 3;
 
   @override
   MigrationStrategy get migration => MigrationStrategy(
     onUpgrade: (m, from, to) async {
       if (from < 2) {
         await m.createTable(mapStrokes);
+      } else if (from < 3) {
+        await m.addColumn(mapStrokes, mapStrokes.isEraser);
       }
     },
   );
@@ -357,13 +360,14 @@ class CircleDatabase extends _$CircleDatabase {
         color: Value(stroke.color),
         width: Value(stroke.width),
         points: Value(points),
+        isEraser: Value(stroke.isEraser),
       ),
     );
     return id;
   }
 
-  Future<void> deleteMapStroke({required int id}) async {
-    await (delete(mapStrokes)..where((tbl) => tbl.id.equals(id))).go();
+  Future<void> deleteMapStrokes({required List<int> ids}) async {
+    await (delete(mapStrokes)..where((tbl) => tbl.id.isIn(ids))).go();
   }
 
   Future<void> deleteAllMapStrokes() async {

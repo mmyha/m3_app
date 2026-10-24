@@ -1,5 +1,7 @@
+import 'dart:math' as math;
 import 'dart:ui' show PointMode;
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -8,22 +10,38 @@ import 'package:m3_app/presentation/controller/circle_map/circle_map_controller.
 import 'package:m3_app/presentation/controller/map_stroke/map_stroke_controller.dart';
 import 'package:m3_app/presentation/view/components/common/error_page.dart';
 import 'package:m3_app/presentation/view/components/common/loading_page.dart';
+import 'package:material_symbols_icons/symbols.dart';
 import 'package:pdfrx/pdfrx.dart';
 
-/// ペンの種類。線幅はページ幅に対する割合
-class _PenStyle {
-  const _PenStyle({required this.color, required this.width});
+/// 書き込みモードの道具
+sealed class _MapTool {
+  const _MapTool();
+}
+
+/// ペン。線幅はページ幅に対する割合
+class _PenTool extends _MapTool {
+  const _PenTool({required this.color, required this.width});
   final Color color;
   final double width;
 }
 
-const _penStyles = [
-  _PenStyle(color: Color(0xFFE53935), width: 0.0015),
-  _PenStyle(color: Color(0xFF1E88E5), width: 0.0015),
-  _PenStyle(color: Color(0xFF43A047), width: 0.0015),
+/// なぞった部分のインクを消す
+class _EraserTool extends _MapTool {
+  const _EraserTool();
+
+  // 消しゴムの太さ(ページ幅に対する割合)
+  static const width = 0.012;
+}
+
+const _penTools = [
+  _PenTool(color: Color(0xFFE53935), width: 0.0015),
+  _PenTool(color: Color(0xFF1E88E5), width: 0.0015),
+  _PenTool(color: Color(0xFF43A047), width: 0.0015),
   // 蛍光ペン
-  _PenStyle(color: Color(0x66FFEB3B), width: 0.01),
+  _PenTool(color: Color(0x66FFEB3B), width: 0.01),
 ];
+
+const _eraserTool = _EraserTool();
 
 class CircleMapPage extends HookConsumerWidget {
   const CircleMapPage({super.key});
@@ -32,7 +50,7 @@ class CircleMapPage extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final mapController = ref.watch(circleMapControllerProvider);
     final isPenMode = useState(false);
-    final penStyle = useState(_penStyles.first);
+    final tool = useState<_MapTool>(_penTools.first);
 
     return Scaffold(
       appBar: AppBar(
@@ -55,13 +73,13 @@ class CircleMapPage extends HookConsumerWidget {
               Expanded(
                 child: _MapPdfView(
                   filePath: data,
-                  penStyle: isPenMode.value ? penStyle.value : null,
+                  tool: isPenMode.value ? tool.value : null,
                 ),
               ),
               if (isPenMode.value)
                 _PenToolbar(
-                  selected: penStyle.value,
-                  onSelected: (style) => penStyle.value = style,
+                  selected: tool.value,
+                  onSelected: (selected) => tool.value = selected,
                 ),
             ],
           );
@@ -79,26 +97,46 @@ class CircleMapPage extends HookConsumerWidget {
   }
 }
 
-class _MapPdfView extends ConsumerWidget {
-  const _MapPdfView({required this.filePath, required this.penStyle});
+class _MapPdfView extends HookConsumerWidget {
+  const _MapPdfView({required this.filePath, required this.tool});
   final String filePath;
 
   /// nullなら閲覧モード
-  final _PenStyle? penStyle;
+  final _MapTool? tool;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final strokes = ref.watch(mapStrokeControllerProvider).value ?? const [];
-    final isPenMode = penStyle != null;
+    final isPenMode = tool != null;
+    // 指の数はページの外(余白)に触れた指も含めて、ビューア全体で数える
+    final pointers = useRef(<int>{});
+    final isMultiTouch = useValueNotifier(false);
+    useValueListenable(isMultiTouch);
 
-    return PdfViewer.file(
+    void onPointerDown(PointerDownEvent event) {
+      pointers.value.add(event.pointer);
+      if (pointers.value.length >= 2) {
+        isMultiTouch.value = true;
+      }
+    }
+
+    void onPointerUp(PointerEvent event) {
+      pointers.value.remove(event.pointer);
+      // 指を全て離すまでは2本指の操作を続ける
+      if (pointers.value.isEmpty) {
+        isMultiTouch.value = false;
+      }
+    }
+
+    final viewer = PdfViewer.file(
       filePath,
       params: PdfViewerParams(
         // 地図なので長押しでテキスト選択されないようにする
         textSelectionParams: const PdfTextSelectionParams(enabled: false),
-        // 書き込みモード中は指の動きを線に使う
-        panEnabled: !isPenMode,
-        scaleEnabled: !isPenMode,
+        // 書き込みモード中は1本指を線に使い、2本指で移動・拡大縮小する
+        panEnabled: !isPenMode || isMultiTouch.value,
+        // 書き込みモード中は長押しメニューなどを出さない
+        onGeneralTap: isPenMode ? (_, _, _) => true : null,
         pageOverlaysBuilder: (context, pageRect, page) {
           return [
             _StrokeLayer(
@@ -107,7 +145,8 @@ class _MapPdfView extends ConsumerWidget {
               strokes: strokes
                   .where((stroke) => stroke.pageNumber == page.pageNumber)
                   .toList(),
-              penStyle: penStyle,
+              tool: tool,
+              isMultiTouch: isMultiTouch,
               onStrokeEnd: (stroke) {
                 ref.read(mapStrokeControllerProvider.notifier).add(stroke);
               },
@@ -115,6 +154,13 @@ class _MapPdfView extends ConsumerWidget {
           ];
         },
       ),
+    );
+
+    return Listener(
+      onPointerDown: onPointerDown,
+      onPointerUp: onPointerUp,
+      onPointerCancel: onPointerUp,
+      child: viewer,
     );
   }
 }
@@ -125,12 +171,16 @@ class _StrokeLayer extends StatefulWidget {
     super.key,
     required this.pageNumber,
     required this.strokes,
-    required this.penStyle,
+    required this.tool,
+    required this.isMultiTouch,
     required this.onStrokeEnd,
   });
   final int pageNumber;
   final List<MapStrokeModel> strokes;
-  final _PenStyle? penStyle;
+  final _MapTool? tool;
+
+  /// 2本指以上でマップを操作中か
+  final ValueListenable<bool> isMultiTouch;
   final ValueChanged<MapStrokeModel> onStrokeEnd;
 
   @override
@@ -138,15 +188,47 @@ class _StrokeLayer extends StatefulWidget {
 }
 
 class _StrokeLayerState extends State<_StrokeLayer> {
+  // 線を描いている指
   int? _pointer;
+
+  // 描いている途中の点
   List<Offset> _points = [];
 
   // 細かすぎる点は保存しない(ページ幅に対する割合)
   static const _minDistance = 0.001;
 
+  @override
+  void initState() {
+    super.initState();
+    widget.isMultiTouch.addListener(_onMultiTouchChanged);
+  }
+
+  @override
+  void didUpdateWidget(_StrokeLayer oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.isMultiTouch != widget.isMultiTouch) {
+      oldWidget.isMultiTouch.removeListener(_onMultiTouchChanged);
+      widget.isMultiTouch.addListener(_onMultiTouchChanged);
+    }
+  }
+
+  @override
+  void dispose() {
+    widget.isMultiTouch.removeListener(_onMultiTouchChanged);
+    super.dispose();
+  }
+
+  // 2本指はマップの操作なので、描きかけの線は捨てる
+  void _onMultiTouchChanged() {
+    if (widget.isMultiTouch.value && _pointer != null) {
+      _pointer = null;
+      setState(() => _points = []);
+    }
+  }
+
   void _onPointerDown(PointerDownEvent event, Size size) {
-    // 2本目以降の指は無視する
-    if (_pointer != null) {
+    // 描いている途中の2本目や、2本指の操作中は描かない
+    if (_pointer != null || widget.isMultiTouch.value) {
       return;
     }
     _pointer = event.pointer;
@@ -168,19 +250,34 @@ class _StrokeLayerState extends State<_StrokeLayer> {
     if (event.pointer != _pointer) {
       return;
     }
-    final style = widget.penStyle;
-    if (style != null && _points.isNotEmpty) {
-      widget.onStrokeEnd(
-        MapStrokeModel(
-          pageNumber: widget.pageNumber,
-          color: style.color.toARGB32(),
-          width: style.width,
-          points: _points,
-        ),
-      );
+    final stroke = _buildStroke();
+    if (stroke != null) {
+      widget.onStrokeEnd(stroke);
     }
     _pointer = null;
     setState(() => _points = []);
+  }
+
+  MapStrokeModel? _buildStroke() {
+    if (_points.isEmpty) {
+      return null;
+    }
+    return switch (widget.tool) {
+      _PenTool(:final color, :final width) => MapStrokeModel(
+        pageNumber: widget.pageNumber,
+        color: color.toARGB32(),
+        width: width,
+        points: _points,
+      ),
+      _EraserTool() => MapStrokeModel(
+        pageNumber: widget.pageNumber,
+        color: Colors.black.toARGB32(),
+        width: _EraserTool.width,
+        points: _points,
+        isEraser: true,
+      ),
+      null => null,
+    };
   }
 
   Offset _normalize(Offset position, Size size) {
@@ -189,24 +286,19 @@ class _StrokeLayerState extends State<_StrokeLayer> {
 
   @override
   Widget build(BuildContext context) {
-    final style = widget.penStyle;
-    final drawing = style != null && _points.isNotEmpty
-        ? MapStrokeModel(
-            pageNumber: widget.pageNumber,
-            color: style.color.toARGB32(),
-            width: style.width,
-            points: _points,
-          )
-        : null;
-
+    final drawing = _buildStroke();
     final painter = CustomPaint(
       size: Size.infinite,
       painter: _StrokePainter(
         strokes: [...widget.strokes, ?drawing],
+        // 消しゴムは今どこを消しているか分かるように円を出す
+        eraserPosition: drawing != null && drawing.isEraser
+            ? drawing.points.last
+            : null,
       ),
     );
 
-    if (style == null) {
+    if (widget.tool == null) {
       // 閲覧モードではPdfViewerの操作を邪魔しない
       return IgnorePointer(child: painter);
     }
@@ -214,13 +306,15 @@ class _StrokeLayerState extends State<_StrokeLayer> {
     return LayoutBuilder(
       builder: (context, constraints) {
         final size = constraints.biggest;
+        // このレイヤーはPdfViewerの上に重なっているので、指の操作を下にも通して
+        // 2本指の移動・拡大縮小をPdfViewerに任せる
         return Listener(
-          behavior: HitTestBehavior.opaque,
+          behavior: HitTestBehavior.translucent,
           onPointerDown: (event) => _onPointerDown(event, size),
           onPointerMove: (event) => _onPointerMove(event, size),
           onPointerUp: _onPointerUp,
           onPointerCancel: _onPointerUp,
-          child: painter,
+          child: IgnorePointer(child: painter),
         );
       },
     );
@@ -228,18 +322,27 @@ class _StrokeLayerState extends State<_StrokeLayer> {
 }
 
 class _StrokePainter extends CustomPainter {
-  _StrokePainter({required this.strokes});
+  _StrokePainter({required this.strokes, required this.eraserPosition});
   final List<MapStrokeModel> strokes;
+
+  /// ページサイズに対する割合
+  final Offset? eraserPosition;
 
   @override
   void paint(Canvas canvas, Size size) {
+    // 消しゴムがPDFまで消さないよう、インクだけのレイヤーに描く
+    final hasEraser = strokes.any((stroke) => stroke.isEraser);
+    if (hasEraser) {
+      canvas.saveLayer(Offset.zero & size, Paint());
+    }
     for (final stroke in strokes) {
       final paint = Paint()
         ..color = Color(stroke.color)
         ..strokeWidth = stroke.width * size.width
         ..strokeCap = StrokeCap.round
         ..strokeJoin = StrokeJoin.round
-        ..style = PaintingStyle.stroke;
+        ..style = PaintingStyle.stroke
+        ..blendMode = stroke.isEraser ? BlendMode.clear : BlendMode.srcOver;
 
       final points = [
         for (final point in stroke.points)
@@ -256,24 +359,59 @@ class _StrokePainter extends CustomPainter {
       }
       canvas.drawPath(path, paint);
     }
+    if (hasEraser) {
+      canvas.restore();
+    }
+
+    final eraser = eraserPosition;
+    if (eraser != null) {
+      final center = Offset(eraser.dx * size.width, eraser.dy * size.height);
+      final radius = _EraserTool.width / 2 * size.width;
+      canvas
+        ..drawCircle(center, radius, Paint()..color = const Color(0x33000000))
+        ..drawCircle(
+          center,
+          radius,
+          Paint()
+            ..color = const Color(0x99000000)
+            ..style = PaintingStyle.stroke
+            ..strokeWidth = math.max(radius * 0.1, 0.5),
+        );
+    }
   }
 
   @override
   bool shouldRepaint(_StrokePainter oldDelegate) {
-    return oldDelegate.strokes != strokes;
+    return oldDelegate.strokes != strokes ||
+        oldDelegate.eraserPosition != eraserPosition;
   }
 }
 
 class _PenToolbar extends ConsumerWidget {
   const _PenToolbar({required this.selected, required this.onSelected});
-  final _PenStyle selected;
-  final ValueChanged<_PenStyle> onSelected;
+  final _MapTool selected;
+  final ValueChanged<_MapTool> onSelected;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final hasStrokes =
         ref.watch(mapStrokeControllerProvider).value?.isNotEmpty ?? false;
     final colorScheme = Theme.of(context).colorScheme;
+
+    Widget toolButton(_MapTool tool, Widget icon, {String? tooltip}) {
+      final isSelected = tool == selected;
+      return IconButton(
+        tooltip: tooltip,
+        isSelected: isSelected,
+        onPressed: () => onSelected(tool),
+        icon: icon,
+        style: IconButton.styleFrom(
+          side: isSelected
+              ? BorderSide(color: colorScheme.primary, width: 2)
+              : null,
+        ),
+      );
+    }
 
     return Material(
       color: colorScheme.surfaceContainer,
@@ -283,20 +421,19 @@ class _PenToolbar extends ConsumerWidget {
           padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
           child: Row(
             children: [
-              for (final style in _penStyles)
-                IconButton(
-                  isSelected: style == selected,
-                  onPressed: () => onSelected(style),
-                  icon: Icon(
-                    style.width > 0.005 ? Icons.highlight : Icons.circle,
-                    color: style.color.withAlpha(0xFF),
-                  ),
-                  style: IconButton.styleFrom(
-                    side: style == selected
-                        ? BorderSide(color: colorScheme.primary, width: 2)
-                        : null,
+              for (final pen in _penTools)
+                toolButton(
+                  pen,
+                  Icon(
+                    pen.width > 0.005 ? Icons.highlight : Icons.circle,
+                    color: pen.color.withAlpha(0xFF),
                   ),
                 ),
+              toolButton(
+                _eraserTool,
+                const Icon(Symbols.ink_eraser),
+                tooltip: '消しゴム',
+              ),
               const Spacer(),
               IconButton(
                 tooltip: '元に戻す',

@@ -7,7 +7,7 @@ import '../../domain/usecase/circle/fetch_circle_usecase.dart';
 import '../../domain/usecase/map_pdf/get_map_pdf_usecase.dart';
 import '../../domain/usecase/map_stroke/add_map_stroke_usecase.dart';
 import '../../domain/usecase/map_stroke/clear_map_strokes_usecase.dart';
-import '../../domain/usecase/map_stroke/delete_map_stroke_usecase.dart';
+import '../../domain/usecase/map_stroke/delete_map_strokes_usecase.dart';
 import '../../domain/usecase/map_stroke/fetch_map_strokes_usecase.dart';
 import '../../domain/usecase/wish_list/add_wish_list_usecase.dart';
 import '../../domain/usecase/wish_list/fetch_wish_list_usecase.dart';
@@ -69,9 +69,9 @@ final Provider<AddMapStrokeUseCase> addMapStrokeUseCaseProvider = Provider(
   (ref) => AddMapStrokeUseCase(ref.read(mapStrokeRepositoryProvider)),
 );
 
-final Provider<DeleteMapStrokeUseCase> deleteMapStrokeUseCaseProvider =
+final Provider<DeleteMapStrokesUseCase> deleteMapStrokesUseCaseProvider =
     Provider(
-      (ref) => DeleteMapStrokeUseCase(ref.read(mapStrokeRepositoryProvider)),
+      (ref) => DeleteMapStrokesUseCase(ref.read(mapStrokeRepositoryProvider)),
     );
 
 final Provider<ClearMapStrokesUseCase> clearMapStrokesUseCaseProvider =

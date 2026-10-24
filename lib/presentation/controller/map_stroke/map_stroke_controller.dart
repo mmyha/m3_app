@@ -14,39 +14,45 @@ class MapStrokeController extends _$MapStrokeController {
     return _fetch();
   }
 
+  /// ペンの線、消しゴムの跡を追加する
   Future<void> add(MapStrokeModel stroke) async {
-    final current = state.value ?? [];
     // 保存完了を待つと描いた線が一瞬消えるので、先に表示へ反映する
-    state = AsyncValue.data([...current, stroke]);
+    state = AsyncValue.data([...?state.value, stroke]);
 
     final useCase = ref.read(addMapStrokeUseCaseProvider);
     final result = await useCase.call(stroke);
     switch (result) {
       case Success<int, Exception>():
+        final saved = stroke.copyWith(id: result.value);
         state = AsyncValue.data([
-          ...current,
-          stroke.copyWith(id: result.value),
+          for (final s in state.value ?? <MapStrokeModel>[])
+            identical(s, stroke) ? saved : s,
         ]);
       case Failure<int, Exception>():
-        state = AsyncValue.data(current);
+        state = AsyncValue.data([
+          for (final s in state.value ?? <MapStrokeModel>[])
+            if (!identical(s, stroke)) s,
+        ]);
         throw result.exception;
     }
   }
 
-  /// 最後に描いた線を取り消す
+  /// 最後に描いた線(消しゴムの跡を含む)を取り消す
   Future<void> undo() async {
-    final current = state.value ?? [];
-    final last = current.lastOrNull;
+    final last = state.value?.lastOrNull;
     // 保存中の線はIDがないので取り消さない
     if (last == null || last.id == null) {
       return;
     }
 
-    final useCase = ref.read(deleteMapStrokeUseCaseProvider);
-    final result = await useCase.call(last.id!);
+    final useCase = ref.read(deleteMapStrokesUseCaseProvider);
+    final result = await useCase.call([last.id!]);
     switch (result) {
       case Success<void, Exception>():
-        state = AsyncValue.data(current.sublist(0, current.length - 1));
+        state = AsyncValue.data([
+          for (final s in state.value ?? <MapStrokeModel>[])
+            if (s.id != last.id) s,
+        ]);
       case Failure<void, Exception>():
         throw result.exception;
     }

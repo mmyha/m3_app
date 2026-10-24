@@ -23,9 +23,9 @@ class MapStrokeRepository {
     }
   }
 
-  Future<void> deleteMapStroke(int id) async {
+  Future<void> deleteMapStrokes(List<int> ids) async {
     try {
-      await _dao.deleteMapStroke(id: id);
+      await _dao.deleteMapStrokes(ids: ids);
     } on Exception catch (_) {
       rethrow;
     }
