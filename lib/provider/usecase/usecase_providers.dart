@@ -10,13 +10,14 @@ import '../../domain/usecase/wish_list/fetch_wish_list_usecase.dart';
 import '../../domain/usecase/wish_list/update_wish_list_usecase.dart';
 import '../../infrastructure/repository/provider/repository_providers.dart';
 
-final Provider<FetchCircleUseCase> fetchCircleUseCaseProvider =
-    Provider((ref) => FetchCircleUseCase(ref.read(circleRepositoryProvider)));
+final Provider<FetchCircleUseCase> fetchCircleUseCaseProvider = Provider(
+  (ref) => FetchCircleUseCase(ref.read(circleRepositoryProvider)),
+);
 
 final Provider<FetchCircleFromIdUseCase> fetchCircleFromIdUseCaseProvider =
     Provider(
-  (ref) => FetchCircleFromIdUseCase(ref.read(circleRepositoryProvider)),
-);
+      (ref) => FetchCircleFromIdUseCase(ref.read(circleRepositoryProvider)),
+    );
 
 final Provider<SaveCircleInfoToDBUseCase> saveCircleUseCaseProvider = Provider(
   (ref) => SaveCircleInfoToDBUseCase(ref.read(circleRepositoryProvider)),

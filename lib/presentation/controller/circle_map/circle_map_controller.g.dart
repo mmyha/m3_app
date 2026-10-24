@@ -15,15 +15,15 @@ final circleMapControllerProvider = CircleMapControllerProvider._();
 final class CircleMapControllerProvider
     extends $AsyncNotifierProvider<CircleMapController, String> {
   CircleMapControllerProvider._()
-      : super(
-          from: null,
-          argument: null,
-          retry: null,
-          name: r'circleMapControllerProvider',
-          isAutoDispose: true,
-          dependencies: null,
-          $allTransitiveDependencies: null,
-        );
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'circleMapControllerProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
 
   @override
   String debugGetCreateSourceHash() => _$circleMapControllerHash();
@@ -34,7 +34,7 @@ final class CircleMapControllerProvider
 }
 
 String _$circleMapControllerHash() =>
-    r'7741d8d2930ee86a5bd139e73656097ba870ccff';
+    r'bcd361da41d92d8e7a0144f2d34c3194bcc04003';
 
 abstract class _$CircleMapController extends $AsyncNotifier<String> {
   FutureOr<String> build();
@@ -42,11 +42,14 @@ abstract class _$CircleMapController extends $AsyncNotifier<String> {
   @override
   WhenComplete runBuild() {
     final ref = this.ref as $Ref<AsyncValue<String>, String>;
-    final element = ref.element as $ClassProviderElement<
-        AnyNotifier<AsyncValue<String>, String>,
-        AsyncValue<String>,
-        Object?,
-        Object?>;
+    final element =
+        ref.element
+            as $ClassProviderElement<
+              AnyNotifier<AsyncValue<String>, String>,
+              AsyncValue<String>,
+              Object?,
+              Object?
+            >;
     return element.handleCreate(ref, build);
   }
 }

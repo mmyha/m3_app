@@ -103,15 +103,16 @@ class CircleDatabase extends _$CircleDatabase {
   }
 
   Future<List<Circle>> getCircle(int circleId) async {
-    final data =
-        await (select(circles)..where((tbl) => tbl.id.equals(circleId))).get();
+    final data = await (select(
+      circles,
+    )..where((tbl) => tbl.id.equals(circleId))).get();
     return data;
   }
 
   Future<SnsLink?> getSnsLinks(int circleId) async {
-    final data = await (select(snsLinks)
-          ..where((tbl) => tbl.circleId.equals(circleId)))
-        .get();
+    final data = await (select(
+      snsLinks,
+    )..where((tbl) => tbl.circleId.equals(circleId))).get();
     if (data.isEmpty) {
       return null;
     }
@@ -119,9 +120,9 @@ class CircleDatabase extends _$CircleDatabase {
   }
 
   Future<RealSp?> getRealSp(int circleId) async {
-    final data = await (select(realSps)
-          ..where((tbl) => tbl.circleId.equals(circleId)))
-        .get();
+    final data = await (select(
+      realSps,
+    )..where((tbl) => tbl.circleId.equals(circleId))).get();
     if (data.isEmpty) {
       return null;
     }
@@ -129,9 +130,9 @@ class CircleDatabase extends _$CircleDatabase {
   }
 
   Future<WebSp?> getWebSp(int circleId) async {
-    final data = await (select(webSps)
-          ..where((tbl) => tbl.circle.equals(circleId)))
-        .get();
+    final data = await (select(
+      webSps,
+    )..where((tbl) => tbl.circle.equals(circleId))).get();
     if (data.isEmpty) {
       return null;
     }
@@ -139,9 +140,9 @@ class CircleDatabase extends _$CircleDatabase {
   }
 
   Future<List<Keyword>> getKeywords(int circleId) async {
-    final data = await (select(keywords)
-          ..where((tbl) => tbl.circleId.equals(circleId)))
-        .get();
+    final data = await (select(
+      keywords,
+    )..where((tbl) => tbl.circleId.equals(circleId))).get();
     return data;
   }
 
@@ -298,8 +299,9 @@ class CircleDatabase extends _$CircleDatabase {
   }
 
   Future<void> updateWish({required CircleWishModel wish}) async {
-    await (update(wishes)..where((tbl) => tbl.circleId.equals(wish.circleId)))
-        .write(
+    await (update(
+      wishes,
+    )..where((tbl) => tbl.circleId.equals(wish.circleId))).write(
       WishesCompanion(
         isFavorite: Value(wish.isFavorite),
         done: Value(wish.isDone),

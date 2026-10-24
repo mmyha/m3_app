@@ -11,12 +11,12 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await dotenv.load();
 
-// sharedPreferencesインスタンス取得
+  // sharedPreferencesインスタンス取得
   final prefs = await SharedPreferences.getInstance();
   runApp(
     ProviderScope(
       // Riverpod 3 で追加された失敗時の自動リトライを無効化 (v2 と同じ挙動)
-      retry: (_, __) => null,
+      retry: (_, _) => null,
       overrides: [
         sharedPreferencesProvider.overrideWithValue(
           prefs,

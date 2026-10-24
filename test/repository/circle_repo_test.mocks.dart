@@ -30,13 +30,8 @@ import 'package:mockito/mockito.dart' as _i1;
 
 class _FakeCircleApiResponse_0 extends _i1.SmartFake
     implements _i2.CircleApiResponse {
-  _FakeCircleApiResponse_0(
-    Object parent,
-    Invocation parentInvocation,
-  ) : super(
-          parent,
-          parentInvocation,
-        );
+  _FakeCircleApiResponse_0(Object parent, Invocation parentInvocation)
+    : super(parent, parentInvocation);
 }
 
 /// A class which mocks [CircleApiService].
@@ -46,25 +41,19 @@ class MockCircleApiService extends _i1.Mock implements _i3.CircleApiService {
   @override
   _i4.Future<_i2.CircleApiResponse> getLatestEventCircles(String? event) =>
       (super.noSuchMethod(
-        Invocation.method(
-          #getLatestEventCircles,
-          [event],
-        ),
-        returnValue:
-            _i4.Future<_i2.CircleApiResponse>.value(_FakeCircleApiResponse_0(
-          this,
-          Invocation.method(
-            #getLatestEventCircles,
-            [event],
-          ),
-        )),
-        returnValueForMissingStub:
-            _i4.Future<_i2.CircleApiResponse>.value(_FakeCircleApiResponse_0(
-          this,
-          Invocation.method(
-            #getLatestEventCircles,
-            [event],
-          ),
-        )),
-      ) as _i4.Future<_i2.CircleApiResponse>);
+            Invocation.method(#getLatestEventCircles, [event]),
+            returnValue: _i4.Future<_i2.CircleApiResponse>.value(
+              _FakeCircleApiResponse_0(
+                this,
+                Invocation.method(#getLatestEventCircles, [event]),
+              ),
+            ),
+            returnValueForMissingStub: _i4.Future<_i2.CircleApiResponse>.value(
+              _FakeCircleApiResponse_0(
+                this,
+                Invocation.method(#getLatestEventCircles, [event]),
+              ),
+            ),
+          )
+          as _i4.Future<_i2.CircleApiResponse>);
 }

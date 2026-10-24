@@ -15,15 +15,15 @@ final circleDBControllerProvider = CircleDBControllerProvider._();
 final class CircleDBControllerProvider
     extends $AsyncNotifierProvider<CircleDBController, void> {
   CircleDBControllerProvider._()
-      : super(
-          from: null,
-          argument: null,
-          retry: null,
-          name: r'circleDBControllerProvider',
-          isAutoDispose: true,
-          dependencies: null,
-          $allTransitiveDependencies: null,
-        );
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'circleDBControllerProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
 
   @override
   String debugGetCreateSourceHash() => _$circleDBControllerHash();
@@ -34,7 +34,7 @@ final class CircleDBControllerProvider
 }
 
 String _$circleDBControllerHash() =>
-    r'af2b9a172974c90f813c12f669d74a9bca584a3c';
+    r'1600c7f22a6e8d9ae0643779b7a27ffeeb22b268';
 
 abstract class _$CircleDBController extends $AsyncNotifier<void> {
   FutureOr<void> build();
@@ -42,11 +42,14 @@ abstract class _$CircleDBController extends $AsyncNotifier<void> {
   @override
   WhenComplete runBuild() {
     final ref = this.ref as $Ref<AsyncValue<void>, void>;
-    final element = ref.element as $ClassProviderElement<
-        AnyNotifier<AsyncValue<void>, void>,
-        AsyncValue<void>,
-        Object?,
-        Object?>;
+    final element =
+        ref.element
+            as $ClassProviderElement<
+              AnyNotifier<AsyncValue<void>, void>,
+              AsyncValue<void>,
+              Object?,
+              Object?
+            >;
     return element.handleCreate(ref, build);
   }
 }

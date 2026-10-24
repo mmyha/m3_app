@@ -27,13 +27,8 @@ import 'package:mockito/mockito.dart' as _i1;
 // ignore_for_file: invalid_use_of_internal_member
 
 class _FakeCircleModel_0 extends _i1.SmartFake implements _i2.CircleModel {
-  _FakeCircleModel_0(
-    Object parent,
-    Invocation parentInvocation,
-  ) : super(
-          parent,
-          parentInvocation,
-        );
+  _FakeCircleModel_0(Object parent, Invocation parentInvocation)
+    : super(parent, parentInvocation);
 }
 
 /// A class which mocks [CircleRepository].
@@ -43,39 +38,34 @@ class MockCircleRepository extends _i1.Mock implements _i3.CircleRepository {
   @override
   _i4.Future<List<_i2.CircleModel>> fetchCircleInfoFromDB() =>
       (super.noSuchMethod(
-        Invocation.method(
-          #fetchCircleInfoFromDB,
-          [],
-        ),
-        returnValue:
-            _i4.Future<List<_i2.CircleModel>>.value(<_i2.CircleModel>[]),
-        returnValueForMissingStub:
-            _i4.Future<List<_i2.CircleModel>>.value(<_i2.CircleModel>[]),
-      ) as _i4.Future<List<_i2.CircleModel>>);
+            Invocation.method(#fetchCircleInfoFromDB, []),
+            returnValue: _i4.Future<List<_i2.CircleModel>>.value(
+              <_i2.CircleModel>[],
+            ),
+            returnValueForMissingStub: _i4.Future<List<_i2.CircleModel>>.value(
+              <_i2.CircleModel>[],
+            ),
+          )
+          as _i4.Future<List<_i2.CircleModel>>);
 
   @override
   _i4.Future<_i2.CircleModel> fetchCircleFromId(int? circleId) =>
       (super.noSuchMethod(
-        Invocation.method(
-          #fetchCircleFromId,
-          [circleId],
-        ),
-        returnValue: _i4.Future<_i2.CircleModel>.value(_FakeCircleModel_0(
-          this,
-          Invocation.method(
-            #fetchCircleFromId,
-            [circleId],
-          ),
-        )),
-        returnValueForMissingStub:
-            _i4.Future<_i2.CircleModel>.value(_FakeCircleModel_0(
-          this,
-          Invocation.method(
-            #fetchCircleFromId,
-            [circleId],
-          ),
-        )),
-      ) as _i4.Future<_i2.CircleModel>);
+            Invocation.method(#fetchCircleFromId, [circleId]),
+            returnValue: _i4.Future<_i2.CircleModel>.value(
+              _FakeCircleModel_0(
+                this,
+                Invocation.method(#fetchCircleFromId, [circleId]),
+              ),
+            ),
+            returnValueForMissingStub: _i4.Future<_i2.CircleModel>.value(
+              _FakeCircleModel_0(
+                this,
+                Invocation.method(#fetchCircleFromId, [circleId]),
+              ),
+            ),
+          )
+          as _i4.Future<_i2.CircleModel>);
 
   @override
   _i4.Future<void> updateCircleFavorite({
@@ -83,25 +73,21 @@ class MockCircleRepository extends _i1.Mock implements _i3.CircleRepository {
     required bool? isFav,
   }) =>
       (super.noSuchMethod(
-        Invocation.method(
-          #updateCircleFavorite,
-          [],
-          {
-            #circleId: circleId,
-            #isFav: isFav,
-          },
-        ),
-        returnValue: _i4.Future<void>.value(),
-        returnValueForMissingStub: _i4.Future<void>.value(),
-      ) as _i4.Future<void>);
+            Invocation.method(#updateCircleFavorite, [], {
+              #circleId: circleId,
+              #isFav: isFav,
+            }),
+            returnValue: _i4.Future<void>.value(),
+            returnValueForMissingStub: _i4.Future<void>.value(),
+          )
+          as _i4.Future<void>);
 
   @override
-  _i4.Future<void> saveCircleInfoToDB() => (super.noSuchMethod(
-        Invocation.method(
-          #saveCircleInfoToDB,
-          [],
-        ),
-        returnValue: _i4.Future<void>.value(),
-        returnValueForMissingStub: _i4.Future<void>.value(),
-      ) as _i4.Future<void>);
+  _i4.Future<void> saveCircleInfoToDB() =>
+      (super.noSuchMethod(
+            Invocation.method(#saveCircleInfoToDB, []),
+            returnValue: _i4.Future<void>.value(),
+            returnValueForMissingStub: _i4.Future<void>.value(),
+          )
+          as _i4.Future<void>);
 }

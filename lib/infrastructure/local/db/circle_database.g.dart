@@ -11,64 +11,109 @@ class $CirclesTable extends Circles with TableInfo<$CirclesTable, Circle> {
   static const VerificationMeta _idMeta = const VerificationMeta('id');
   @override
   late final GeneratedColumn<int> id = GeneratedColumn<int>(
-      'id', aliasedName, false,
-      type: DriftSqlType.int, requiredDuringInsert: true);
+    'id',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
   static const VerificationMeta _nameMeta = const VerificationMeta('name');
   @override
   late final GeneratedColumn<String> name = GeneratedColumn<String>(
-      'name', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
-  static const VerificationMeta _phoneticMeta =
-      const VerificationMeta('phonetic');
+    'name',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _phoneticMeta = const VerificationMeta(
+    'phonetic',
+  );
   @override
   late final GeneratedColumn<String> phonetic = GeneratedColumn<String>(
-      'phonetic', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
+    'phonetic',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
   static const VerificationMeta _genreMeta = const VerificationMeta('genre');
   @override
   late final GeneratedColumn<String> genre = GeneratedColumn<String>(
-      'genre', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
-  static const VerificationMeta _spaceSizeMeta =
-      const VerificationMeta('spaceSize');
+    'genre',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _spaceSizeMeta = const VerificationMeta(
+    'spaceSize',
+  );
   @override
   late final GeneratedColumn<int> spaceSize = GeneratedColumn<int>(
-      'space_size', aliasedName, true,
-      type: DriftSqlType.int, requiredDuringInsert: false);
+    'space_size',
+    aliasedName,
+    true,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+  );
   static const VerificationMeta _adultMeta = const VerificationMeta('adult');
   @override
   late final GeneratedColumn<bool> adult = GeneratedColumn<bool>(
-      'adult', aliasedName, false,
-      type: DriftSqlType.bool,
-      requiredDuringInsert: true,
-      defaultConstraints:
-          GeneratedColumn.constraintIsAlways('CHECK ("adult" IN (0, 1))'));
+    'adult',
+    aliasedName,
+    false,
+    type: DriftSqlType.bool,
+    requiredDuringInsert: true,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'CHECK ("adult" IN (0, 1))',
+    ),
+  );
   static const VerificationMeta _prTextMeta = const VerificationMeta('prText');
   @override
   late final GeneratedColumn<String> prText = GeneratedColumn<String>(
-      'pr_text', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
-  static const VerificationMeta _isFavoriteMeta =
-      const VerificationMeta('isFavorite');
+    'pr_text',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _isFavoriteMeta = const VerificationMeta(
+    'isFavorite',
+  );
   @override
   late final GeneratedColumn<bool> isFavorite = GeneratedColumn<bool>(
-      'is_favorite', aliasedName, false,
-      type: DriftSqlType.bool,
-      requiredDuringInsert: false,
-      defaultConstraints:
-          GeneratedColumn.constraintIsAlways('CHECK ("is_favorite" IN (0, 1))'),
-      defaultValue: const Constant(false));
+    'is_favorite',
+    aliasedName,
+    false,
+    type: DriftSqlType.bool,
+    requiredDuringInsert: false,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'CHECK ("is_favorite" IN (0, 1))',
+    ),
+    defaultValue: const Constant(false),
+  );
   @override
-  List<GeneratedColumn> get $columns =>
-      [id, name, phonetic, genre, spaceSize, adult, prText, isFavorite];
+  List<GeneratedColumn> get $columns => [
+    id,
+    name,
+    phonetic,
+    genre,
+    spaceSize,
+    adult,
+    prText,
+    isFavorite,
+  ];
   @override
   String get aliasedName => _alias ?? actualTableName;
   @override
   String get actualTableName => $name;
   static const String $name = 'circles';
   @override
-  VerificationContext validateIntegrity(Insertable<Circle> instance,
-      {bool isInserting = false}) {
+  VerificationContext validateIntegrity(
+    Insertable<Circle> instance, {
+    bool isInserting = false,
+  }) {
     final context = VerificationContext();
     final data = instance.toColumns(true);
     if (data.containsKey('id')) {
@@ -78,43 +123,55 @@ class $CirclesTable extends Circles with TableInfo<$CirclesTable, Circle> {
     }
     if (data.containsKey('name')) {
       context.handle(
-          _nameMeta, name.isAcceptableOrUnknown(data['name']!, _nameMeta));
+        _nameMeta,
+        name.isAcceptableOrUnknown(data['name']!, _nameMeta),
+      );
     } else if (isInserting) {
       context.missing(_nameMeta);
     }
     if (data.containsKey('phonetic')) {
-      context.handle(_phoneticMeta,
-          phonetic.isAcceptableOrUnknown(data['phonetic']!, _phoneticMeta));
+      context.handle(
+        _phoneticMeta,
+        phonetic.isAcceptableOrUnknown(data['phonetic']!, _phoneticMeta),
+      );
     } else if (isInserting) {
       context.missing(_phoneticMeta);
     }
     if (data.containsKey('genre')) {
       context.handle(
-          _genreMeta, genre.isAcceptableOrUnknown(data['genre']!, _genreMeta));
+        _genreMeta,
+        genre.isAcceptableOrUnknown(data['genre']!, _genreMeta),
+      );
     } else if (isInserting) {
       context.missing(_genreMeta);
     }
     if (data.containsKey('space_size')) {
-      context.handle(_spaceSizeMeta,
-          spaceSize.isAcceptableOrUnknown(data['space_size']!, _spaceSizeMeta));
+      context.handle(
+        _spaceSizeMeta,
+        spaceSize.isAcceptableOrUnknown(data['space_size']!, _spaceSizeMeta),
+      );
     }
     if (data.containsKey('adult')) {
       context.handle(
-          _adultMeta, adult.isAcceptableOrUnknown(data['adult']!, _adultMeta));
+        _adultMeta,
+        adult.isAcceptableOrUnknown(data['adult']!, _adultMeta),
+      );
     } else if (isInserting) {
       context.missing(_adultMeta);
     }
     if (data.containsKey('pr_text')) {
-      context.handle(_prTextMeta,
-          prText.isAcceptableOrUnknown(data['pr_text']!, _prTextMeta));
+      context.handle(
+        _prTextMeta,
+        prText.isAcceptableOrUnknown(data['pr_text']!, _prTextMeta),
+      );
     } else if (isInserting) {
       context.missing(_prTextMeta);
     }
     if (data.containsKey('is_favorite')) {
       context.handle(
-          _isFavoriteMeta,
-          isFavorite.isAcceptableOrUnknown(
-              data['is_favorite']!, _isFavoriteMeta));
+        _isFavoriteMeta,
+        isFavorite.isAcceptableOrUnknown(data['is_favorite']!, _isFavoriteMeta),
+      );
     }
     return context;
   }
@@ -125,22 +182,38 @@ class $CirclesTable extends Circles with TableInfo<$CirclesTable, Circle> {
   Circle map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
     return Circle(
-      id: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
-      name: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}name'])!,
-      phonetic: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}phonetic'])!,
-      genre: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}genre'])!,
-      spaceSize: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}space_size']),
-      adult: attachedDatabase.typeMapping
-          .read(DriftSqlType.bool, data['${effectivePrefix}adult'])!,
-      prText: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}pr_text'])!,
-      isFavorite: attachedDatabase.typeMapping
-          .read(DriftSqlType.bool, data['${effectivePrefix}is_favorite'])!,
+      id: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}id'],
+      )!,
+      name: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}name'],
+      )!,
+      phonetic: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}phonetic'],
+      )!,
+      genre: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}genre'],
+      )!,
+      spaceSize: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}space_size'],
+      ),
+      adult: attachedDatabase.typeMapping.read(
+        DriftSqlType.bool,
+        data['${effectivePrefix}adult'],
+      )!,
+      prText: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}pr_text'],
+      )!,
+      isFavorite: attachedDatabase.typeMapping.read(
+        DriftSqlType.bool,
+        data['${effectivePrefix}is_favorite'],
+      )!,
     );
   }
 
@@ -159,15 +232,16 @@ class Circle extends DataClass implements Insertable<Circle> {
   final bool adult;
   final String prText;
   final bool isFavorite;
-  const Circle(
-      {required this.id,
-      required this.name,
-      required this.phonetic,
-      required this.genre,
-      this.spaceSize,
-      required this.adult,
-      required this.prText,
-      required this.isFavorite});
+  const Circle({
+    required this.id,
+    required this.name,
+    required this.phonetic,
+    required this.genre,
+    this.spaceSize,
+    required this.adult,
+    required this.prText,
+    required this.isFavorite,
+  });
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
@@ -199,8 +273,10 @@ class Circle extends DataClass implements Insertable<Circle> {
     );
   }
 
-  factory Circle.fromJson(Map<String, dynamic> json,
-      {ValueSerializer? serializer}) {
+  factory Circle.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return Circle(
       id: serializer.fromJson<int>(json['id']),
@@ -228,25 +304,25 @@ class Circle extends DataClass implements Insertable<Circle> {
     };
   }
 
-  Circle copyWith(
-          {int? id,
-          String? name,
-          String? phonetic,
-          String? genre,
-          Value<int?> spaceSize = const Value.absent(),
-          bool? adult,
-          String? prText,
-          bool? isFavorite}) =>
-      Circle(
-        id: id ?? this.id,
-        name: name ?? this.name,
-        phonetic: phonetic ?? this.phonetic,
-        genre: genre ?? this.genre,
-        spaceSize: spaceSize.present ? spaceSize.value : this.spaceSize,
-        adult: adult ?? this.adult,
-        prText: prText ?? this.prText,
-        isFavorite: isFavorite ?? this.isFavorite,
-      );
+  Circle copyWith({
+    int? id,
+    String? name,
+    String? phonetic,
+    String? genre,
+    Value<int?> spaceSize = const Value.absent(),
+    bool? adult,
+    String? prText,
+    bool? isFavorite,
+  }) => Circle(
+    id: id ?? this.id,
+    name: name ?? this.name,
+    phonetic: phonetic ?? this.phonetic,
+    genre: genre ?? this.genre,
+    spaceSize: spaceSize.present ? spaceSize.value : this.spaceSize,
+    adult: adult ?? this.adult,
+    prText: prText ?? this.prText,
+    isFavorite: isFavorite ?? this.isFavorite,
+  );
   Circle copyWithCompanion(CirclesCompanion data) {
     return Circle(
       id: data.id.present ? data.id.value : this.id,
@@ -256,8 +332,9 @@ class Circle extends DataClass implements Insertable<Circle> {
       spaceSize: data.spaceSize.present ? data.spaceSize.value : this.spaceSize,
       adult: data.adult.present ? data.adult.value : this.adult,
       prText: data.prText.present ? data.prText.value : this.prText,
-      isFavorite:
-          data.isFavorite.present ? data.isFavorite.value : this.isFavorite,
+      isFavorite: data.isFavorite.present
+          ? data.isFavorite.value
+          : this.isFavorite,
     );
   }
 
@@ -278,7 +355,15 @@ class Circle extends DataClass implements Insertable<Circle> {
 
   @override
   int get hashCode => Object.hash(
-      id, name, phonetic, genre, spaceSize, adult, prText, isFavorite);
+    id,
+    name,
+    phonetic,
+    genre,
+    spaceSize,
+    adult,
+    prText,
+    isFavorite,
+  );
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -324,12 +409,12 @@ class CirclesCompanion extends UpdateCompanion<Circle> {
     required String prText,
     this.isFavorite = const Value.absent(),
     this.rowid = const Value.absent(),
-  })  : id = Value(id),
-        name = Value(name),
-        phonetic = Value(phonetic),
-        genre = Value(genre),
-        adult = Value(adult),
-        prText = Value(prText);
+  }) : id = Value(id),
+       name = Value(name),
+       phonetic = Value(phonetic),
+       genre = Value(genre),
+       adult = Value(adult),
+       prText = Value(prText);
   static Insertable<Circle> custom({
     Expression<int>? id,
     Expression<String>? name,
@@ -354,16 +439,17 @@ class CirclesCompanion extends UpdateCompanion<Circle> {
     });
   }
 
-  CirclesCompanion copyWith(
-      {Value<int>? id,
-      Value<String>? name,
-      Value<String>? phonetic,
-      Value<String>? genre,
-      Value<int?>? spaceSize,
-      Value<bool>? adult,
-      Value<String>? prText,
-      Value<bool>? isFavorite,
-      Value<int>? rowid}) {
+  CirclesCompanion copyWith({
+    Value<int>? id,
+    Value<String>? name,
+    Value<String>? phonetic,
+    Value<String>? genre,
+    Value<int?>? spaceSize,
+    Value<bool>? adult,
+    Value<String>? prText,
+    Value<bool>? isFavorite,
+    Value<int>? rowid,
+  }) {
     return CirclesCompanion(
       id: id ?? this.id,
       name: name ?? this.name,
@@ -435,139 +521,205 @@ class $SnsLinksTable extends SnsLinks with TableInfo<$SnsLinksTable, SnsLink> {
   static const VerificationMeta _idMeta = const VerificationMeta('id');
   @override
   late final GeneratedColumn<int> id = GeneratedColumn<int>(
-      'id', aliasedName, false,
-      hasAutoIncrement: true,
-      type: DriftSqlType.int,
-      requiredDuringInsert: false,
-      defaultConstraints:
-          GeneratedColumn.constraintIsAlways('PRIMARY KEY AUTOINCREMENT'));
-  static const VerificationMeta _circleIdMeta =
-      const VerificationMeta('circleId');
+    'id',
+    aliasedName,
+    false,
+    hasAutoIncrement: true,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'PRIMARY KEY AUTOINCREMENT',
+    ),
+  );
+  static const VerificationMeta _circleIdMeta = const VerificationMeta(
+    'circleId',
+  );
   @override
   late final GeneratedColumn<int> circleId = GeneratedColumn<int>(
-      'circle_id', aliasedName, false,
-      type: DriftSqlType.int,
-      requiredDuringInsert: true,
-      defaultConstraints:
-          GeneratedColumn.constraintIsAlways('REFERENCES circles (id)'));
-  static const VerificationMeta _siteTextMeta =
-      const VerificationMeta('siteText');
+    'circle_id',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'REFERENCES circles (id)',
+    ),
+  );
+  static const VerificationMeta _siteTextMeta = const VerificationMeta(
+    'siteText',
+  );
   @override
   late final GeneratedColumn<String> siteText = GeneratedColumn<String>(
-      'site_text', aliasedName, true,
-      type: DriftSqlType.string, requiredDuringInsert: false);
-  static const VerificationMeta _siteUrlMeta =
-      const VerificationMeta('siteUrl');
+    'site_text',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _siteUrlMeta = const VerificationMeta(
+    'siteUrl',
+  );
   @override
   late final GeneratedColumn<String> siteUrl = GeneratedColumn<String>(
-      'site_url', aliasedName, true,
-      type: DriftSqlType.string, requiredDuringInsert: false);
-  static const VerificationMeta _twitterTextMeta =
-      const VerificationMeta('twitterText');
+    'site_url',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _twitterTextMeta = const VerificationMeta(
+    'twitterText',
+  );
   @override
   late final GeneratedColumn<String> twitterText = GeneratedColumn<String>(
-      'twitter_text', aliasedName, true,
-      type: DriftSqlType.string, requiredDuringInsert: false);
-  static const VerificationMeta _twitterUrlMeta =
-      const VerificationMeta('twitterUrl');
+    'twitter_text',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _twitterUrlMeta = const VerificationMeta(
+    'twitterUrl',
+  );
   @override
   late final GeneratedColumn<String> twitterUrl = GeneratedColumn<String>(
-      'twitter_url', aliasedName, true,
-      type: DriftSqlType.string, requiredDuringInsert: false);
-  static const VerificationMeta _youtubeTextMeta =
-      const VerificationMeta('youtubeText');
+    'twitter_url',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _youtubeTextMeta = const VerificationMeta(
+    'youtubeText',
+  );
   @override
   late final GeneratedColumn<String> youtubeText = GeneratedColumn<String>(
-      'youtube_text', aliasedName, true,
-      type: DriftSqlType.string, requiredDuringInsert: false);
-  static const VerificationMeta _youtubeUrlMeta =
-      const VerificationMeta('youtubeUrl');
+    'youtube_text',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _youtubeUrlMeta = const VerificationMeta(
+    'youtubeUrl',
+  );
   @override
   late final GeneratedColumn<String> youtubeUrl = GeneratedColumn<String>(
-      'youtube_url', aliasedName, true,
-      type: DriftSqlType.string, requiredDuringInsert: false);
-  static const VerificationMeta _snsTextMeta =
-      const VerificationMeta('snsText');
+    'youtube_url',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _snsTextMeta = const VerificationMeta(
+    'snsText',
+  );
   @override
   late final GeneratedColumn<String> snsText = GeneratedColumn<String>(
-      'sns_text', aliasedName, true,
-      type: DriftSqlType.string, requiredDuringInsert: false);
+    'sns_text',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
   static const VerificationMeta _snsUrlMeta = const VerificationMeta('snsUrl');
   @override
   late final GeneratedColumn<String> snsUrl = GeneratedColumn<String>(
-      'sns_url', aliasedName, true,
-      type: DriftSqlType.string, requiredDuringInsert: false);
+    'sns_url',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
   @override
   List<GeneratedColumn> get $columns => [
-        id,
-        circleId,
-        siteText,
-        siteUrl,
-        twitterText,
-        twitterUrl,
-        youtubeText,
-        youtubeUrl,
-        snsText,
-        snsUrl
-      ];
+    id,
+    circleId,
+    siteText,
+    siteUrl,
+    twitterText,
+    twitterUrl,
+    youtubeText,
+    youtubeUrl,
+    snsText,
+    snsUrl,
+  ];
   @override
   String get aliasedName => _alias ?? actualTableName;
   @override
   String get actualTableName => $name;
   static const String $name = 'sns_links';
   @override
-  VerificationContext validateIntegrity(Insertable<SnsLink> instance,
-      {bool isInserting = false}) {
+  VerificationContext validateIntegrity(
+    Insertable<SnsLink> instance, {
+    bool isInserting = false,
+  }) {
     final context = VerificationContext();
     final data = instance.toColumns(true);
     if (data.containsKey('id')) {
       context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
     }
     if (data.containsKey('circle_id')) {
-      context.handle(_circleIdMeta,
-          circleId.isAcceptableOrUnknown(data['circle_id']!, _circleIdMeta));
+      context.handle(
+        _circleIdMeta,
+        circleId.isAcceptableOrUnknown(data['circle_id']!, _circleIdMeta),
+      );
     } else if (isInserting) {
       context.missing(_circleIdMeta);
     }
     if (data.containsKey('site_text')) {
-      context.handle(_siteTextMeta,
-          siteText.isAcceptableOrUnknown(data['site_text']!, _siteTextMeta));
+      context.handle(
+        _siteTextMeta,
+        siteText.isAcceptableOrUnknown(data['site_text']!, _siteTextMeta),
+      );
     }
     if (data.containsKey('site_url')) {
-      context.handle(_siteUrlMeta,
-          siteUrl.isAcceptableOrUnknown(data['site_url']!, _siteUrlMeta));
+      context.handle(
+        _siteUrlMeta,
+        siteUrl.isAcceptableOrUnknown(data['site_url']!, _siteUrlMeta),
+      );
     }
     if (data.containsKey('twitter_text')) {
       context.handle(
+        _twitterTextMeta,
+        twitterText.isAcceptableOrUnknown(
+          data['twitter_text']!,
           _twitterTextMeta,
-          twitterText.isAcceptableOrUnknown(
-              data['twitter_text']!, _twitterTextMeta));
+        ),
+      );
     }
     if (data.containsKey('twitter_url')) {
       context.handle(
-          _twitterUrlMeta,
-          twitterUrl.isAcceptableOrUnknown(
-              data['twitter_url']!, _twitterUrlMeta));
+        _twitterUrlMeta,
+        twitterUrl.isAcceptableOrUnknown(data['twitter_url']!, _twitterUrlMeta),
+      );
     }
     if (data.containsKey('youtube_text')) {
       context.handle(
+        _youtubeTextMeta,
+        youtubeText.isAcceptableOrUnknown(
+          data['youtube_text']!,
           _youtubeTextMeta,
-          youtubeText.isAcceptableOrUnknown(
-              data['youtube_text']!, _youtubeTextMeta));
+        ),
+      );
     }
     if (data.containsKey('youtube_url')) {
       context.handle(
-          _youtubeUrlMeta,
-          youtubeUrl.isAcceptableOrUnknown(
-              data['youtube_url']!, _youtubeUrlMeta));
+        _youtubeUrlMeta,
+        youtubeUrl.isAcceptableOrUnknown(data['youtube_url']!, _youtubeUrlMeta),
+      );
     }
     if (data.containsKey('sns_text')) {
-      context.handle(_snsTextMeta,
-          snsText.isAcceptableOrUnknown(data['sns_text']!, _snsTextMeta));
+      context.handle(
+        _snsTextMeta,
+        snsText.isAcceptableOrUnknown(data['sns_text']!, _snsTextMeta),
+      );
     }
     if (data.containsKey('sns_url')) {
-      context.handle(_snsUrlMeta,
-          snsUrl.isAcceptableOrUnknown(data['sns_url']!, _snsUrlMeta));
+      context.handle(
+        _snsUrlMeta,
+        snsUrl.isAcceptableOrUnknown(data['sns_url']!, _snsUrlMeta),
+      );
     }
     return context;
   }
@@ -578,26 +730,46 @@ class $SnsLinksTable extends SnsLinks with TableInfo<$SnsLinksTable, SnsLink> {
   SnsLink map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
     return SnsLink(
-      id: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
-      circleId: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}circle_id'])!,
-      siteText: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}site_text']),
-      siteUrl: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}site_url']),
-      twitterText: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}twitter_text']),
-      twitterUrl: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}twitter_url']),
-      youtubeText: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}youtube_text']),
-      youtubeUrl: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}youtube_url']),
-      snsText: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}sns_text']),
-      snsUrl: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}sns_url']),
+      id: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}id'],
+      )!,
+      circleId: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}circle_id'],
+      )!,
+      siteText: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}site_text'],
+      ),
+      siteUrl: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}site_url'],
+      ),
+      twitterText: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}twitter_text'],
+      ),
+      twitterUrl: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}twitter_url'],
+      ),
+      youtubeText: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}youtube_text'],
+      ),
+      youtubeUrl: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}youtube_url'],
+      ),
+      snsText: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}sns_text'],
+      ),
+      snsUrl: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}sns_url'],
+      ),
     );
   }
 
@@ -618,17 +790,18 @@ class SnsLink extends DataClass implements Insertable<SnsLink> {
   final String? youtubeUrl;
   final String? snsText;
   final String? snsUrl;
-  const SnsLink(
-      {required this.id,
-      required this.circleId,
-      this.siteText,
-      this.siteUrl,
-      this.twitterText,
-      this.twitterUrl,
-      this.youtubeText,
-      this.youtubeUrl,
-      this.snsText,
-      this.snsUrl});
+  const SnsLink({
+    required this.id,
+    required this.circleId,
+    this.siteText,
+    this.siteUrl,
+    this.twitterText,
+    this.twitterUrl,
+    this.youtubeText,
+    this.youtubeUrl,
+    this.snsText,
+    this.snsUrl,
+  });
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
@@ -686,13 +859,16 @@ class SnsLink extends DataClass implements Insertable<SnsLink> {
       snsText: snsText == null && nullToAbsent
           ? const Value.absent()
           : Value(snsText),
-      snsUrl:
-          snsUrl == null && nullToAbsent ? const Value.absent() : Value(snsUrl),
+      snsUrl: snsUrl == null && nullToAbsent
+          ? const Value.absent()
+          : Value(snsUrl),
     );
   }
 
-  factory SnsLink.fromJson(Map<String, dynamic> json,
-      {ValueSerializer? serializer}) {
+  factory SnsLink.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return SnsLink(
       id: serializer.fromJson<int>(json['id']),
@@ -724,43 +900,47 @@ class SnsLink extends DataClass implements Insertable<SnsLink> {
     };
   }
 
-  SnsLink copyWith(
-          {int? id,
-          int? circleId,
-          Value<String?> siteText = const Value.absent(),
-          Value<String?> siteUrl = const Value.absent(),
-          Value<String?> twitterText = const Value.absent(),
-          Value<String?> twitterUrl = const Value.absent(),
-          Value<String?> youtubeText = const Value.absent(),
-          Value<String?> youtubeUrl = const Value.absent(),
-          Value<String?> snsText = const Value.absent(),
-          Value<String?> snsUrl = const Value.absent()}) =>
-      SnsLink(
-        id: id ?? this.id,
-        circleId: circleId ?? this.circleId,
-        siteText: siteText.present ? siteText.value : this.siteText,
-        siteUrl: siteUrl.present ? siteUrl.value : this.siteUrl,
-        twitterText: twitterText.present ? twitterText.value : this.twitterText,
-        twitterUrl: twitterUrl.present ? twitterUrl.value : this.twitterUrl,
-        youtubeText: youtubeText.present ? youtubeText.value : this.youtubeText,
-        youtubeUrl: youtubeUrl.present ? youtubeUrl.value : this.youtubeUrl,
-        snsText: snsText.present ? snsText.value : this.snsText,
-        snsUrl: snsUrl.present ? snsUrl.value : this.snsUrl,
-      );
+  SnsLink copyWith({
+    int? id,
+    int? circleId,
+    Value<String?> siteText = const Value.absent(),
+    Value<String?> siteUrl = const Value.absent(),
+    Value<String?> twitterText = const Value.absent(),
+    Value<String?> twitterUrl = const Value.absent(),
+    Value<String?> youtubeText = const Value.absent(),
+    Value<String?> youtubeUrl = const Value.absent(),
+    Value<String?> snsText = const Value.absent(),
+    Value<String?> snsUrl = const Value.absent(),
+  }) => SnsLink(
+    id: id ?? this.id,
+    circleId: circleId ?? this.circleId,
+    siteText: siteText.present ? siteText.value : this.siteText,
+    siteUrl: siteUrl.present ? siteUrl.value : this.siteUrl,
+    twitterText: twitterText.present ? twitterText.value : this.twitterText,
+    twitterUrl: twitterUrl.present ? twitterUrl.value : this.twitterUrl,
+    youtubeText: youtubeText.present ? youtubeText.value : this.youtubeText,
+    youtubeUrl: youtubeUrl.present ? youtubeUrl.value : this.youtubeUrl,
+    snsText: snsText.present ? snsText.value : this.snsText,
+    snsUrl: snsUrl.present ? snsUrl.value : this.snsUrl,
+  );
   SnsLink copyWithCompanion(SnsLinksCompanion data) {
     return SnsLink(
       id: data.id.present ? data.id.value : this.id,
       circleId: data.circleId.present ? data.circleId.value : this.circleId,
       siteText: data.siteText.present ? data.siteText.value : this.siteText,
       siteUrl: data.siteUrl.present ? data.siteUrl.value : this.siteUrl,
-      twitterText:
-          data.twitterText.present ? data.twitterText.value : this.twitterText,
-      twitterUrl:
-          data.twitterUrl.present ? data.twitterUrl.value : this.twitterUrl,
-      youtubeText:
-          data.youtubeText.present ? data.youtubeText.value : this.youtubeText,
-      youtubeUrl:
-          data.youtubeUrl.present ? data.youtubeUrl.value : this.youtubeUrl,
+      twitterText: data.twitterText.present
+          ? data.twitterText.value
+          : this.twitterText,
+      twitterUrl: data.twitterUrl.present
+          ? data.twitterUrl.value
+          : this.twitterUrl,
+      youtubeText: data.youtubeText.present
+          ? data.youtubeText.value
+          : this.youtubeText,
+      youtubeUrl: data.youtubeUrl.present
+          ? data.youtubeUrl.value
+          : this.youtubeUrl,
       snsText: data.snsText.present ? data.snsText.value : this.snsText,
       snsUrl: data.snsUrl.present ? data.snsUrl.value : this.snsUrl,
     );
@@ -784,8 +964,18 @@ class SnsLink extends DataClass implements Insertable<SnsLink> {
   }
 
   @override
-  int get hashCode => Object.hash(id, circleId, siteText, siteUrl, twitterText,
-      twitterUrl, youtubeText, youtubeUrl, snsText, snsUrl);
+  int get hashCode => Object.hash(
+    id,
+    circleId,
+    siteText,
+    siteUrl,
+    twitterText,
+    twitterUrl,
+    youtubeText,
+    youtubeUrl,
+    snsText,
+    snsUrl,
+  );
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -863,17 +1053,18 @@ class SnsLinksCompanion extends UpdateCompanion<SnsLink> {
     });
   }
 
-  SnsLinksCompanion copyWith(
-      {Value<int>? id,
-      Value<int>? circleId,
-      Value<String?>? siteText,
-      Value<String?>? siteUrl,
-      Value<String?>? twitterText,
-      Value<String?>? twitterUrl,
-      Value<String?>? youtubeText,
-      Value<String?>? youtubeUrl,
-      Value<String?>? snsText,
-      Value<String?>? snsUrl}) {
+  SnsLinksCompanion copyWith({
+    Value<int>? id,
+    Value<int>? circleId,
+    Value<String?>? siteText,
+    Value<String?>? siteUrl,
+    Value<String?>? twitterText,
+    Value<String?>? twitterUrl,
+    Value<String?>? youtubeText,
+    Value<String?>? youtubeUrl,
+    Value<String?>? snsText,
+    Value<String?>? snsUrl,
+  }) {
     return SnsLinksCompanion(
       id: id ?? this.id,
       circleId: circleId ?? this.circleId,
@@ -950,31 +1141,48 @@ class $RealSpsTable extends RealSps with TableInfo<$RealSpsTable, RealSp> {
   static const VerificationMeta _idMeta = const VerificationMeta('id');
   @override
   late final GeneratedColumn<int> id = GeneratedColumn<int>(
-      'id', aliasedName, false,
-      hasAutoIncrement: true,
-      type: DriftSqlType.int,
-      requiredDuringInsert: false,
-      defaultConstraints:
-          GeneratedColumn.constraintIsAlways('PRIMARY KEY AUTOINCREMENT'));
-  static const VerificationMeta _circleIdMeta =
-      const VerificationMeta('circleId');
+    'id',
+    aliasedName,
+    false,
+    hasAutoIncrement: true,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'PRIMARY KEY AUTOINCREMENT',
+    ),
+  );
+  static const VerificationMeta _circleIdMeta = const VerificationMeta(
+    'circleId',
+  );
   @override
   late final GeneratedColumn<int> circleId = GeneratedColumn<int>(
-      'circle_id', aliasedName, false,
-      type: DriftSqlType.int,
-      requiredDuringInsert: true,
-      defaultConstraints:
-          GeneratedColumn.constraintIsAlways('REFERENCES circles (id)'));
+    'circle_id',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'REFERENCES circles (id)',
+    ),
+  );
   static const VerificationMeta _areaMeta = const VerificationMeta('area');
   @override
   late final GeneratedColumn<String> area = GeneratedColumn<String>(
-      'area', aliasedName, true,
-      type: DriftSqlType.string, requiredDuringInsert: false);
+    'area',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
   static const VerificationMeta _noMeta = const VerificationMeta('no');
   @override
   late final GeneratedColumn<String> no = GeneratedColumn<String>(
-      'no', aliasedName, true,
-      type: DriftSqlType.string, requiredDuringInsert: false);
+    'no',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
   @override
   List<GeneratedColumn> get $columns => [id, circleId, area, no];
   @override
@@ -983,22 +1191,28 @@ class $RealSpsTable extends RealSps with TableInfo<$RealSpsTable, RealSp> {
   String get actualTableName => $name;
   static const String $name = 'real_sps';
   @override
-  VerificationContext validateIntegrity(Insertable<RealSp> instance,
-      {bool isInserting = false}) {
+  VerificationContext validateIntegrity(
+    Insertable<RealSp> instance, {
+    bool isInserting = false,
+  }) {
     final context = VerificationContext();
     final data = instance.toColumns(true);
     if (data.containsKey('id')) {
       context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
     }
     if (data.containsKey('circle_id')) {
-      context.handle(_circleIdMeta,
-          circleId.isAcceptableOrUnknown(data['circle_id']!, _circleIdMeta));
+      context.handle(
+        _circleIdMeta,
+        circleId.isAcceptableOrUnknown(data['circle_id']!, _circleIdMeta),
+      );
     } else if (isInserting) {
       context.missing(_circleIdMeta);
     }
     if (data.containsKey('area')) {
       context.handle(
-          _areaMeta, area.isAcceptableOrUnknown(data['area']!, _areaMeta));
+        _areaMeta,
+        area.isAcceptableOrUnknown(data['area']!, _areaMeta),
+      );
     }
     if (data.containsKey('no')) {
       context.handle(_noMeta, no.isAcceptableOrUnknown(data['no']!, _noMeta));
@@ -1012,14 +1226,22 @@ class $RealSpsTable extends RealSps with TableInfo<$RealSpsTable, RealSp> {
   RealSp map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
     return RealSp(
-      id: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
-      circleId: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}circle_id'])!,
-      area: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}area']),
-      no: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}no']),
+      id: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}id'],
+      )!,
+      circleId: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}circle_id'],
+      )!,
+      area: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}area'],
+      ),
+      no: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}no'],
+      ),
     );
   }
 
@@ -1058,8 +1280,10 @@ class RealSp extends DataClass implements Insertable<RealSp> {
     );
   }
 
-  factory RealSp.fromJson(Map<String, dynamic> json,
-      {ValueSerializer? serializer}) {
+  factory RealSp.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return RealSp(
       id: serializer.fromJson<int>(json['id']),
@@ -1079,17 +1303,17 @@ class RealSp extends DataClass implements Insertable<RealSp> {
     };
   }
 
-  RealSp copyWith(
-          {int? id,
-          int? circleId,
-          Value<String?> area = const Value.absent(),
-          Value<String?> no = const Value.absent()}) =>
-      RealSp(
-        id: id ?? this.id,
-        circleId: circleId ?? this.circleId,
-        area: area.present ? area.value : this.area,
-        no: no.present ? no.value : this.no,
-      );
+  RealSp copyWith({
+    int? id,
+    int? circleId,
+    Value<String?> area = const Value.absent(),
+    Value<String?> no = const Value.absent(),
+  }) => RealSp(
+    id: id ?? this.id,
+    circleId: circleId ?? this.circleId,
+    area: area.present ? area.value : this.area,
+    no: no.present ? no.value : this.no,
+  );
   RealSp copyWithCompanion(RealSpsCompanion data) {
     return RealSp(
       id: data.id.present ? data.id.value : this.id,
@@ -1153,11 +1377,12 @@ class RealSpsCompanion extends UpdateCompanion<RealSp> {
     });
   }
 
-  RealSpsCompanion copyWith(
-      {Value<int>? id,
-      Value<int>? circleId,
-      Value<String?>? area,
-      Value<String?>? no}) {
+  RealSpsCompanion copyWith({
+    Value<int>? id,
+    Value<int>? circleId,
+    Value<String?>? area,
+    Value<String?>? no,
+  }) {
     return RealSpsCompanion(
       id: id ?? this.id,
       circleId: circleId ?? this.circleId,
@@ -1204,30 +1429,46 @@ class $WebSpsTable extends WebSps with TableInfo<$WebSpsTable, WebSp> {
   static const VerificationMeta _idMeta = const VerificationMeta('id');
   @override
   late final GeneratedColumn<int> id = GeneratedColumn<int>(
-      'id', aliasedName, false,
-      hasAutoIncrement: true,
-      type: DriftSqlType.int,
-      requiredDuringInsert: false,
-      defaultConstraints:
-          GeneratedColumn.constraintIsAlways('PRIMARY KEY AUTOINCREMENT'));
+    'id',
+    aliasedName,
+    false,
+    hasAutoIncrement: true,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'PRIMARY KEY AUTOINCREMENT',
+    ),
+  );
   static const VerificationMeta _circleMeta = const VerificationMeta('circle');
   @override
   late final GeneratedColumn<int> circle = GeneratedColumn<int>(
-      'circle', aliasedName, false,
-      type: DriftSqlType.int,
-      requiredDuringInsert: true,
-      defaultConstraints:
-          GeneratedColumn.constraintIsAlways('REFERENCES circles (id)'));
+    'circle',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'REFERENCES circles (id)',
+    ),
+  );
   static const VerificationMeta _areaMeta = const VerificationMeta('area');
   @override
   late final GeneratedColumn<String> area = GeneratedColumn<String>(
-      'area', aliasedName, true,
-      type: DriftSqlType.string, requiredDuringInsert: false);
+    'area',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
   static const VerificationMeta _noMeta = const VerificationMeta('no');
   @override
   late final GeneratedColumn<String> no = GeneratedColumn<String>(
-      'no', aliasedName, true,
-      type: DriftSqlType.string, requiredDuringInsert: false);
+    'no',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
   @override
   List<GeneratedColumn> get $columns => [id, circle, area, no];
   @override
@@ -1236,22 +1477,28 @@ class $WebSpsTable extends WebSps with TableInfo<$WebSpsTable, WebSp> {
   String get actualTableName => $name;
   static const String $name = 'web_sps';
   @override
-  VerificationContext validateIntegrity(Insertable<WebSp> instance,
-      {bool isInserting = false}) {
+  VerificationContext validateIntegrity(
+    Insertable<WebSp> instance, {
+    bool isInserting = false,
+  }) {
     final context = VerificationContext();
     final data = instance.toColumns(true);
     if (data.containsKey('id')) {
       context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
     }
     if (data.containsKey('circle')) {
-      context.handle(_circleMeta,
-          circle.isAcceptableOrUnknown(data['circle']!, _circleMeta));
+      context.handle(
+        _circleMeta,
+        circle.isAcceptableOrUnknown(data['circle']!, _circleMeta),
+      );
     } else if (isInserting) {
       context.missing(_circleMeta);
     }
     if (data.containsKey('area')) {
       context.handle(
-          _areaMeta, area.isAcceptableOrUnknown(data['area']!, _areaMeta));
+        _areaMeta,
+        area.isAcceptableOrUnknown(data['area']!, _areaMeta),
+      );
     }
     if (data.containsKey('no')) {
       context.handle(_noMeta, no.isAcceptableOrUnknown(data['no']!, _noMeta));
@@ -1265,14 +1512,22 @@ class $WebSpsTable extends WebSps with TableInfo<$WebSpsTable, WebSp> {
   WebSp map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
     return WebSp(
-      id: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
-      circle: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}circle'])!,
-      area: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}area']),
-      no: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}no']),
+      id: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}id'],
+      )!,
+      circle: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}circle'],
+      )!,
+      area: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}area'],
+      ),
+      no: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}no'],
+      ),
     );
   }
 
@@ -1311,8 +1566,10 @@ class WebSp extends DataClass implements Insertable<WebSp> {
     );
   }
 
-  factory WebSp.fromJson(Map<String, dynamic> json,
-      {ValueSerializer? serializer}) {
+  factory WebSp.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return WebSp(
       id: serializer.fromJson<int>(json['id']),
@@ -1332,17 +1589,17 @@ class WebSp extends DataClass implements Insertable<WebSp> {
     };
   }
 
-  WebSp copyWith(
-          {int? id,
-          int? circle,
-          Value<String?> area = const Value.absent(),
-          Value<String?> no = const Value.absent()}) =>
-      WebSp(
-        id: id ?? this.id,
-        circle: circle ?? this.circle,
-        area: area.present ? area.value : this.area,
-        no: no.present ? no.value : this.no,
-      );
+  WebSp copyWith({
+    int? id,
+    int? circle,
+    Value<String?> area = const Value.absent(),
+    Value<String?> no = const Value.absent(),
+  }) => WebSp(
+    id: id ?? this.id,
+    circle: circle ?? this.circle,
+    area: area.present ? area.value : this.area,
+    no: no.present ? no.value : this.no,
+  );
   WebSp copyWithCompanion(WebSpsCompanion data) {
     return WebSp(
       id: data.id.present ? data.id.value : this.id,
@@ -1406,11 +1663,12 @@ class WebSpsCompanion extends UpdateCompanion<WebSp> {
     });
   }
 
-  WebSpsCompanion copyWith(
-      {Value<int>? id,
-      Value<int>? circle,
-      Value<String?>? area,
-      Value<String?>? no}) {
+  WebSpsCompanion copyWith({
+    Value<int>? id,
+    Value<int>? circle,
+    Value<String?>? area,
+    Value<String?>? no,
+  }) {
     return WebSpsCompanion(
       id: id ?? this.id,
       circle: circle ?? this.circle,
@@ -1457,33 +1715,52 @@ class $KeywordsTable extends Keywords with TableInfo<$KeywordsTable, Keyword> {
   static const VerificationMeta _idMeta = const VerificationMeta('id');
   @override
   late final GeneratedColumn<int> id = GeneratedColumn<int>(
-      'id', aliasedName, false,
-      hasAutoIncrement: true,
-      type: DriftSqlType.int,
-      requiredDuringInsert: false,
-      defaultConstraints:
-          GeneratedColumn.constraintIsAlways('PRIMARY KEY AUTOINCREMENT'));
-  static const VerificationMeta _circleIdMeta =
-      const VerificationMeta('circleId');
+    'id',
+    aliasedName,
+    false,
+    hasAutoIncrement: true,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'PRIMARY KEY AUTOINCREMENT',
+    ),
+  );
+  static const VerificationMeta _circleIdMeta = const VerificationMeta(
+    'circleId',
+  );
   @override
   late final GeneratedColumn<int> circleId = GeneratedColumn<int>(
-      'circle_id', aliasedName, false,
-      type: DriftSqlType.int,
-      requiredDuringInsert: true,
-      defaultConstraints:
-          GeneratedColumn.constraintIsAlways('REFERENCES circles (id)'));
-  static const VerificationMeta _keywordTextMeta =
-      const VerificationMeta('keywordText');
+    'circle_id',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'REFERENCES circles (id)',
+    ),
+  );
+  static const VerificationMeta _keywordTextMeta = const VerificationMeta(
+    'keywordText',
+  );
   @override
   late final GeneratedColumn<String> keywordText = GeneratedColumn<String>(
-      'keyword_text', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
-  static const VerificationMeta _phoneticMeta =
-      const VerificationMeta('phonetic');
+    'keyword_text',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _phoneticMeta = const VerificationMeta(
+    'phonetic',
+  );
   @override
   late final GeneratedColumn<String> phonetic = GeneratedColumn<String>(
-      'phonetic', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
+    'phonetic',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
   @override
   List<GeneratedColumn> get $columns => [id, circleId, keywordText, phonetic];
   @override
@@ -1492,30 +1769,39 @@ class $KeywordsTable extends Keywords with TableInfo<$KeywordsTable, Keyword> {
   String get actualTableName => $name;
   static const String $name = 'keywords';
   @override
-  VerificationContext validateIntegrity(Insertable<Keyword> instance,
-      {bool isInserting = false}) {
+  VerificationContext validateIntegrity(
+    Insertable<Keyword> instance, {
+    bool isInserting = false,
+  }) {
     final context = VerificationContext();
     final data = instance.toColumns(true);
     if (data.containsKey('id')) {
       context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
     }
     if (data.containsKey('circle_id')) {
-      context.handle(_circleIdMeta,
-          circleId.isAcceptableOrUnknown(data['circle_id']!, _circleIdMeta));
+      context.handle(
+        _circleIdMeta,
+        circleId.isAcceptableOrUnknown(data['circle_id']!, _circleIdMeta),
+      );
     } else if (isInserting) {
       context.missing(_circleIdMeta);
     }
     if (data.containsKey('keyword_text')) {
       context.handle(
+        _keywordTextMeta,
+        keywordText.isAcceptableOrUnknown(
+          data['keyword_text']!,
           _keywordTextMeta,
-          keywordText.isAcceptableOrUnknown(
-              data['keyword_text']!, _keywordTextMeta));
+        ),
+      );
     } else if (isInserting) {
       context.missing(_keywordTextMeta);
     }
     if (data.containsKey('phonetic')) {
-      context.handle(_phoneticMeta,
-          phonetic.isAcceptableOrUnknown(data['phonetic']!, _phoneticMeta));
+      context.handle(
+        _phoneticMeta,
+        phonetic.isAcceptableOrUnknown(data['phonetic']!, _phoneticMeta),
+      );
     } else if (isInserting) {
       context.missing(_phoneticMeta);
     }
@@ -1528,14 +1814,22 @@ class $KeywordsTable extends Keywords with TableInfo<$KeywordsTable, Keyword> {
   Keyword map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
     return Keyword(
-      id: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
-      circleId: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}circle_id'])!,
-      keywordText: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}keyword_text'])!,
-      phonetic: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}phonetic'])!,
+      id: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}id'],
+      )!,
+      circleId: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}circle_id'],
+      )!,
+      keywordText: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}keyword_text'],
+      )!,
+      phonetic: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}phonetic'],
+      )!,
     );
   }
 
@@ -1550,11 +1844,12 @@ class Keyword extends DataClass implements Insertable<Keyword> {
   final int circleId;
   final String keywordText;
   final String phonetic;
-  const Keyword(
-      {required this.id,
-      required this.circleId,
-      required this.keywordText,
-      required this.phonetic});
+  const Keyword({
+    required this.id,
+    required this.circleId,
+    required this.keywordText,
+    required this.phonetic,
+  });
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
@@ -1574,8 +1869,10 @@ class Keyword extends DataClass implements Insertable<Keyword> {
     );
   }
 
-  factory Keyword.fromJson(Map<String, dynamic> json,
-      {ValueSerializer? serializer}) {
+  factory Keyword.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return Keyword(
       id: serializer.fromJson<int>(json['id']),
@@ -1595,20 +1892,24 @@ class Keyword extends DataClass implements Insertable<Keyword> {
     };
   }
 
-  Keyword copyWith(
-          {int? id, int? circleId, String? keywordText, String? phonetic}) =>
-      Keyword(
-        id: id ?? this.id,
-        circleId: circleId ?? this.circleId,
-        keywordText: keywordText ?? this.keywordText,
-        phonetic: phonetic ?? this.phonetic,
-      );
+  Keyword copyWith({
+    int? id,
+    int? circleId,
+    String? keywordText,
+    String? phonetic,
+  }) => Keyword(
+    id: id ?? this.id,
+    circleId: circleId ?? this.circleId,
+    keywordText: keywordText ?? this.keywordText,
+    phonetic: phonetic ?? this.phonetic,
+  );
   Keyword copyWithCompanion(KeywordsCompanion data) {
     return Keyword(
       id: data.id.present ? data.id.value : this.id,
       circleId: data.circleId.present ? data.circleId.value : this.circleId,
-      keywordText:
-          data.keywordText.present ? data.keywordText.value : this.keywordText,
+      keywordText: data.keywordText.present
+          ? data.keywordText.value
+          : this.keywordText,
       phonetic: data.phonetic.present ? data.phonetic.value : this.phonetic,
     );
   }
@@ -1652,9 +1953,9 @@ class KeywordsCompanion extends UpdateCompanion<Keyword> {
     required int circleId,
     required String keywordText,
     required String phonetic,
-  })  : circleId = Value(circleId),
-        keywordText = Value(keywordText),
-        phonetic = Value(phonetic);
+  }) : circleId = Value(circleId),
+       keywordText = Value(keywordText),
+       phonetic = Value(phonetic);
   static Insertable<Keyword> custom({
     Expression<int>? id,
     Expression<int>? circleId,
@@ -1669,11 +1970,12 @@ class KeywordsCompanion extends UpdateCompanion<Keyword> {
     });
   }
 
-  KeywordsCompanion copyWith(
-      {Value<int>? id,
-      Value<int>? circleId,
-      Value<String>? keywordText,
-      Value<String>? phonetic}) {
+  KeywordsCompanion copyWith({
+    Value<int>? id,
+    Value<int>? circleId,
+    Value<String>? keywordText,
+    Value<String>? phonetic,
+  }) {
     return KeywordsCompanion(
       id: id ?? this.id,
       circleId: circleId ?? this.circleId,
@@ -1720,76 +2022,120 @@ class $WishesTable extends Wishes with TableInfo<$WishesTable, Wish> {
   static const VerificationMeta _idMeta = const VerificationMeta('id');
   @override
   late final GeneratedColumn<int> id = GeneratedColumn<int>(
-      'id', aliasedName, false,
-      hasAutoIncrement: true,
-      type: DriftSqlType.int,
-      requiredDuringInsert: false,
-      defaultConstraints:
-          GeneratedColumn.constraintIsAlways('PRIMARY KEY AUTOINCREMENT'));
-  static const VerificationMeta _isFavoriteMeta =
-      const VerificationMeta('isFavorite');
+    'id',
+    aliasedName,
+    false,
+    hasAutoIncrement: true,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'PRIMARY KEY AUTOINCREMENT',
+    ),
+  );
+  static const VerificationMeta _isFavoriteMeta = const VerificationMeta(
+    'isFavorite',
+  );
   @override
   late final GeneratedColumn<bool> isFavorite = GeneratedColumn<bool>(
-      'is_favorite', aliasedName, false,
-      type: DriftSqlType.bool,
-      requiredDuringInsert: true,
-      defaultConstraints: GeneratedColumn.constraintIsAlways(
-          'CHECK ("is_favorite" IN (0, 1)) REFERENCES circles (is_favorite)'));
+    'is_favorite',
+    aliasedName,
+    false,
+    type: DriftSqlType.bool,
+    requiredDuringInsert: true,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'CHECK ("is_favorite" IN (0, 1)) REFERENCES circles (is_favorite)',
+    ),
+  );
   static const VerificationMeta _doneMeta = const VerificationMeta('done');
   @override
   late final GeneratedColumn<bool> done = GeneratedColumn<bool>(
-      'done', aliasedName, false,
-      type: DriftSqlType.bool,
-      requiredDuringInsert: false,
-      defaultConstraints:
-          GeneratedColumn.constraintIsAlways('CHECK ("done" IN (0, 1))'),
-      defaultValue: const Constant(false));
+    'done',
+    aliasedName,
+    false,
+    type: DriftSqlType.bool,
+    requiredDuringInsert: false,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'CHECK ("done" IN (0, 1))',
+    ),
+    defaultValue: const Constant(false),
+  );
   static const VerificationMeta _spaceMeta = const VerificationMeta('space');
   @override
   late final GeneratedColumn<String> space = GeneratedColumn<String>(
-      'space', aliasedName, true,
-      type: DriftSqlType.string, requiredDuringInsert: false);
-  static const VerificationMeta _circleIdMeta =
-      const VerificationMeta('circleId');
+    'space',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _circleIdMeta = const VerificationMeta(
+    'circleId',
+  );
   @override
   late final GeneratedColumn<int> circleId = GeneratedColumn<int>(
-      'circle_id', aliasedName, false,
-      type: DriftSqlType.int,
-      requiredDuringInsert: true,
-      defaultConstraints:
-          GeneratedColumn.constraintIsAlways('REFERENCES circles (id)'));
-  static const VerificationMeta _circleNameMeta =
-      const VerificationMeta('circleName');
+    'circle_id',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'REFERENCES circles (id)',
+    ),
+  );
+  static const VerificationMeta _circleNameMeta = const VerificationMeta(
+    'circleName',
+  );
   @override
   late final GeneratedColumn<String> circleName = GeneratedColumn<String>(
-      'circle_name', aliasedName, false,
-      type: DriftSqlType.string,
-      requiredDuringInsert: true,
-      defaultConstraints:
-          GeneratedColumn.constraintIsAlways('REFERENCES circles (name)'));
+    'circle_name',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'REFERENCES circles (name)',
+    ),
+  );
   static const VerificationMeta _amountMeta = const VerificationMeta('amount');
   @override
   late final GeneratedColumn<int> amount = GeneratedColumn<int>(
-      'amount', aliasedName, false,
-      type: DriftSqlType.int,
-      requiredDuringInsert: false,
-      defaultValue: const Constant(0));
+    'amount',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    defaultValue: const Constant(0),
+  );
   static const VerificationMeta _memoMeta = const VerificationMeta('memo');
   @override
   late final GeneratedColumn<String> memo = GeneratedColumn<String>(
-      'memo', aliasedName, true,
-      type: DriftSqlType.string, requiredDuringInsert: false);
+    'memo',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
   @override
-  List<GeneratedColumn> get $columns =>
-      [id, isFavorite, done, space, circleId, circleName, amount, memo];
+  List<GeneratedColumn> get $columns => [
+    id,
+    isFavorite,
+    done,
+    space,
+    circleId,
+    circleName,
+    amount,
+    memo,
+  ];
   @override
   String get aliasedName => _alias ?? actualTableName;
   @override
   String get actualTableName => $name;
   static const String $name = 'wishes';
   @override
-  VerificationContext validateIntegrity(Insertable<Wish> instance,
-      {bool isInserting = false}) {
+  VerificationContext validateIntegrity(
+    Insertable<Wish> instance, {
+    bool isInserting = false,
+  }) {
     final context = VerificationContext();
     final data = instance.toColumns(true);
     if (data.containsKey('id')) {
@@ -1797,41 +2143,51 @@ class $WishesTable extends Wishes with TableInfo<$WishesTable, Wish> {
     }
     if (data.containsKey('is_favorite')) {
       context.handle(
-          _isFavoriteMeta,
-          isFavorite.isAcceptableOrUnknown(
-              data['is_favorite']!, _isFavoriteMeta));
+        _isFavoriteMeta,
+        isFavorite.isAcceptableOrUnknown(data['is_favorite']!, _isFavoriteMeta),
+      );
     } else if (isInserting) {
       context.missing(_isFavoriteMeta);
     }
     if (data.containsKey('done')) {
       context.handle(
-          _doneMeta, done.isAcceptableOrUnknown(data['done']!, _doneMeta));
+        _doneMeta,
+        done.isAcceptableOrUnknown(data['done']!, _doneMeta),
+      );
     }
     if (data.containsKey('space')) {
       context.handle(
-          _spaceMeta, space.isAcceptableOrUnknown(data['space']!, _spaceMeta));
+        _spaceMeta,
+        space.isAcceptableOrUnknown(data['space']!, _spaceMeta),
+      );
     }
     if (data.containsKey('circle_id')) {
-      context.handle(_circleIdMeta,
-          circleId.isAcceptableOrUnknown(data['circle_id']!, _circleIdMeta));
+      context.handle(
+        _circleIdMeta,
+        circleId.isAcceptableOrUnknown(data['circle_id']!, _circleIdMeta),
+      );
     } else if (isInserting) {
       context.missing(_circleIdMeta);
     }
     if (data.containsKey('circle_name')) {
       context.handle(
-          _circleNameMeta,
-          circleName.isAcceptableOrUnknown(
-              data['circle_name']!, _circleNameMeta));
+        _circleNameMeta,
+        circleName.isAcceptableOrUnknown(data['circle_name']!, _circleNameMeta),
+      );
     } else if (isInserting) {
       context.missing(_circleNameMeta);
     }
     if (data.containsKey('amount')) {
-      context.handle(_amountMeta,
-          amount.isAcceptableOrUnknown(data['amount']!, _amountMeta));
+      context.handle(
+        _amountMeta,
+        amount.isAcceptableOrUnknown(data['amount']!, _amountMeta),
+      );
     }
     if (data.containsKey('memo')) {
       context.handle(
-          _memoMeta, memo.isAcceptableOrUnknown(data['memo']!, _memoMeta));
+        _memoMeta,
+        memo.isAcceptableOrUnknown(data['memo']!, _memoMeta),
+      );
     }
     return context;
   }
@@ -1842,22 +2198,38 @@ class $WishesTable extends Wishes with TableInfo<$WishesTable, Wish> {
   Wish map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
     return Wish(
-      id: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
-      isFavorite: attachedDatabase.typeMapping
-          .read(DriftSqlType.bool, data['${effectivePrefix}is_favorite'])!,
-      done: attachedDatabase.typeMapping
-          .read(DriftSqlType.bool, data['${effectivePrefix}done'])!,
-      space: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}space']),
-      circleId: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}circle_id'])!,
-      circleName: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}circle_name'])!,
-      amount: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}amount'])!,
-      memo: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}memo']),
+      id: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}id'],
+      )!,
+      isFavorite: attachedDatabase.typeMapping.read(
+        DriftSqlType.bool,
+        data['${effectivePrefix}is_favorite'],
+      )!,
+      done: attachedDatabase.typeMapping.read(
+        DriftSqlType.bool,
+        data['${effectivePrefix}done'],
+      )!,
+      space: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}space'],
+      ),
+      circleId: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}circle_id'],
+      )!,
+      circleName: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}circle_name'],
+      )!,
+      amount: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}amount'],
+      )!,
+      memo: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}memo'],
+      ),
     );
   }
 
@@ -1876,15 +2248,16 @@ class Wish extends DataClass implements Insertable<Wish> {
   final String circleName;
   final int amount;
   final String? memo;
-  const Wish(
-      {required this.id,
-      required this.isFavorite,
-      required this.done,
-      this.space,
-      required this.circleId,
-      required this.circleName,
-      required this.amount,
-      this.memo});
+  const Wish({
+    required this.id,
+    required this.isFavorite,
+    required this.done,
+    this.space,
+    required this.circleId,
+    required this.circleName,
+    required this.amount,
+    this.memo,
+  });
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
@@ -1908,8 +2281,9 @@ class Wish extends DataClass implements Insertable<Wish> {
       id: Value(id),
       isFavorite: Value(isFavorite),
       done: Value(done),
-      space:
-          space == null && nullToAbsent ? const Value.absent() : Value(space),
+      space: space == null && nullToAbsent
+          ? const Value.absent()
+          : Value(space),
       circleId: Value(circleId),
       circleName: Value(circleName),
       amount: Value(amount),
@@ -1917,8 +2291,10 @@ class Wish extends DataClass implements Insertable<Wish> {
     );
   }
 
-  factory Wish.fromJson(Map<String, dynamic> json,
-      {ValueSerializer? serializer}) {
+  factory Wish.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return Wish(
       id: serializer.fromJson<int>(json['id']),
@@ -1946,35 +2322,37 @@ class Wish extends DataClass implements Insertable<Wish> {
     };
   }
 
-  Wish copyWith(
-          {int? id,
-          bool? isFavorite,
-          bool? done,
-          Value<String?> space = const Value.absent(),
-          int? circleId,
-          String? circleName,
-          int? amount,
-          Value<String?> memo = const Value.absent()}) =>
-      Wish(
-        id: id ?? this.id,
-        isFavorite: isFavorite ?? this.isFavorite,
-        done: done ?? this.done,
-        space: space.present ? space.value : this.space,
-        circleId: circleId ?? this.circleId,
-        circleName: circleName ?? this.circleName,
-        amount: amount ?? this.amount,
-        memo: memo.present ? memo.value : this.memo,
-      );
+  Wish copyWith({
+    int? id,
+    bool? isFavorite,
+    bool? done,
+    Value<String?> space = const Value.absent(),
+    int? circleId,
+    String? circleName,
+    int? amount,
+    Value<String?> memo = const Value.absent(),
+  }) => Wish(
+    id: id ?? this.id,
+    isFavorite: isFavorite ?? this.isFavorite,
+    done: done ?? this.done,
+    space: space.present ? space.value : this.space,
+    circleId: circleId ?? this.circleId,
+    circleName: circleName ?? this.circleName,
+    amount: amount ?? this.amount,
+    memo: memo.present ? memo.value : this.memo,
+  );
   Wish copyWithCompanion(WishesCompanion data) {
     return Wish(
       id: data.id.present ? data.id.value : this.id,
-      isFavorite:
-          data.isFavorite.present ? data.isFavorite.value : this.isFavorite,
+      isFavorite: data.isFavorite.present
+          ? data.isFavorite.value
+          : this.isFavorite,
       done: data.done.present ? data.done.value : this.done,
       space: data.space.present ? data.space.value : this.space,
       circleId: data.circleId.present ? data.circleId.value : this.circleId,
-      circleName:
-          data.circleName.present ? data.circleName.value : this.circleName,
+      circleName: data.circleName.present
+          ? data.circleName.value
+          : this.circleName,
       amount: data.amount.present ? data.amount.value : this.amount,
       memo: data.memo.present ? data.memo.value : this.memo,
     );
@@ -1997,7 +2375,15 @@ class Wish extends DataClass implements Insertable<Wish> {
 
   @override
   int get hashCode => Object.hash(
-      id, isFavorite, done, space, circleId, circleName, amount, memo);
+    id,
+    isFavorite,
+    done,
+    space,
+    circleId,
+    circleName,
+    amount,
+    memo,
+  );
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -2040,9 +2426,9 @@ class WishesCompanion extends UpdateCompanion<Wish> {
     required String circleName,
     this.amount = const Value.absent(),
     this.memo = const Value.absent(),
-  })  : isFavorite = Value(isFavorite),
-        circleId = Value(circleId),
-        circleName = Value(circleName);
+  }) : isFavorite = Value(isFavorite),
+       circleId = Value(circleId),
+       circleName = Value(circleName);
   static Insertable<Wish> custom({
     Expression<int>? id,
     Expression<bool>? isFavorite,
@@ -2065,15 +2451,16 @@ class WishesCompanion extends UpdateCompanion<Wish> {
     });
   }
 
-  WishesCompanion copyWith(
-      {Value<int>? id,
-      Value<bool>? isFavorite,
-      Value<bool>? done,
-      Value<String?>? space,
-      Value<int>? circleId,
-      Value<String>? circleName,
-      Value<int>? amount,
-      Value<String?>? memo}) {
+  WishesCompanion copyWith({
+    Value<int>? id,
+    Value<bool>? isFavorite,
+    Value<bool>? done,
+    Value<String?>? space,
+    Value<int>? circleId,
+    Value<String>? circleName,
+    Value<int>? amount,
+    Value<String?>? memo,
+  }) {
     return WishesCompanion(
       id: id ?? this.id,
       isFavorite: isFavorite ?? this.isFavorite,
@@ -2145,91 +2532,119 @@ abstract class _$CircleDatabase extends GeneratedDatabase {
   Iterable<TableInfo<Table, Object?>> get allTables =>
       allSchemaEntities.whereType<TableInfo<Table, Object?>>();
   @override
-  List<DatabaseSchemaEntity> get allSchemaEntities =>
-      [circles, snsLinks, realSps, webSps, keywords, wishes];
+  List<DatabaseSchemaEntity> get allSchemaEntities => [
+    circles,
+    snsLinks,
+    realSps,
+    webSps,
+    keywords,
+    wishes,
+  ];
 }
 
-typedef $$CirclesTableCreateCompanionBuilder = CirclesCompanion Function({
-  required int id,
-  required String name,
-  required String phonetic,
-  required String genre,
-  Value<int?> spaceSize,
-  required bool adult,
-  required String prText,
-  Value<bool> isFavorite,
-  Value<int> rowid,
-});
-typedef $$CirclesTableUpdateCompanionBuilder = CirclesCompanion Function({
-  Value<int> id,
-  Value<String> name,
-  Value<String> phonetic,
-  Value<String> genre,
-  Value<int?> spaceSize,
-  Value<bool> adult,
-  Value<String> prText,
-  Value<bool> isFavorite,
-  Value<int> rowid,
-});
+typedef $$CirclesTableCreateCompanionBuilder =
+    CirclesCompanion Function({
+      required int id,
+      required String name,
+      required String phonetic,
+      required String genre,
+      Value<int?> spaceSize,
+      required bool adult,
+      required String prText,
+      Value<bool> isFavorite,
+      Value<int> rowid,
+    });
+typedef $$CirclesTableUpdateCompanionBuilder =
+    CirclesCompanion Function({
+      Value<int> id,
+      Value<String> name,
+      Value<String> phonetic,
+      Value<String> genre,
+      Value<int?> spaceSize,
+      Value<bool> adult,
+      Value<String> prText,
+      Value<bool> isFavorite,
+      Value<int> rowid,
+    });
 
 final class $$CirclesTableReferences
     extends BaseReferences<_$CircleDatabase, $CirclesTable, Circle> {
   $$CirclesTableReferences(super.$_db, super.$_table, super.$_typedResult);
 
   static MultiTypedResultKey<$SnsLinksTable, List<SnsLink>> _snsLinksRefsTable(
-          _$CircleDatabase db) =>
-      MultiTypedResultKey.fromTable(db.snsLinks,
-          aliasName: 'circles__id__sns_links__circle_id');
+    _$CircleDatabase db,
+  ) => MultiTypedResultKey.fromTable(
+    db.snsLinks,
+    aliasName: 'circles__id__sns_links__circle_id',
+  );
 
   $$SnsLinksTableProcessedTableManager get snsLinksRefs {
-    final manager = $$SnsLinksTableTableManager($_db, $_db.snsLinks)
-        .filter((f) => f.circleId.id.sqlEquals($_itemColumn<int>('id')!));
+    final manager = $$SnsLinksTableTableManager(
+      $_db,
+      $_db.snsLinks,
+    ).filter((f) => f.circleId.id.sqlEquals($_itemColumn<int>('id')!));
 
     final cache = $_typedResult.readTableOrNull(_snsLinksRefsTable($_db));
     return ProcessedTableManager(
-        manager.$state.copyWith(prefetchedData: cache));
+      manager.$state.copyWith(prefetchedData: cache),
+    );
   }
 
   static MultiTypedResultKey<$RealSpsTable, List<RealSp>> _realSpsRefsTable(
-          _$CircleDatabase db) =>
-      MultiTypedResultKey.fromTable(db.realSps,
-          aliasName: 'circles__id__real_sps__circle_id');
+    _$CircleDatabase db,
+  ) => MultiTypedResultKey.fromTable(
+    db.realSps,
+    aliasName: 'circles__id__real_sps__circle_id',
+  );
 
   $$RealSpsTableProcessedTableManager get realSpsRefs {
-    final manager = $$RealSpsTableTableManager($_db, $_db.realSps)
-        .filter((f) => f.circleId.id.sqlEquals($_itemColumn<int>('id')!));
+    final manager = $$RealSpsTableTableManager(
+      $_db,
+      $_db.realSps,
+    ).filter((f) => f.circleId.id.sqlEquals($_itemColumn<int>('id')!));
 
     final cache = $_typedResult.readTableOrNull(_realSpsRefsTable($_db));
     return ProcessedTableManager(
-        manager.$state.copyWith(prefetchedData: cache));
+      manager.$state.copyWith(prefetchedData: cache),
+    );
   }
 
   static MultiTypedResultKey<$WebSpsTable, List<WebSp>> _webSpsRefsTable(
-          _$CircleDatabase db) =>
-      MultiTypedResultKey.fromTable(db.webSps,
-          aliasName: 'circles__id__web_sps__circle');
+    _$CircleDatabase db,
+  ) => MultiTypedResultKey.fromTable(
+    db.webSps,
+    aliasName: 'circles__id__web_sps__circle',
+  );
 
   $$WebSpsTableProcessedTableManager get webSpsRefs {
-    final manager = $$WebSpsTableTableManager($_db, $_db.webSps)
-        .filter((f) => f.circle.id.sqlEquals($_itemColumn<int>('id')!));
+    final manager = $$WebSpsTableTableManager(
+      $_db,
+      $_db.webSps,
+    ).filter((f) => f.circle.id.sqlEquals($_itemColumn<int>('id')!));
 
     final cache = $_typedResult.readTableOrNull(_webSpsRefsTable($_db));
     return ProcessedTableManager(
-        manager.$state.copyWith(prefetchedData: cache));
+      manager.$state.copyWith(prefetchedData: cache),
+    );
   }
 
   static MultiTypedResultKey<$KeywordsTable, List<Keyword>> _keywordsRefsTable(
-          _$CircleDatabase db) =>
-      MultiTypedResultKey.fromTable(db.keywords,
-          aliasName: 'circles__id__keywords__circle_id');
+    _$CircleDatabase db,
+  ) => MultiTypedResultKey.fromTable(
+    db.keywords,
+    aliasName: 'circles__id__keywords__circle_id',
+  );
 
   $$KeywordsTableProcessedTableManager get keywordsRefs {
-    final manager = $$KeywordsTableTableManager($_db, $_db.keywords)
-        .filter((f) => f.circleId.id.sqlEquals($_itemColumn<int>('id')!));
+    final manager = $$KeywordsTableTableManager(
+      $_db,
+      $_db.keywords,
+    ).filter((f) => f.circleId.id.sqlEquals($_itemColumn<int>('id')!));
 
     final cache = $_typedResult.readTableOrNull(_keywordsRefsTable($_db));
     return ProcessedTableManager(
-        manager.$state.copyWith(prefetchedData: cache));
+      manager.$state.copyWith(prefetchedData: cache),
+    );
   }
 }
 
@@ -2243,110 +2658,142 @@ class $$CirclesTableFilterComposer
     super.$removeJoinBuilderFromRootComposer,
   });
   ColumnFilters<int> get id => $composableBuilder(
-      column: $table.id, builder: (column) => ColumnFilters(column));
+    column: $table.id,
+    builder: (column) => ColumnFilters(column),
+  );
 
   ColumnFilters<String> get name => $composableBuilder(
-      column: $table.name, builder: (column) => ColumnFilters(column));
+    column: $table.name,
+    builder: (column) => ColumnFilters(column),
+  );
 
   ColumnFilters<String> get phonetic => $composableBuilder(
-      column: $table.phonetic, builder: (column) => ColumnFilters(column));
+    column: $table.phonetic,
+    builder: (column) => ColumnFilters(column),
+  );
 
   ColumnFilters<String> get genre => $composableBuilder(
-      column: $table.genre, builder: (column) => ColumnFilters(column));
+    column: $table.genre,
+    builder: (column) => ColumnFilters(column),
+  );
 
   ColumnFilters<int> get spaceSize => $composableBuilder(
-      column: $table.spaceSize, builder: (column) => ColumnFilters(column));
+    column: $table.spaceSize,
+    builder: (column) => ColumnFilters(column),
+  );
 
   ColumnFilters<bool> get adult => $composableBuilder(
-      column: $table.adult, builder: (column) => ColumnFilters(column));
+    column: $table.adult,
+    builder: (column) => ColumnFilters(column),
+  );
 
   ColumnFilters<String> get prText => $composableBuilder(
-      column: $table.prText, builder: (column) => ColumnFilters(column));
+    column: $table.prText,
+    builder: (column) => ColumnFilters(column),
+  );
 
   ColumnFilters<bool> get isFavorite => $composableBuilder(
-      column: $table.isFavorite, builder: (column) => ColumnFilters(column));
+    column: $table.isFavorite,
+    builder: (column) => ColumnFilters(column),
+  );
 
   Expression<bool> snsLinksRefs(
-      Expression<bool> Function($$SnsLinksTableFilterComposer f) f) {
+    Expression<bool> Function($$SnsLinksTableFilterComposer f) f,
+  ) {
     final $$SnsLinksTableFilterComposer composer = $composerBuilder(
-        composer: this,
-        getCurrentColumn: (t) => t.id,
-        referencedTable: $db.snsLinks,
-        getReferencedColumn: (t) => t.circleId,
-        builder: (joinBuilder,
-                {$addJoinBuilderToRootComposer,
-                $removeJoinBuilderFromRootComposer}) =>
-            $$SnsLinksTableFilterComposer(
-              $db: $db,
-              $table: $db.snsLinks,
-              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
-              joinBuilder: joinBuilder,
-              $removeJoinBuilderFromRootComposer:
-                  $removeJoinBuilderFromRootComposer,
-            ));
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.snsLinks,
+      getReferencedColumn: (t) => t.circleId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$SnsLinksTableFilterComposer(
+            $db: $db,
+            $table: $db.snsLinks,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
     return f(composer);
   }
 
   Expression<bool> realSpsRefs(
-      Expression<bool> Function($$RealSpsTableFilterComposer f) f) {
+    Expression<bool> Function($$RealSpsTableFilterComposer f) f,
+  ) {
     final $$RealSpsTableFilterComposer composer = $composerBuilder(
-        composer: this,
-        getCurrentColumn: (t) => t.id,
-        referencedTable: $db.realSps,
-        getReferencedColumn: (t) => t.circleId,
-        builder: (joinBuilder,
-                {$addJoinBuilderToRootComposer,
-                $removeJoinBuilderFromRootComposer}) =>
-            $$RealSpsTableFilterComposer(
-              $db: $db,
-              $table: $db.realSps,
-              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
-              joinBuilder: joinBuilder,
-              $removeJoinBuilderFromRootComposer:
-                  $removeJoinBuilderFromRootComposer,
-            ));
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.realSps,
+      getReferencedColumn: (t) => t.circleId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$RealSpsTableFilterComposer(
+            $db: $db,
+            $table: $db.realSps,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
     return f(composer);
   }
 
   Expression<bool> webSpsRefs(
-      Expression<bool> Function($$WebSpsTableFilterComposer f) f) {
+    Expression<bool> Function($$WebSpsTableFilterComposer f) f,
+  ) {
     final $$WebSpsTableFilterComposer composer = $composerBuilder(
-        composer: this,
-        getCurrentColumn: (t) => t.id,
-        referencedTable: $db.webSps,
-        getReferencedColumn: (t) => t.circle,
-        builder: (joinBuilder,
-                {$addJoinBuilderToRootComposer,
-                $removeJoinBuilderFromRootComposer}) =>
-            $$WebSpsTableFilterComposer(
-              $db: $db,
-              $table: $db.webSps,
-              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
-              joinBuilder: joinBuilder,
-              $removeJoinBuilderFromRootComposer:
-                  $removeJoinBuilderFromRootComposer,
-            ));
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.webSps,
+      getReferencedColumn: (t) => t.circle,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$WebSpsTableFilterComposer(
+            $db: $db,
+            $table: $db.webSps,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
     return f(composer);
   }
 
   Expression<bool> keywordsRefs(
-      Expression<bool> Function($$KeywordsTableFilterComposer f) f) {
+    Expression<bool> Function($$KeywordsTableFilterComposer f) f,
+  ) {
     final $$KeywordsTableFilterComposer composer = $composerBuilder(
-        composer: this,
-        getCurrentColumn: (t) => t.id,
-        referencedTable: $db.keywords,
-        getReferencedColumn: (t) => t.circleId,
-        builder: (joinBuilder,
-                {$addJoinBuilderToRootComposer,
-                $removeJoinBuilderFromRootComposer}) =>
-            $$KeywordsTableFilterComposer(
-              $db: $db,
-              $table: $db.keywords,
-              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
-              joinBuilder: joinBuilder,
-              $removeJoinBuilderFromRootComposer:
-                  $removeJoinBuilderFromRootComposer,
-            ));
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.keywords,
+      getReferencedColumn: (t) => t.circleId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$KeywordsTableFilterComposer(
+            $db: $db,
+            $table: $db.keywords,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
     return f(composer);
   }
 }
@@ -2361,28 +2808,44 @@ class $$CirclesTableOrderingComposer
     super.$removeJoinBuilderFromRootComposer,
   });
   ColumnOrderings<int> get id => $composableBuilder(
-      column: $table.id, builder: (column) => ColumnOrderings(column));
+    column: $table.id,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   ColumnOrderings<String> get name => $composableBuilder(
-      column: $table.name, builder: (column) => ColumnOrderings(column));
+    column: $table.name,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   ColumnOrderings<String> get phonetic => $composableBuilder(
-      column: $table.phonetic, builder: (column) => ColumnOrderings(column));
+    column: $table.phonetic,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   ColumnOrderings<String> get genre => $composableBuilder(
-      column: $table.genre, builder: (column) => ColumnOrderings(column));
+    column: $table.genre,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   ColumnOrderings<int> get spaceSize => $composableBuilder(
-      column: $table.spaceSize, builder: (column) => ColumnOrderings(column));
+    column: $table.spaceSize,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   ColumnOrderings<bool> get adult => $composableBuilder(
-      column: $table.adult, builder: (column) => ColumnOrderings(column));
+    column: $table.adult,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   ColumnOrderings<String> get prText => $composableBuilder(
-      column: $table.prText, builder: (column) => ColumnOrderings(column));
+    column: $table.prText,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   ColumnOrderings<bool> get isFavorite => $composableBuilder(
-      column: $table.isFavorite, builder: (column) => ColumnOrderings(column));
+    column: $table.isFavorite,
+    builder: (column) => ColumnOrderings(column),
+  );
 }
 
 class $$CirclesTableAnnotationComposer
@@ -2416,111 +2879,134 @@ class $$CirclesTableAnnotationComposer
       $composableBuilder(column: $table.prText, builder: (column) => column);
 
   GeneratedColumn<bool> get isFavorite => $composableBuilder(
-      column: $table.isFavorite, builder: (column) => column);
+    column: $table.isFavorite,
+    builder: (column) => column,
+  );
 
   Expression<T> snsLinksRefs<T extends Object>(
-      Expression<T> Function($$SnsLinksTableAnnotationComposer a) f) {
+    Expression<T> Function($$SnsLinksTableAnnotationComposer a) f,
+  ) {
     final $$SnsLinksTableAnnotationComposer composer = $composerBuilder(
-        composer: this,
-        getCurrentColumn: (t) => t.id,
-        referencedTable: $db.snsLinks,
-        getReferencedColumn: (t) => t.circleId,
-        builder: (joinBuilder,
-                {$addJoinBuilderToRootComposer,
-                $removeJoinBuilderFromRootComposer}) =>
-            $$SnsLinksTableAnnotationComposer(
-              $db: $db,
-              $table: $db.snsLinks,
-              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
-              joinBuilder: joinBuilder,
-              $removeJoinBuilderFromRootComposer:
-                  $removeJoinBuilderFromRootComposer,
-            ));
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.snsLinks,
+      getReferencedColumn: (t) => t.circleId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$SnsLinksTableAnnotationComposer(
+            $db: $db,
+            $table: $db.snsLinks,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
     return f(composer);
   }
 
   Expression<T> realSpsRefs<T extends Object>(
-      Expression<T> Function($$RealSpsTableAnnotationComposer a) f) {
+    Expression<T> Function($$RealSpsTableAnnotationComposer a) f,
+  ) {
     final $$RealSpsTableAnnotationComposer composer = $composerBuilder(
-        composer: this,
-        getCurrentColumn: (t) => t.id,
-        referencedTable: $db.realSps,
-        getReferencedColumn: (t) => t.circleId,
-        builder: (joinBuilder,
-                {$addJoinBuilderToRootComposer,
-                $removeJoinBuilderFromRootComposer}) =>
-            $$RealSpsTableAnnotationComposer(
-              $db: $db,
-              $table: $db.realSps,
-              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
-              joinBuilder: joinBuilder,
-              $removeJoinBuilderFromRootComposer:
-                  $removeJoinBuilderFromRootComposer,
-            ));
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.realSps,
+      getReferencedColumn: (t) => t.circleId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$RealSpsTableAnnotationComposer(
+            $db: $db,
+            $table: $db.realSps,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
     return f(composer);
   }
 
   Expression<T> webSpsRefs<T extends Object>(
-      Expression<T> Function($$WebSpsTableAnnotationComposer a) f) {
+    Expression<T> Function($$WebSpsTableAnnotationComposer a) f,
+  ) {
     final $$WebSpsTableAnnotationComposer composer = $composerBuilder(
-        composer: this,
-        getCurrentColumn: (t) => t.id,
-        referencedTable: $db.webSps,
-        getReferencedColumn: (t) => t.circle,
-        builder: (joinBuilder,
-                {$addJoinBuilderToRootComposer,
-                $removeJoinBuilderFromRootComposer}) =>
-            $$WebSpsTableAnnotationComposer(
-              $db: $db,
-              $table: $db.webSps,
-              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
-              joinBuilder: joinBuilder,
-              $removeJoinBuilderFromRootComposer:
-                  $removeJoinBuilderFromRootComposer,
-            ));
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.webSps,
+      getReferencedColumn: (t) => t.circle,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$WebSpsTableAnnotationComposer(
+            $db: $db,
+            $table: $db.webSps,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
     return f(composer);
   }
 
   Expression<T> keywordsRefs<T extends Object>(
-      Expression<T> Function($$KeywordsTableAnnotationComposer a) f) {
+    Expression<T> Function($$KeywordsTableAnnotationComposer a) f,
+  ) {
     final $$KeywordsTableAnnotationComposer composer = $composerBuilder(
-        composer: this,
-        getCurrentColumn: (t) => t.id,
-        referencedTable: $db.keywords,
-        getReferencedColumn: (t) => t.circleId,
-        builder: (joinBuilder,
-                {$addJoinBuilderToRootComposer,
-                $removeJoinBuilderFromRootComposer}) =>
-            $$KeywordsTableAnnotationComposer(
-              $db: $db,
-              $table: $db.keywords,
-              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
-              joinBuilder: joinBuilder,
-              $removeJoinBuilderFromRootComposer:
-                  $removeJoinBuilderFromRootComposer,
-            ));
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.keywords,
+      getReferencedColumn: (t) => t.circleId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$KeywordsTableAnnotationComposer(
+            $db: $db,
+            $table: $db.keywords,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
     return f(composer);
   }
 }
 
-class $$CirclesTableTableManager extends RootTableManager<
-    _$CircleDatabase,
-    $CirclesTable,
-    Circle,
-    $$CirclesTableFilterComposer,
-    $$CirclesTableOrderingComposer,
-    $$CirclesTableAnnotationComposer,
-    $$CirclesTableCreateCompanionBuilder,
-    $$CirclesTableUpdateCompanionBuilder,
-    (Circle, $$CirclesTableReferences),
-    Circle,
-    PrefetchHooks Function(
-        {bool snsLinksRefs,
-        bool realSpsRefs,
-        bool webSpsRefs,
-        bool keywordsRefs})> {
+class $$CirclesTableTableManager
+    extends
+        RootTableManager<
+          _$CircleDatabase,
+          $CirclesTable,
+          Circle,
+          $$CirclesTableFilterComposer,
+          $$CirclesTableOrderingComposer,
+          $$CirclesTableAnnotationComposer,
+          $$CirclesTableCreateCompanionBuilder,
+          $$CirclesTableUpdateCompanionBuilder,
+          (Circle, $$CirclesTableReferences),
+          Circle,
+          PrefetchHooks Function({
+            bool snsLinksRefs,
+            bool realSpsRefs,
+            bool webSpsRefs,
+            bool keywordsRefs,
+          })
+        > {
   $$CirclesTableTableManager(_$CircleDatabase db, $CirclesTable table)
-      : super(TableManagerState(
+    : super(
+        TableManagerState(
           db: db,
           table: table,
           createFilteringComposer: () =>
@@ -2529,165 +3015,209 @@ class $$CirclesTableTableManager extends RootTableManager<
               $$CirclesTableOrderingComposer($db: db, $table: table),
           createComputedFieldComposer: () =>
               $$CirclesTableAnnotationComposer($db: db, $table: table),
-          updateCompanionCallback: ({
-            Value<int> id = const Value.absent(),
-            Value<String> name = const Value.absent(),
-            Value<String> phonetic = const Value.absent(),
-            Value<String> genre = const Value.absent(),
-            Value<int?> spaceSize = const Value.absent(),
-            Value<bool> adult = const Value.absent(),
-            Value<String> prText = const Value.absent(),
-            Value<bool> isFavorite = const Value.absent(),
-            Value<int> rowid = const Value.absent(),
-          }) =>
-              CirclesCompanion(
-            id: id,
-            name: name,
-            phonetic: phonetic,
-            genre: genre,
-            spaceSize: spaceSize,
-            adult: adult,
-            prText: prText,
-            isFavorite: isFavorite,
-            rowid: rowid,
-          ),
-          createCompanionCallback: ({
-            required int id,
-            required String name,
-            required String phonetic,
-            required String genre,
-            Value<int?> spaceSize = const Value.absent(),
-            required bool adult,
-            required String prText,
-            Value<bool> isFavorite = const Value.absent(),
-            Value<int> rowid = const Value.absent(),
-          }) =>
-              CirclesCompanion.insert(
-            id: id,
-            name: name,
-            phonetic: phonetic,
-            genre: genre,
-            spaceSize: spaceSize,
-            adult: adult,
-            prText: prText,
-            isFavorite: isFavorite,
-            rowid: rowid,
-          ),
+          updateCompanionCallback:
+              ({
+                Value<int> id = const Value.absent(),
+                Value<String> name = const Value.absent(),
+                Value<String> phonetic = const Value.absent(),
+                Value<String> genre = const Value.absent(),
+                Value<int?> spaceSize = const Value.absent(),
+                Value<bool> adult = const Value.absent(),
+                Value<String> prText = const Value.absent(),
+                Value<bool> isFavorite = const Value.absent(),
+                Value<int> rowid = const Value.absent(),
+              }) => CirclesCompanion(
+                id: id,
+                name: name,
+                phonetic: phonetic,
+                genre: genre,
+                spaceSize: spaceSize,
+                adult: adult,
+                prText: prText,
+                isFavorite: isFavorite,
+                rowid: rowid,
+              ),
+          createCompanionCallback:
+              ({
+                required int id,
+                required String name,
+                required String phonetic,
+                required String genre,
+                Value<int?> spaceSize = const Value.absent(),
+                required bool adult,
+                required String prText,
+                Value<bool> isFavorite = const Value.absent(),
+                Value<int> rowid = const Value.absent(),
+              }) => CirclesCompanion.insert(
+                id: id,
+                name: name,
+                phonetic: phonetic,
+                genre: genre,
+                spaceSize: spaceSize,
+                adult: adult,
+                prText: prText,
+                isFavorite: isFavorite,
+                rowid: rowid,
+              ),
           withReferenceMapper: (p0) => p0
-              .map((e) => (
-                    e.readTable<$CirclesTable, Circle>(table),
-                    $$CirclesTableReferences(db, table, e)
-                  ))
+              .map(
+                (e) => (
+                  e.readTable<$CirclesTable, Circle>(table),
+                  $$CirclesTableReferences(db, table, e),
+                ),
+              )
               .toList(),
-          prefetchHooksCallback: (
-              {snsLinksRefs = false,
-              realSpsRefs = false,
-              webSpsRefs = false,
-              keywordsRefs = false}) {
-            return PrefetchHooks(
-              db: db,
-              explicitlyWatchedTables: [
-                if (snsLinksRefs) db.snsLinks,
-                if (realSpsRefs) db.realSps,
-                if (webSpsRefs) db.webSps,
-                if (keywordsRefs) db.keywords
-              ],
-              addJoins: null,
-              getPrefetchedDataCallback: (items) async {
-                return [
-                  if (snsLinksRefs)
-                    await $_getPrefetchedDataByColumns<Circle, $CirclesTable,
-                            SnsLink, $SnsLinksTable>(
-                        currentTable: table,
-                        referencedTable:
-                            $$CirclesTableReferences._snsLinksRefsTable(db),
-                        managerFromTypedResult: (p0) =>
-                            $$CirclesTableReferences(db, table, p0)
-                                .snsLinksRefs,
-                        currentColumn: 'id',
-                        referencedColumn: 'circle_id',
-                        typedResults: items),
-                  if (realSpsRefs)
-                    await $_getPrefetchedDataByColumns<Circle, $CirclesTable,
-                            RealSp, $RealSpsTable>(
-                        currentTable: table,
-                        referencedTable:
-                            $$CirclesTableReferences._realSpsRefsTable(db),
-                        managerFromTypedResult: (p0) =>
-                            $$CirclesTableReferences(db, table, p0).realSpsRefs,
-                        currentColumn: 'id',
-                        referencedColumn: 'circle_id',
-                        typedResults: items),
-                  if (webSpsRefs)
-                    await $_getPrefetchedDataByColumns<Circle, $CirclesTable,
-                            WebSp, $WebSpsTable>(
-                        currentTable: table,
-                        referencedTable:
-                            $$CirclesTableReferences._webSpsRefsTable(db),
-                        managerFromTypedResult: (p0) =>
-                            $$CirclesTableReferences(db, table, p0).webSpsRefs,
-                        currentColumn: 'id',
-                        referencedColumn: 'circle',
-                        typedResults: items),
-                  if (keywordsRefs)
-                    await $_getPrefetchedDataByColumns<Circle, $CirclesTable,
-                            Keyword, $KeywordsTable>(
-                        currentTable: table,
-                        referencedTable:
-                            $$CirclesTableReferences._keywordsRefsTable(db),
-                        managerFromTypedResult: (p0) =>
-                            $$CirclesTableReferences(db, table, p0)
-                                .keywordsRefs,
-                        currentColumn: 'id',
-                        referencedColumn: 'circle_id',
-                        typedResults: items)
-                ];
+          prefetchHooksCallback:
+              ({
+                snsLinksRefs = false,
+                realSpsRefs = false,
+                webSpsRefs = false,
+                keywordsRefs = false,
+              }) {
+                return PrefetchHooks(
+                  db: db,
+                  explicitlyWatchedTables: [
+                    if (snsLinksRefs) db.snsLinks,
+                    if (realSpsRefs) db.realSps,
+                    if (webSpsRefs) db.webSps,
+                    if (keywordsRefs) db.keywords,
+                  ],
+                  addJoins: null,
+                  getPrefetchedDataCallback: (items) async {
+                    return [
+                      if (snsLinksRefs)
+                        await $_getPrefetchedDataByColumns<
+                          Circle,
+                          $CirclesTable,
+                          SnsLink,
+                          $SnsLinksTable
+                        >(
+                          currentTable: table,
+                          referencedTable: $$CirclesTableReferences
+                              ._snsLinksRefsTable(db),
+                          managerFromTypedResult: (p0) =>
+                              $$CirclesTableReferences(
+                                db,
+                                table,
+                                p0,
+                              ).snsLinksRefs,
+                          currentColumn: 'id',
+                          referencedColumn: 'circle_id',
+                          typedResults: items,
+                        ),
+                      if (realSpsRefs)
+                        await $_getPrefetchedDataByColumns<
+                          Circle,
+                          $CirclesTable,
+                          RealSp,
+                          $RealSpsTable
+                        >(
+                          currentTable: table,
+                          referencedTable: $$CirclesTableReferences
+                              ._realSpsRefsTable(db),
+                          managerFromTypedResult: (p0) =>
+                              $$CirclesTableReferences(
+                                db,
+                                table,
+                                p0,
+                              ).realSpsRefs,
+                          currentColumn: 'id',
+                          referencedColumn: 'circle_id',
+                          typedResults: items,
+                        ),
+                      if (webSpsRefs)
+                        await $_getPrefetchedDataByColumns<
+                          Circle,
+                          $CirclesTable,
+                          WebSp,
+                          $WebSpsTable
+                        >(
+                          currentTable: table,
+                          referencedTable: $$CirclesTableReferences
+                              ._webSpsRefsTable(db),
+                          managerFromTypedResult: (p0) =>
+                              $$CirclesTableReferences(
+                                db,
+                                table,
+                                p0,
+                              ).webSpsRefs,
+                          currentColumn: 'id',
+                          referencedColumn: 'circle',
+                          typedResults: items,
+                        ),
+                      if (keywordsRefs)
+                        await $_getPrefetchedDataByColumns<
+                          Circle,
+                          $CirclesTable,
+                          Keyword,
+                          $KeywordsTable
+                        >(
+                          currentTable: table,
+                          referencedTable: $$CirclesTableReferences
+                              ._keywordsRefsTable(db),
+                          managerFromTypedResult: (p0) =>
+                              $$CirclesTableReferences(
+                                db,
+                                table,
+                                p0,
+                              ).keywordsRefs,
+                          currentColumn: 'id',
+                          referencedColumn: 'circle_id',
+                          typedResults: items,
+                        ),
+                    ];
+                  },
+                );
               },
-            );
-          },
-        ));
+        ),
+      );
 }
 
-typedef $$CirclesTableProcessedTableManager = ProcessedTableManager<
-    _$CircleDatabase,
-    $CirclesTable,
-    Circle,
-    $$CirclesTableFilterComposer,
-    $$CirclesTableOrderingComposer,
-    $$CirclesTableAnnotationComposer,
-    $$CirclesTableCreateCompanionBuilder,
-    $$CirclesTableUpdateCompanionBuilder,
-    (Circle, $$CirclesTableReferences),
-    Circle,
-    PrefetchHooks Function(
-        {bool snsLinksRefs,
+typedef $$CirclesTableProcessedTableManager =
+    ProcessedTableManager<
+      _$CircleDatabase,
+      $CirclesTable,
+      Circle,
+      $$CirclesTableFilterComposer,
+      $$CirclesTableOrderingComposer,
+      $$CirclesTableAnnotationComposer,
+      $$CirclesTableCreateCompanionBuilder,
+      $$CirclesTableUpdateCompanionBuilder,
+      (Circle, $$CirclesTableReferences),
+      Circle,
+      PrefetchHooks Function({
+        bool snsLinksRefs,
         bool realSpsRefs,
         bool webSpsRefs,
-        bool keywordsRefs})>;
-typedef $$SnsLinksTableCreateCompanionBuilder = SnsLinksCompanion Function({
-  Value<int> id,
-  required int circleId,
-  Value<String?> siteText,
-  Value<String?> siteUrl,
-  Value<String?> twitterText,
-  Value<String?> twitterUrl,
-  Value<String?> youtubeText,
-  Value<String?> youtubeUrl,
-  Value<String?> snsText,
-  Value<String?> snsUrl,
-});
-typedef $$SnsLinksTableUpdateCompanionBuilder = SnsLinksCompanion Function({
-  Value<int> id,
-  Value<int> circleId,
-  Value<String?> siteText,
-  Value<String?> siteUrl,
-  Value<String?> twitterText,
-  Value<String?> twitterUrl,
-  Value<String?> youtubeText,
-  Value<String?> youtubeUrl,
-  Value<String?> snsText,
-  Value<String?> snsUrl,
-});
+        bool keywordsRefs,
+      })
+    >;
+typedef $$SnsLinksTableCreateCompanionBuilder =
+    SnsLinksCompanion Function({
+      Value<int> id,
+      required int circleId,
+      Value<String?> siteText,
+      Value<String?> siteUrl,
+      Value<String?> twitterText,
+      Value<String?> twitterUrl,
+      Value<String?> youtubeText,
+      Value<String?> youtubeUrl,
+      Value<String?> snsText,
+      Value<String?> snsUrl,
+    });
+typedef $$SnsLinksTableUpdateCompanionBuilder =
+    SnsLinksCompanion Function({
+      Value<int> id,
+      Value<int> circleId,
+      Value<String?> siteText,
+      Value<String?> siteUrl,
+      Value<String?> twitterText,
+      Value<String?> twitterUrl,
+      Value<String?> youtubeText,
+      Value<String?> youtubeUrl,
+      Value<String?> snsText,
+      Value<String?> snsUrl,
+    });
 
 final class $$SnsLinksTableReferences
     extends BaseReferences<_$CircleDatabase, $SnsLinksTable, SnsLink> {
@@ -2699,12 +3229,15 @@ final class $$SnsLinksTableReferences
   $$CirclesTableProcessedTableManager get circleId {
     final $_column = $_itemColumn<int>('circle_id')!;
 
-    final manager = $$CirclesTableTableManager($_db, $_db.circles)
-        .filter((f) => f.id.sqlEquals($_column));
+    final manager = $$CirclesTableTableManager(
+      $_db,
+      $_db.circles,
+    ).filter((f) => f.id.sqlEquals($_column));
     final item = $_typedResult.readTableOrNull(_circleIdTable($_db));
     if (item == null) return manager;
     return ProcessedTableManager(
-        manager.$state.copyWith(prefetchedData: [item]));
+      manager.$state.copyWith(prefetchedData: [item]),
+    );
   }
 }
 
@@ -2718,49 +3251,70 @@ class $$SnsLinksTableFilterComposer
     super.$removeJoinBuilderFromRootComposer,
   });
   ColumnFilters<int> get id => $composableBuilder(
-      column: $table.id, builder: (column) => ColumnFilters(column));
+    column: $table.id,
+    builder: (column) => ColumnFilters(column),
+  );
 
   ColumnFilters<String> get siteText => $composableBuilder(
-      column: $table.siteText, builder: (column) => ColumnFilters(column));
+    column: $table.siteText,
+    builder: (column) => ColumnFilters(column),
+  );
 
   ColumnFilters<String> get siteUrl => $composableBuilder(
-      column: $table.siteUrl, builder: (column) => ColumnFilters(column));
+    column: $table.siteUrl,
+    builder: (column) => ColumnFilters(column),
+  );
 
   ColumnFilters<String> get twitterText => $composableBuilder(
-      column: $table.twitterText, builder: (column) => ColumnFilters(column));
+    column: $table.twitterText,
+    builder: (column) => ColumnFilters(column),
+  );
 
   ColumnFilters<String> get twitterUrl => $composableBuilder(
-      column: $table.twitterUrl, builder: (column) => ColumnFilters(column));
+    column: $table.twitterUrl,
+    builder: (column) => ColumnFilters(column),
+  );
 
   ColumnFilters<String> get youtubeText => $composableBuilder(
-      column: $table.youtubeText, builder: (column) => ColumnFilters(column));
+    column: $table.youtubeText,
+    builder: (column) => ColumnFilters(column),
+  );
 
   ColumnFilters<String> get youtubeUrl => $composableBuilder(
-      column: $table.youtubeUrl, builder: (column) => ColumnFilters(column));
+    column: $table.youtubeUrl,
+    builder: (column) => ColumnFilters(column),
+  );
 
   ColumnFilters<String> get snsText => $composableBuilder(
-      column: $table.snsText, builder: (column) => ColumnFilters(column));
+    column: $table.snsText,
+    builder: (column) => ColumnFilters(column),
+  );
 
   ColumnFilters<String> get snsUrl => $composableBuilder(
-      column: $table.snsUrl, builder: (column) => ColumnFilters(column));
+    column: $table.snsUrl,
+    builder: (column) => ColumnFilters(column),
+  );
 
   $$CirclesTableFilterComposer get circleId {
     final $$CirclesTableFilterComposer composer = $composerBuilder(
-        composer: this,
-        getCurrentColumn: (t) => t.circleId,
-        referencedTable: $db.circles,
-        getReferencedColumn: (t) => t.id,
-        builder: (joinBuilder,
-                {$addJoinBuilderToRootComposer,
-                $removeJoinBuilderFromRootComposer}) =>
-            $$CirclesTableFilterComposer(
-              $db: $db,
-              $table: $db.circles,
-              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
-              joinBuilder: joinBuilder,
-              $removeJoinBuilderFromRootComposer:
-                  $removeJoinBuilderFromRootComposer,
-            ));
+      composer: this,
+      getCurrentColumn: (t) => t.circleId,
+      referencedTable: $db.circles,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$CirclesTableFilterComposer(
+            $db: $db,
+            $table: $db.circles,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
     return composer;
   }
 }
@@ -2775,49 +3329,70 @@ class $$SnsLinksTableOrderingComposer
     super.$removeJoinBuilderFromRootComposer,
   });
   ColumnOrderings<int> get id => $composableBuilder(
-      column: $table.id, builder: (column) => ColumnOrderings(column));
+    column: $table.id,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   ColumnOrderings<String> get siteText => $composableBuilder(
-      column: $table.siteText, builder: (column) => ColumnOrderings(column));
+    column: $table.siteText,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   ColumnOrderings<String> get siteUrl => $composableBuilder(
-      column: $table.siteUrl, builder: (column) => ColumnOrderings(column));
+    column: $table.siteUrl,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   ColumnOrderings<String> get twitterText => $composableBuilder(
-      column: $table.twitterText, builder: (column) => ColumnOrderings(column));
+    column: $table.twitterText,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   ColumnOrderings<String> get twitterUrl => $composableBuilder(
-      column: $table.twitterUrl, builder: (column) => ColumnOrderings(column));
+    column: $table.twitterUrl,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   ColumnOrderings<String> get youtubeText => $composableBuilder(
-      column: $table.youtubeText, builder: (column) => ColumnOrderings(column));
+    column: $table.youtubeText,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   ColumnOrderings<String> get youtubeUrl => $composableBuilder(
-      column: $table.youtubeUrl, builder: (column) => ColumnOrderings(column));
+    column: $table.youtubeUrl,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   ColumnOrderings<String> get snsText => $composableBuilder(
-      column: $table.snsText, builder: (column) => ColumnOrderings(column));
+    column: $table.snsText,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   ColumnOrderings<String> get snsUrl => $composableBuilder(
-      column: $table.snsUrl, builder: (column) => ColumnOrderings(column));
+    column: $table.snsUrl,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   $$CirclesTableOrderingComposer get circleId {
     final $$CirclesTableOrderingComposer composer = $composerBuilder(
-        composer: this,
-        getCurrentColumn: (t) => t.circleId,
-        referencedTable: $db.circles,
-        getReferencedColumn: (t) => t.id,
-        builder: (joinBuilder,
-                {$addJoinBuilderToRootComposer,
-                $removeJoinBuilderFromRootComposer}) =>
-            $$CirclesTableOrderingComposer(
-              $db: $db,
-              $table: $db.circles,
-              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
-              joinBuilder: joinBuilder,
-              $removeJoinBuilderFromRootComposer:
-                  $removeJoinBuilderFromRootComposer,
-            ));
+      composer: this,
+      getCurrentColumn: (t) => t.circleId,
+      referencedTable: $db.circles,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$CirclesTableOrderingComposer(
+            $db: $db,
+            $table: $db.circles,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
     return composer;
   }
 }
@@ -2841,16 +3416,24 @@ class $$SnsLinksTableAnnotationComposer
       $composableBuilder(column: $table.siteUrl, builder: (column) => column);
 
   GeneratedColumn<String> get twitterText => $composableBuilder(
-      column: $table.twitterText, builder: (column) => column);
+    column: $table.twitterText,
+    builder: (column) => column,
+  );
 
   GeneratedColumn<String> get twitterUrl => $composableBuilder(
-      column: $table.twitterUrl, builder: (column) => column);
+    column: $table.twitterUrl,
+    builder: (column) => column,
+  );
 
   GeneratedColumn<String> get youtubeText => $composableBuilder(
-      column: $table.youtubeText, builder: (column) => column);
+    column: $table.youtubeText,
+    builder: (column) => column,
+  );
 
   GeneratedColumn<String> get youtubeUrl => $composableBuilder(
-      column: $table.youtubeUrl, builder: (column) => column);
+    column: $table.youtubeUrl,
+    builder: (column) => column,
+  );
 
   GeneratedColumn<String> get snsText =>
       $composableBuilder(column: $table.snsText, builder: (column) => column);
@@ -2860,39 +3443,46 @@ class $$SnsLinksTableAnnotationComposer
 
   $$CirclesTableAnnotationComposer get circleId {
     final $$CirclesTableAnnotationComposer composer = $composerBuilder(
-        composer: this,
-        getCurrentColumn: (t) => t.circleId,
-        referencedTable: $db.circles,
-        getReferencedColumn: (t) => t.id,
-        builder: (joinBuilder,
-                {$addJoinBuilderToRootComposer,
-                $removeJoinBuilderFromRootComposer}) =>
-            $$CirclesTableAnnotationComposer(
-              $db: $db,
-              $table: $db.circles,
-              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
-              joinBuilder: joinBuilder,
-              $removeJoinBuilderFromRootComposer:
-                  $removeJoinBuilderFromRootComposer,
-            ));
+      composer: this,
+      getCurrentColumn: (t) => t.circleId,
+      referencedTable: $db.circles,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$CirclesTableAnnotationComposer(
+            $db: $db,
+            $table: $db.circles,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
     return composer;
   }
 }
 
-class $$SnsLinksTableTableManager extends RootTableManager<
-    _$CircleDatabase,
-    $SnsLinksTable,
-    SnsLink,
-    $$SnsLinksTableFilterComposer,
-    $$SnsLinksTableOrderingComposer,
-    $$SnsLinksTableAnnotationComposer,
-    $$SnsLinksTableCreateCompanionBuilder,
-    $$SnsLinksTableUpdateCompanionBuilder,
-    (SnsLink, $$SnsLinksTableReferences),
-    SnsLink,
-    PrefetchHooks Function({bool circleId})> {
+class $$SnsLinksTableTableManager
+    extends
+        RootTableManager<
+          _$CircleDatabase,
+          $SnsLinksTable,
+          SnsLink,
+          $$SnsLinksTableFilterComposer,
+          $$SnsLinksTableOrderingComposer,
+          $$SnsLinksTableAnnotationComposer,
+          $$SnsLinksTableCreateCompanionBuilder,
+          $$SnsLinksTableUpdateCompanionBuilder,
+          (SnsLink, $$SnsLinksTableReferences),
+          SnsLink,
+          PrefetchHooks Function({bool circleId})
+        > {
   $$SnsLinksTableTableManager(_$CircleDatabase db, $SnsLinksTable table)
-      : super(TableManagerState(
+    : super(
+        TableManagerState(
           db: db,
           table: table,
           createFilteringComposer: () =>
@@ -2901,66 +3491,69 @@ class $$SnsLinksTableTableManager extends RootTableManager<
               $$SnsLinksTableOrderingComposer($db: db, $table: table),
           createComputedFieldComposer: () =>
               $$SnsLinksTableAnnotationComposer($db: db, $table: table),
-          updateCompanionCallback: ({
-            Value<int> id = const Value.absent(),
-            Value<int> circleId = const Value.absent(),
-            Value<String?> siteText = const Value.absent(),
-            Value<String?> siteUrl = const Value.absent(),
-            Value<String?> twitterText = const Value.absent(),
-            Value<String?> twitterUrl = const Value.absent(),
-            Value<String?> youtubeText = const Value.absent(),
-            Value<String?> youtubeUrl = const Value.absent(),
-            Value<String?> snsText = const Value.absent(),
-            Value<String?> snsUrl = const Value.absent(),
-          }) =>
-              SnsLinksCompanion(
-            id: id,
-            circleId: circleId,
-            siteText: siteText,
-            siteUrl: siteUrl,
-            twitterText: twitterText,
-            twitterUrl: twitterUrl,
-            youtubeText: youtubeText,
-            youtubeUrl: youtubeUrl,
-            snsText: snsText,
-            snsUrl: snsUrl,
-          ),
-          createCompanionCallback: ({
-            Value<int> id = const Value.absent(),
-            required int circleId,
-            Value<String?> siteText = const Value.absent(),
-            Value<String?> siteUrl = const Value.absent(),
-            Value<String?> twitterText = const Value.absent(),
-            Value<String?> twitterUrl = const Value.absent(),
-            Value<String?> youtubeText = const Value.absent(),
-            Value<String?> youtubeUrl = const Value.absent(),
-            Value<String?> snsText = const Value.absent(),
-            Value<String?> snsUrl = const Value.absent(),
-          }) =>
-              SnsLinksCompanion.insert(
-            id: id,
-            circleId: circleId,
-            siteText: siteText,
-            siteUrl: siteUrl,
-            twitterText: twitterText,
-            twitterUrl: twitterUrl,
-            youtubeText: youtubeText,
-            youtubeUrl: youtubeUrl,
-            snsText: snsText,
-            snsUrl: snsUrl,
-          ),
+          updateCompanionCallback:
+              ({
+                Value<int> id = const Value.absent(),
+                Value<int> circleId = const Value.absent(),
+                Value<String?> siteText = const Value.absent(),
+                Value<String?> siteUrl = const Value.absent(),
+                Value<String?> twitterText = const Value.absent(),
+                Value<String?> twitterUrl = const Value.absent(),
+                Value<String?> youtubeText = const Value.absent(),
+                Value<String?> youtubeUrl = const Value.absent(),
+                Value<String?> snsText = const Value.absent(),
+                Value<String?> snsUrl = const Value.absent(),
+              }) => SnsLinksCompanion(
+                id: id,
+                circleId: circleId,
+                siteText: siteText,
+                siteUrl: siteUrl,
+                twitterText: twitterText,
+                twitterUrl: twitterUrl,
+                youtubeText: youtubeText,
+                youtubeUrl: youtubeUrl,
+                snsText: snsText,
+                snsUrl: snsUrl,
+              ),
+          createCompanionCallback:
+              ({
+                Value<int> id = const Value.absent(),
+                required int circleId,
+                Value<String?> siteText = const Value.absent(),
+                Value<String?> siteUrl = const Value.absent(),
+                Value<String?> twitterText = const Value.absent(),
+                Value<String?> twitterUrl = const Value.absent(),
+                Value<String?> youtubeText = const Value.absent(),
+                Value<String?> youtubeUrl = const Value.absent(),
+                Value<String?> snsText = const Value.absent(),
+                Value<String?> snsUrl = const Value.absent(),
+              }) => SnsLinksCompanion.insert(
+                id: id,
+                circleId: circleId,
+                siteText: siteText,
+                siteUrl: siteUrl,
+                twitterText: twitterText,
+                twitterUrl: twitterUrl,
+                youtubeText: youtubeText,
+                youtubeUrl: youtubeUrl,
+                snsText: snsText,
+                snsUrl: snsUrl,
+              ),
           withReferenceMapper: (p0) => p0
-              .map((e) => (
-                    e.readTable<$SnsLinksTable, SnsLink>(table),
-                    $$SnsLinksTableReferences(db, table, e)
-                  ))
+              .map(
+                (e) => (
+                  e.readTable<$SnsLinksTable, SnsLink>(table),
+                  $$SnsLinksTableReferences(db, table, e),
+                ),
+              )
               .toList(),
           prefetchHooksCallback: ({circleId = false}) {
             return PrefetchHooks(
               db: db,
               explicitlyWatchedTables: [],
-              addJoins: <
-                  T extends TableManagerState<
+              addJoins:
+                  <
+                    T extends TableManagerState<
                       dynamic,
                       dynamic,
                       dynamic,
@@ -2971,52 +3564,62 @@ class $$SnsLinksTableTableManager extends RootTableManager<
                       dynamic,
                       dynamic,
                       dynamic,
-                      dynamic>>(state) {
-                if (circleId) {
-                  state = state.withJoin(
-                    currentTable: table,
-                    currentColumn: table.circleId,
-                    referencedTable:
-                        $$SnsLinksTableReferences._circleIdTable(db),
-                    referencedColumn:
-                        $$SnsLinksTableReferences._circleIdTable(db).id,
-                  ) as T;
-                }
+                      dynamic
+                    >
+                  >(state) {
+                    if (circleId) {
+                      state =
+                          state.withJoin(
+                                currentTable: table,
+                                currentColumn: table.circleId,
+                                referencedTable: $$SnsLinksTableReferences
+                                    ._circleIdTable(db),
+                                referencedColumn: $$SnsLinksTableReferences
+                                    ._circleIdTable(db)
+                                    .id,
+                              )
+                              as T;
+                    }
 
-                return state;
-              },
+                    return state;
+                  },
               getPrefetchedDataCallback: (items) async {
                 return [];
               },
             );
           },
-        ));
+        ),
+      );
 }
 
-typedef $$SnsLinksTableProcessedTableManager = ProcessedTableManager<
-    _$CircleDatabase,
-    $SnsLinksTable,
-    SnsLink,
-    $$SnsLinksTableFilterComposer,
-    $$SnsLinksTableOrderingComposer,
-    $$SnsLinksTableAnnotationComposer,
-    $$SnsLinksTableCreateCompanionBuilder,
-    $$SnsLinksTableUpdateCompanionBuilder,
-    (SnsLink, $$SnsLinksTableReferences),
-    SnsLink,
-    PrefetchHooks Function({bool circleId})>;
-typedef $$RealSpsTableCreateCompanionBuilder = RealSpsCompanion Function({
-  Value<int> id,
-  required int circleId,
-  Value<String?> area,
-  Value<String?> no,
-});
-typedef $$RealSpsTableUpdateCompanionBuilder = RealSpsCompanion Function({
-  Value<int> id,
-  Value<int> circleId,
-  Value<String?> area,
-  Value<String?> no,
-});
+typedef $$SnsLinksTableProcessedTableManager =
+    ProcessedTableManager<
+      _$CircleDatabase,
+      $SnsLinksTable,
+      SnsLink,
+      $$SnsLinksTableFilterComposer,
+      $$SnsLinksTableOrderingComposer,
+      $$SnsLinksTableAnnotationComposer,
+      $$SnsLinksTableCreateCompanionBuilder,
+      $$SnsLinksTableUpdateCompanionBuilder,
+      (SnsLink, $$SnsLinksTableReferences),
+      SnsLink,
+      PrefetchHooks Function({bool circleId})
+    >;
+typedef $$RealSpsTableCreateCompanionBuilder =
+    RealSpsCompanion Function({
+      Value<int> id,
+      required int circleId,
+      Value<String?> area,
+      Value<String?> no,
+    });
+typedef $$RealSpsTableUpdateCompanionBuilder =
+    RealSpsCompanion Function({
+      Value<int> id,
+      Value<int> circleId,
+      Value<String?> area,
+      Value<String?> no,
+    });
 
 final class $$RealSpsTableReferences
     extends BaseReferences<_$CircleDatabase, $RealSpsTable, RealSp> {
@@ -3028,12 +3631,15 @@ final class $$RealSpsTableReferences
   $$CirclesTableProcessedTableManager get circleId {
     final $_column = $_itemColumn<int>('circle_id')!;
 
-    final manager = $$CirclesTableTableManager($_db, $_db.circles)
-        .filter((f) => f.id.sqlEquals($_column));
+    final manager = $$CirclesTableTableManager(
+      $_db,
+      $_db.circles,
+    ).filter((f) => f.id.sqlEquals($_column));
     final item = $_typedResult.readTableOrNull(_circleIdTable($_db));
     if (item == null) return manager;
     return ProcessedTableManager(
-        manager.$state.copyWith(prefetchedData: [item]));
+      manager.$state.copyWith(prefetchedData: [item]),
+    );
   }
 }
 
@@ -3047,31 +3653,40 @@ class $$RealSpsTableFilterComposer
     super.$removeJoinBuilderFromRootComposer,
   });
   ColumnFilters<int> get id => $composableBuilder(
-      column: $table.id, builder: (column) => ColumnFilters(column));
+    column: $table.id,
+    builder: (column) => ColumnFilters(column),
+  );
 
   ColumnFilters<String> get area => $composableBuilder(
-      column: $table.area, builder: (column) => ColumnFilters(column));
+    column: $table.area,
+    builder: (column) => ColumnFilters(column),
+  );
 
   ColumnFilters<String> get no => $composableBuilder(
-      column: $table.no, builder: (column) => ColumnFilters(column));
+    column: $table.no,
+    builder: (column) => ColumnFilters(column),
+  );
 
   $$CirclesTableFilterComposer get circleId {
     final $$CirclesTableFilterComposer composer = $composerBuilder(
-        composer: this,
-        getCurrentColumn: (t) => t.circleId,
-        referencedTable: $db.circles,
-        getReferencedColumn: (t) => t.id,
-        builder: (joinBuilder,
-                {$addJoinBuilderToRootComposer,
-                $removeJoinBuilderFromRootComposer}) =>
-            $$CirclesTableFilterComposer(
-              $db: $db,
-              $table: $db.circles,
-              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
-              joinBuilder: joinBuilder,
-              $removeJoinBuilderFromRootComposer:
-                  $removeJoinBuilderFromRootComposer,
-            ));
+      composer: this,
+      getCurrentColumn: (t) => t.circleId,
+      referencedTable: $db.circles,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$CirclesTableFilterComposer(
+            $db: $db,
+            $table: $db.circles,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
     return composer;
   }
 }
@@ -3086,31 +3701,40 @@ class $$RealSpsTableOrderingComposer
     super.$removeJoinBuilderFromRootComposer,
   });
   ColumnOrderings<int> get id => $composableBuilder(
-      column: $table.id, builder: (column) => ColumnOrderings(column));
+    column: $table.id,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   ColumnOrderings<String> get area => $composableBuilder(
-      column: $table.area, builder: (column) => ColumnOrderings(column));
+    column: $table.area,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   ColumnOrderings<String> get no => $composableBuilder(
-      column: $table.no, builder: (column) => ColumnOrderings(column));
+    column: $table.no,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   $$CirclesTableOrderingComposer get circleId {
     final $$CirclesTableOrderingComposer composer = $composerBuilder(
-        composer: this,
-        getCurrentColumn: (t) => t.circleId,
-        referencedTable: $db.circles,
-        getReferencedColumn: (t) => t.id,
-        builder: (joinBuilder,
-                {$addJoinBuilderToRootComposer,
-                $removeJoinBuilderFromRootComposer}) =>
-            $$CirclesTableOrderingComposer(
-              $db: $db,
-              $table: $db.circles,
-              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
-              joinBuilder: joinBuilder,
-              $removeJoinBuilderFromRootComposer:
-                  $removeJoinBuilderFromRootComposer,
-            ));
+      composer: this,
+      getCurrentColumn: (t) => t.circleId,
+      referencedTable: $db.circles,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$CirclesTableOrderingComposer(
+            $db: $db,
+            $table: $db.circles,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
     return composer;
   }
 }
@@ -3135,39 +3759,46 @@ class $$RealSpsTableAnnotationComposer
 
   $$CirclesTableAnnotationComposer get circleId {
     final $$CirclesTableAnnotationComposer composer = $composerBuilder(
-        composer: this,
-        getCurrentColumn: (t) => t.circleId,
-        referencedTable: $db.circles,
-        getReferencedColumn: (t) => t.id,
-        builder: (joinBuilder,
-                {$addJoinBuilderToRootComposer,
-                $removeJoinBuilderFromRootComposer}) =>
-            $$CirclesTableAnnotationComposer(
-              $db: $db,
-              $table: $db.circles,
-              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
-              joinBuilder: joinBuilder,
-              $removeJoinBuilderFromRootComposer:
-                  $removeJoinBuilderFromRootComposer,
-            ));
+      composer: this,
+      getCurrentColumn: (t) => t.circleId,
+      referencedTable: $db.circles,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$CirclesTableAnnotationComposer(
+            $db: $db,
+            $table: $db.circles,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
     return composer;
   }
 }
 
-class $$RealSpsTableTableManager extends RootTableManager<
-    _$CircleDatabase,
-    $RealSpsTable,
-    RealSp,
-    $$RealSpsTableFilterComposer,
-    $$RealSpsTableOrderingComposer,
-    $$RealSpsTableAnnotationComposer,
-    $$RealSpsTableCreateCompanionBuilder,
-    $$RealSpsTableUpdateCompanionBuilder,
-    (RealSp, $$RealSpsTableReferences),
-    RealSp,
-    PrefetchHooks Function({bool circleId})> {
+class $$RealSpsTableTableManager
+    extends
+        RootTableManager<
+          _$CircleDatabase,
+          $RealSpsTable,
+          RealSp,
+          $$RealSpsTableFilterComposer,
+          $$RealSpsTableOrderingComposer,
+          $$RealSpsTableAnnotationComposer,
+          $$RealSpsTableCreateCompanionBuilder,
+          $$RealSpsTableUpdateCompanionBuilder,
+          (RealSp, $$RealSpsTableReferences),
+          RealSp,
+          PrefetchHooks Function({bool circleId})
+        > {
   $$RealSpsTableTableManager(_$CircleDatabase db, $RealSpsTable table)
-      : super(TableManagerState(
+    : super(
+        TableManagerState(
           db: db,
           table: table,
           createFilteringComposer: () =>
@@ -3176,42 +3807,45 @@ class $$RealSpsTableTableManager extends RootTableManager<
               $$RealSpsTableOrderingComposer($db: db, $table: table),
           createComputedFieldComposer: () =>
               $$RealSpsTableAnnotationComposer($db: db, $table: table),
-          updateCompanionCallback: ({
-            Value<int> id = const Value.absent(),
-            Value<int> circleId = const Value.absent(),
-            Value<String?> area = const Value.absent(),
-            Value<String?> no = const Value.absent(),
-          }) =>
-              RealSpsCompanion(
-            id: id,
-            circleId: circleId,
-            area: area,
-            no: no,
-          ),
-          createCompanionCallback: ({
-            Value<int> id = const Value.absent(),
-            required int circleId,
-            Value<String?> area = const Value.absent(),
-            Value<String?> no = const Value.absent(),
-          }) =>
-              RealSpsCompanion.insert(
-            id: id,
-            circleId: circleId,
-            area: area,
-            no: no,
-          ),
+          updateCompanionCallback:
+              ({
+                Value<int> id = const Value.absent(),
+                Value<int> circleId = const Value.absent(),
+                Value<String?> area = const Value.absent(),
+                Value<String?> no = const Value.absent(),
+              }) => RealSpsCompanion(
+                id: id,
+                circleId: circleId,
+                area: area,
+                no: no,
+              ),
+          createCompanionCallback:
+              ({
+                Value<int> id = const Value.absent(),
+                required int circleId,
+                Value<String?> area = const Value.absent(),
+                Value<String?> no = const Value.absent(),
+              }) => RealSpsCompanion.insert(
+                id: id,
+                circleId: circleId,
+                area: area,
+                no: no,
+              ),
           withReferenceMapper: (p0) => p0
-              .map((e) => (
-                    e.readTable<$RealSpsTable, RealSp>(table),
-                    $$RealSpsTableReferences(db, table, e)
-                  ))
+              .map(
+                (e) => (
+                  e.readTable<$RealSpsTable, RealSp>(table),
+                  $$RealSpsTableReferences(db, table, e),
+                ),
+              )
               .toList(),
           prefetchHooksCallback: ({circleId = false}) {
             return PrefetchHooks(
               db: db,
               explicitlyWatchedTables: [],
-              addJoins: <
-                  T extends TableManagerState<
+              addJoins:
+                  <
+                    T extends TableManagerState<
                       dynamic,
                       dynamic,
                       dynamic,
@@ -3222,52 +3856,62 @@ class $$RealSpsTableTableManager extends RootTableManager<
                       dynamic,
                       dynamic,
                       dynamic,
-                      dynamic>>(state) {
-                if (circleId) {
-                  state = state.withJoin(
-                    currentTable: table,
-                    currentColumn: table.circleId,
-                    referencedTable:
-                        $$RealSpsTableReferences._circleIdTable(db),
-                    referencedColumn:
-                        $$RealSpsTableReferences._circleIdTable(db).id,
-                  ) as T;
-                }
+                      dynamic
+                    >
+                  >(state) {
+                    if (circleId) {
+                      state =
+                          state.withJoin(
+                                currentTable: table,
+                                currentColumn: table.circleId,
+                                referencedTable: $$RealSpsTableReferences
+                                    ._circleIdTable(db),
+                                referencedColumn: $$RealSpsTableReferences
+                                    ._circleIdTable(db)
+                                    .id,
+                              )
+                              as T;
+                    }
 
-                return state;
-              },
+                    return state;
+                  },
               getPrefetchedDataCallback: (items) async {
                 return [];
               },
             );
           },
-        ));
+        ),
+      );
 }
 
-typedef $$RealSpsTableProcessedTableManager = ProcessedTableManager<
-    _$CircleDatabase,
-    $RealSpsTable,
-    RealSp,
-    $$RealSpsTableFilterComposer,
-    $$RealSpsTableOrderingComposer,
-    $$RealSpsTableAnnotationComposer,
-    $$RealSpsTableCreateCompanionBuilder,
-    $$RealSpsTableUpdateCompanionBuilder,
-    (RealSp, $$RealSpsTableReferences),
-    RealSp,
-    PrefetchHooks Function({bool circleId})>;
-typedef $$WebSpsTableCreateCompanionBuilder = WebSpsCompanion Function({
-  Value<int> id,
-  required int circle,
-  Value<String?> area,
-  Value<String?> no,
-});
-typedef $$WebSpsTableUpdateCompanionBuilder = WebSpsCompanion Function({
-  Value<int> id,
-  Value<int> circle,
-  Value<String?> area,
-  Value<String?> no,
-});
+typedef $$RealSpsTableProcessedTableManager =
+    ProcessedTableManager<
+      _$CircleDatabase,
+      $RealSpsTable,
+      RealSp,
+      $$RealSpsTableFilterComposer,
+      $$RealSpsTableOrderingComposer,
+      $$RealSpsTableAnnotationComposer,
+      $$RealSpsTableCreateCompanionBuilder,
+      $$RealSpsTableUpdateCompanionBuilder,
+      (RealSp, $$RealSpsTableReferences),
+      RealSp,
+      PrefetchHooks Function({bool circleId})
+    >;
+typedef $$WebSpsTableCreateCompanionBuilder =
+    WebSpsCompanion Function({
+      Value<int> id,
+      required int circle,
+      Value<String?> area,
+      Value<String?> no,
+    });
+typedef $$WebSpsTableUpdateCompanionBuilder =
+    WebSpsCompanion Function({
+      Value<int> id,
+      Value<int> circle,
+      Value<String?> area,
+      Value<String?> no,
+    });
 
 final class $$WebSpsTableReferences
     extends BaseReferences<_$CircleDatabase, $WebSpsTable, WebSp> {
@@ -3279,12 +3923,15 @@ final class $$WebSpsTableReferences
   $$CirclesTableProcessedTableManager get circle {
     final $_column = $_itemColumn<int>('circle')!;
 
-    final manager = $$CirclesTableTableManager($_db, $_db.circles)
-        .filter((f) => f.id.sqlEquals($_column));
+    final manager = $$CirclesTableTableManager(
+      $_db,
+      $_db.circles,
+    ).filter((f) => f.id.sqlEquals($_column));
     final item = $_typedResult.readTableOrNull(_circleTable($_db));
     if (item == null) return manager;
     return ProcessedTableManager(
-        manager.$state.copyWith(prefetchedData: [item]));
+      manager.$state.copyWith(prefetchedData: [item]),
+    );
   }
 }
 
@@ -3298,31 +3945,40 @@ class $$WebSpsTableFilterComposer
     super.$removeJoinBuilderFromRootComposer,
   });
   ColumnFilters<int> get id => $composableBuilder(
-      column: $table.id, builder: (column) => ColumnFilters(column));
+    column: $table.id,
+    builder: (column) => ColumnFilters(column),
+  );
 
   ColumnFilters<String> get area => $composableBuilder(
-      column: $table.area, builder: (column) => ColumnFilters(column));
+    column: $table.area,
+    builder: (column) => ColumnFilters(column),
+  );
 
   ColumnFilters<String> get no => $composableBuilder(
-      column: $table.no, builder: (column) => ColumnFilters(column));
+    column: $table.no,
+    builder: (column) => ColumnFilters(column),
+  );
 
   $$CirclesTableFilterComposer get circle {
     final $$CirclesTableFilterComposer composer = $composerBuilder(
-        composer: this,
-        getCurrentColumn: (t) => t.circle,
-        referencedTable: $db.circles,
-        getReferencedColumn: (t) => t.id,
-        builder: (joinBuilder,
-                {$addJoinBuilderToRootComposer,
-                $removeJoinBuilderFromRootComposer}) =>
-            $$CirclesTableFilterComposer(
-              $db: $db,
-              $table: $db.circles,
-              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
-              joinBuilder: joinBuilder,
-              $removeJoinBuilderFromRootComposer:
-                  $removeJoinBuilderFromRootComposer,
-            ));
+      composer: this,
+      getCurrentColumn: (t) => t.circle,
+      referencedTable: $db.circles,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$CirclesTableFilterComposer(
+            $db: $db,
+            $table: $db.circles,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
     return composer;
   }
 }
@@ -3337,31 +3993,40 @@ class $$WebSpsTableOrderingComposer
     super.$removeJoinBuilderFromRootComposer,
   });
   ColumnOrderings<int> get id => $composableBuilder(
-      column: $table.id, builder: (column) => ColumnOrderings(column));
+    column: $table.id,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   ColumnOrderings<String> get area => $composableBuilder(
-      column: $table.area, builder: (column) => ColumnOrderings(column));
+    column: $table.area,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   ColumnOrderings<String> get no => $composableBuilder(
-      column: $table.no, builder: (column) => ColumnOrderings(column));
+    column: $table.no,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   $$CirclesTableOrderingComposer get circle {
     final $$CirclesTableOrderingComposer composer = $composerBuilder(
-        composer: this,
-        getCurrentColumn: (t) => t.circle,
-        referencedTable: $db.circles,
-        getReferencedColumn: (t) => t.id,
-        builder: (joinBuilder,
-                {$addJoinBuilderToRootComposer,
-                $removeJoinBuilderFromRootComposer}) =>
-            $$CirclesTableOrderingComposer(
-              $db: $db,
-              $table: $db.circles,
-              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
-              joinBuilder: joinBuilder,
-              $removeJoinBuilderFromRootComposer:
-                  $removeJoinBuilderFromRootComposer,
-            ));
+      composer: this,
+      getCurrentColumn: (t) => t.circle,
+      referencedTable: $db.circles,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$CirclesTableOrderingComposer(
+            $db: $db,
+            $table: $db.circles,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
     return composer;
   }
 }
@@ -3386,39 +4051,46 @@ class $$WebSpsTableAnnotationComposer
 
   $$CirclesTableAnnotationComposer get circle {
     final $$CirclesTableAnnotationComposer composer = $composerBuilder(
-        composer: this,
-        getCurrentColumn: (t) => t.circle,
-        referencedTable: $db.circles,
-        getReferencedColumn: (t) => t.id,
-        builder: (joinBuilder,
-                {$addJoinBuilderToRootComposer,
-                $removeJoinBuilderFromRootComposer}) =>
-            $$CirclesTableAnnotationComposer(
-              $db: $db,
-              $table: $db.circles,
-              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
-              joinBuilder: joinBuilder,
-              $removeJoinBuilderFromRootComposer:
-                  $removeJoinBuilderFromRootComposer,
-            ));
+      composer: this,
+      getCurrentColumn: (t) => t.circle,
+      referencedTable: $db.circles,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$CirclesTableAnnotationComposer(
+            $db: $db,
+            $table: $db.circles,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
     return composer;
   }
 }
 
-class $$WebSpsTableTableManager extends RootTableManager<
-    _$CircleDatabase,
-    $WebSpsTable,
-    WebSp,
-    $$WebSpsTableFilterComposer,
-    $$WebSpsTableOrderingComposer,
-    $$WebSpsTableAnnotationComposer,
-    $$WebSpsTableCreateCompanionBuilder,
-    $$WebSpsTableUpdateCompanionBuilder,
-    (WebSp, $$WebSpsTableReferences),
-    WebSp,
-    PrefetchHooks Function({bool circle})> {
+class $$WebSpsTableTableManager
+    extends
+        RootTableManager<
+          _$CircleDatabase,
+          $WebSpsTable,
+          WebSp,
+          $$WebSpsTableFilterComposer,
+          $$WebSpsTableOrderingComposer,
+          $$WebSpsTableAnnotationComposer,
+          $$WebSpsTableCreateCompanionBuilder,
+          $$WebSpsTableUpdateCompanionBuilder,
+          (WebSp, $$WebSpsTableReferences),
+          WebSp,
+          PrefetchHooks Function({bool circle})
+        > {
   $$WebSpsTableTableManager(_$CircleDatabase db, $WebSpsTable table)
-      : super(TableManagerState(
+    : super(
+        TableManagerState(
           db: db,
           table: table,
           createFilteringComposer: () =>
@@ -3427,42 +4099,40 @@ class $$WebSpsTableTableManager extends RootTableManager<
               $$WebSpsTableOrderingComposer($db: db, $table: table),
           createComputedFieldComposer: () =>
               $$WebSpsTableAnnotationComposer($db: db, $table: table),
-          updateCompanionCallback: ({
-            Value<int> id = const Value.absent(),
-            Value<int> circle = const Value.absent(),
-            Value<String?> area = const Value.absent(),
-            Value<String?> no = const Value.absent(),
-          }) =>
-              WebSpsCompanion(
-            id: id,
-            circle: circle,
-            area: area,
-            no: no,
-          ),
-          createCompanionCallback: ({
-            Value<int> id = const Value.absent(),
-            required int circle,
-            Value<String?> area = const Value.absent(),
-            Value<String?> no = const Value.absent(),
-          }) =>
-              WebSpsCompanion.insert(
-            id: id,
-            circle: circle,
-            area: area,
-            no: no,
-          ),
+          updateCompanionCallback:
+              ({
+                Value<int> id = const Value.absent(),
+                Value<int> circle = const Value.absent(),
+                Value<String?> area = const Value.absent(),
+                Value<String?> no = const Value.absent(),
+              }) => WebSpsCompanion(id: id, circle: circle, area: area, no: no),
+          createCompanionCallback:
+              ({
+                Value<int> id = const Value.absent(),
+                required int circle,
+                Value<String?> area = const Value.absent(),
+                Value<String?> no = const Value.absent(),
+              }) => WebSpsCompanion.insert(
+                id: id,
+                circle: circle,
+                area: area,
+                no: no,
+              ),
           withReferenceMapper: (p0) => p0
-              .map((e) => (
-                    e.readTable<$WebSpsTable, WebSp>(table),
-                    $$WebSpsTableReferences(db, table, e)
-                  ))
+              .map(
+                (e) => (
+                  e.readTable<$WebSpsTable, WebSp>(table),
+                  $$WebSpsTableReferences(db, table, e),
+                ),
+              )
               .toList(),
           prefetchHooksCallback: ({circle = false}) {
             return PrefetchHooks(
               db: db,
               explicitlyWatchedTables: [],
-              addJoins: <
-                  T extends TableManagerState<
+              addJoins:
+                  <
+                    T extends TableManagerState<
                       dynamic,
                       dynamic,
                       dynamic,
@@ -3473,51 +4143,62 @@ class $$WebSpsTableTableManager extends RootTableManager<
                       dynamic,
                       dynamic,
                       dynamic,
-                      dynamic>>(state) {
-                if (circle) {
-                  state = state.withJoin(
-                    currentTable: table,
-                    currentColumn: table.circle,
-                    referencedTable: $$WebSpsTableReferences._circleTable(db),
-                    referencedColumn:
-                        $$WebSpsTableReferences._circleTable(db).id,
-                  ) as T;
-                }
+                      dynamic
+                    >
+                  >(state) {
+                    if (circle) {
+                      state =
+                          state.withJoin(
+                                currentTable: table,
+                                currentColumn: table.circle,
+                                referencedTable: $$WebSpsTableReferences
+                                    ._circleTable(db),
+                                referencedColumn: $$WebSpsTableReferences
+                                    ._circleTable(db)
+                                    .id,
+                              )
+                              as T;
+                    }
 
-                return state;
-              },
+                    return state;
+                  },
               getPrefetchedDataCallback: (items) async {
                 return [];
               },
             );
           },
-        ));
+        ),
+      );
 }
 
-typedef $$WebSpsTableProcessedTableManager = ProcessedTableManager<
-    _$CircleDatabase,
-    $WebSpsTable,
-    WebSp,
-    $$WebSpsTableFilterComposer,
-    $$WebSpsTableOrderingComposer,
-    $$WebSpsTableAnnotationComposer,
-    $$WebSpsTableCreateCompanionBuilder,
-    $$WebSpsTableUpdateCompanionBuilder,
-    (WebSp, $$WebSpsTableReferences),
-    WebSp,
-    PrefetchHooks Function({bool circle})>;
-typedef $$KeywordsTableCreateCompanionBuilder = KeywordsCompanion Function({
-  Value<int> id,
-  required int circleId,
-  required String keywordText,
-  required String phonetic,
-});
-typedef $$KeywordsTableUpdateCompanionBuilder = KeywordsCompanion Function({
-  Value<int> id,
-  Value<int> circleId,
-  Value<String> keywordText,
-  Value<String> phonetic,
-});
+typedef $$WebSpsTableProcessedTableManager =
+    ProcessedTableManager<
+      _$CircleDatabase,
+      $WebSpsTable,
+      WebSp,
+      $$WebSpsTableFilterComposer,
+      $$WebSpsTableOrderingComposer,
+      $$WebSpsTableAnnotationComposer,
+      $$WebSpsTableCreateCompanionBuilder,
+      $$WebSpsTableUpdateCompanionBuilder,
+      (WebSp, $$WebSpsTableReferences),
+      WebSp,
+      PrefetchHooks Function({bool circle})
+    >;
+typedef $$KeywordsTableCreateCompanionBuilder =
+    KeywordsCompanion Function({
+      Value<int> id,
+      required int circleId,
+      required String keywordText,
+      required String phonetic,
+    });
+typedef $$KeywordsTableUpdateCompanionBuilder =
+    KeywordsCompanion Function({
+      Value<int> id,
+      Value<int> circleId,
+      Value<String> keywordText,
+      Value<String> phonetic,
+    });
 
 final class $$KeywordsTableReferences
     extends BaseReferences<_$CircleDatabase, $KeywordsTable, Keyword> {
@@ -3529,12 +4210,15 @@ final class $$KeywordsTableReferences
   $$CirclesTableProcessedTableManager get circleId {
     final $_column = $_itemColumn<int>('circle_id')!;
 
-    final manager = $$CirclesTableTableManager($_db, $_db.circles)
-        .filter((f) => f.id.sqlEquals($_column));
+    final manager = $$CirclesTableTableManager(
+      $_db,
+      $_db.circles,
+    ).filter((f) => f.id.sqlEquals($_column));
     final item = $_typedResult.readTableOrNull(_circleIdTable($_db));
     if (item == null) return manager;
     return ProcessedTableManager(
-        manager.$state.copyWith(prefetchedData: [item]));
+      manager.$state.copyWith(prefetchedData: [item]),
+    );
   }
 }
 
@@ -3548,31 +4232,40 @@ class $$KeywordsTableFilterComposer
     super.$removeJoinBuilderFromRootComposer,
   });
   ColumnFilters<int> get id => $composableBuilder(
-      column: $table.id, builder: (column) => ColumnFilters(column));
+    column: $table.id,
+    builder: (column) => ColumnFilters(column),
+  );
 
   ColumnFilters<String> get keywordText => $composableBuilder(
-      column: $table.keywordText, builder: (column) => ColumnFilters(column));
+    column: $table.keywordText,
+    builder: (column) => ColumnFilters(column),
+  );
 
   ColumnFilters<String> get phonetic => $composableBuilder(
-      column: $table.phonetic, builder: (column) => ColumnFilters(column));
+    column: $table.phonetic,
+    builder: (column) => ColumnFilters(column),
+  );
 
   $$CirclesTableFilterComposer get circleId {
     final $$CirclesTableFilterComposer composer = $composerBuilder(
-        composer: this,
-        getCurrentColumn: (t) => t.circleId,
-        referencedTable: $db.circles,
-        getReferencedColumn: (t) => t.id,
-        builder: (joinBuilder,
-                {$addJoinBuilderToRootComposer,
-                $removeJoinBuilderFromRootComposer}) =>
-            $$CirclesTableFilterComposer(
-              $db: $db,
-              $table: $db.circles,
-              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
-              joinBuilder: joinBuilder,
-              $removeJoinBuilderFromRootComposer:
-                  $removeJoinBuilderFromRootComposer,
-            ));
+      composer: this,
+      getCurrentColumn: (t) => t.circleId,
+      referencedTable: $db.circles,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$CirclesTableFilterComposer(
+            $db: $db,
+            $table: $db.circles,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
     return composer;
   }
 }
@@ -3587,31 +4280,40 @@ class $$KeywordsTableOrderingComposer
     super.$removeJoinBuilderFromRootComposer,
   });
   ColumnOrderings<int> get id => $composableBuilder(
-      column: $table.id, builder: (column) => ColumnOrderings(column));
+    column: $table.id,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   ColumnOrderings<String> get keywordText => $composableBuilder(
-      column: $table.keywordText, builder: (column) => ColumnOrderings(column));
+    column: $table.keywordText,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   ColumnOrderings<String> get phonetic => $composableBuilder(
-      column: $table.phonetic, builder: (column) => ColumnOrderings(column));
+    column: $table.phonetic,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   $$CirclesTableOrderingComposer get circleId {
     final $$CirclesTableOrderingComposer composer = $composerBuilder(
-        composer: this,
-        getCurrentColumn: (t) => t.circleId,
-        referencedTable: $db.circles,
-        getReferencedColumn: (t) => t.id,
-        builder: (joinBuilder,
-                {$addJoinBuilderToRootComposer,
-                $removeJoinBuilderFromRootComposer}) =>
-            $$CirclesTableOrderingComposer(
-              $db: $db,
-              $table: $db.circles,
-              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
-              joinBuilder: joinBuilder,
-              $removeJoinBuilderFromRootComposer:
-                  $removeJoinBuilderFromRootComposer,
-            ));
+      composer: this,
+      getCurrentColumn: (t) => t.circleId,
+      referencedTable: $db.circles,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$CirclesTableOrderingComposer(
+            $db: $db,
+            $table: $db.circles,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
     return composer;
   }
 }
@@ -3629,46 +4331,55 @@ class $$KeywordsTableAnnotationComposer
       $composableBuilder(column: $table.id, builder: (column) => column);
 
   GeneratedColumn<String> get keywordText => $composableBuilder(
-      column: $table.keywordText, builder: (column) => column);
+    column: $table.keywordText,
+    builder: (column) => column,
+  );
 
   GeneratedColumn<String> get phonetic =>
       $composableBuilder(column: $table.phonetic, builder: (column) => column);
 
   $$CirclesTableAnnotationComposer get circleId {
     final $$CirclesTableAnnotationComposer composer = $composerBuilder(
-        composer: this,
-        getCurrentColumn: (t) => t.circleId,
-        referencedTable: $db.circles,
-        getReferencedColumn: (t) => t.id,
-        builder: (joinBuilder,
-                {$addJoinBuilderToRootComposer,
-                $removeJoinBuilderFromRootComposer}) =>
-            $$CirclesTableAnnotationComposer(
-              $db: $db,
-              $table: $db.circles,
-              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
-              joinBuilder: joinBuilder,
-              $removeJoinBuilderFromRootComposer:
-                  $removeJoinBuilderFromRootComposer,
-            ));
+      composer: this,
+      getCurrentColumn: (t) => t.circleId,
+      referencedTable: $db.circles,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$CirclesTableAnnotationComposer(
+            $db: $db,
+            $table: $db.circles,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
     return composer;
   }
 }
 
-class $$KeywordsTableTableManager extends RootTableManager<
-    _$CircleDatabase,
-    $KeywordsTable,
-    Keyword,
-    $$KeywordsTableFilterComposer,
-    $$KeywordsTableOrderingComposer,
-    $$KeywordsTableAnnotationComposer,
-    $$KeywordsTableCreateCompanionBuilder,
-    $$KeywordsTableUpdateCompanionBuilder,
-    (Keyword, $$KeywordsTableReferences),
-    Keyword,
-    PrefetchHooks Function({bool circleId})> {
+class $$KeywordsTableTableManager
+    extends
+        RootTableManager<
+          _$CircleDatabase,
+          $KeywordsTable,
+          Keyword,
+          $$KeywordsTableFilterComposer,
+          $$KeywordsTableOrderingComposer,
+          $$KeywordsTableAnnotationComposer,
+          $$KeywordsTableCreateCompanionBuilder,
+          $$KeywordsTableUpdateCompanionBuilder,
+          (Keyword, $$KeywordsTableReferences),
+          Keyword,
+          PrefetchHooks Function({bool circleId})
+        > {
   $$KeywordsTableTableManager(_$CircleDatabase db, $KeywordsTable table)
-      : super(TableManagerState(
+    : super(
+        TableManagerState(
           db: db,
           table: table,
           createFilteringComposer: () =>
@@ -3677,42 +4388,45 @@ class $$KeywordsTableTableManager extends RootTableManager<
               $$KeywordsTableOrderingComposer($db: db, $table: table),
           createComputedFieldComposer: () =>
               $$KeywordsTableAnnotationComposer($db: db, $table: table),
-          updateCompanionCallback: ({
-            Value<int> id = const Value.absent(),
-            Value<int> circleId = const Value.absent(),
-            Value<String> keywordText = const Value.absent(),
-            Value<String> phonetic = const Value.absent(),
-          }) =>
-              KeywordsCompanion(
-            id: id,
-            circleId: circleId,
-            keywordText: keywordText,
-            phonetic: phonetic,
-          ),
-          createCompanionCallback: ({
-            Value<int> id = const Value.absent(),
-            required int circleId,
-            required String keywordText,
-            required String phonetic,
-          }) =>
-              KeywordsCompanion.insert(
-            id: id,
-            circleId: circleId,
-            keywordText: keywordText,
-            phonetic: phonetic,
-          ),
+          updateCompanionCallback:
+              ({
+                Value<int> id = const Value.absent(),
+                Value<int> circleId = const Value.absent(),
+                Value<String> keywordText = const Value.absent(),
+                Value<String> phonetic = const Value.absent(),
+              }) => KeywordsCompanion(
+                id: id,
+                circleId: circleId,
+                keywordText: keywordText,
+                phonetic: phonetic,
+              ),
+          createCompanionCallback:
+              ({
+                Value<int> id = const Value.absent(),
+                required int circleId,
+                required String keywordText,
+                required String phonetic,
+              }) => KeywordsCompanion.insert(
+                id: id,
+                circleId: circleId,
+                keywordText: keywordText,
+                phonetic: phonetic,
+              ),
           withReferenceMapper: (p0) => p0
-              .map((e) => (
-                    e.readTable<$KeywordsTable, Keyword>(table),
-                    $$KeywordsTableReferences(db, table, e)
-                  ))
+              .map(
+                (e) => (
+                  e.readTable<$KeywordsTable, Keyword>(table),
+                  $$KeywordsTableReferences(db, table, e),
+                ),
+              )
               .toList(),
           prefetchHooksCallback: ({circleId = false}) {
             return PrefetchHooks(
               db: db,
               explicitlyWatchedTables: [],
-              addJoins: <
-                  T extends TableManagerState<
+              addJoins:
+                  <
+                    T extends TableManagerState<
                       dynamic,
                       dynamic,
                       dynamic,
@@ -3723,60 +4437,70 @@ class $$KeywordsTableTableManager extends RootTableManager<
                       dynamic,
                       dynamic,
                       dynamic,
-                      dynamic>>(state) {
-                if (circleId) {
-                  state = state.withJoin(
-                    currentTable: table,
-                    currentColumn: table.circleId,
-                    referencedTable:
-                        $$KeywordsTableReferences._circleIdTable(db),
-                    referencedColumn:
-                        $$KeywordsTableReferences._circleIdTable(db).id,
-                  ) as T;
-                }
+                      dynamic
+                    >
+                  >(state) {
+                    if (circleId) {
+                      state =
+                          state.withJoin(
+                                currentTable: table,
+                                currentColumn: table.circleId,
+                                referencedTable: $$KeywordsTableReferences
+                                    ._circleIdTable(db),
+                                referencedColumn: $$KeywordsTableReferences
+                                    ._circleIdTable(db)
+                                    .id,
+                              )
+                              as T;
+                    }
 
-                return state;
-              },
+                    return state;
+                  },
               getPrefetchedDataCallback: (items) async {
                 return [];
               },
             );
           },
-        ));
+        ),
+      );
 }
 
-typedef $$KeywordsTableProcessedTableManager = ProcessedTableManager<
-    _$CircleDatabase,
-    $KeywordsTable,
-    Keyword,
-    $$KeywordsTableFilterComposer,
-    $$KeywordsTableOrderingComposer,
-    $$KeywordsTableAnnotationComposer,
-    $$KeywordsTableCreateCompanionBuilder,
-    $$KeywordsTableUpdateCompanionBuilder,
-    (Keyword, $$KeywordsTableReferences),
-    Keyword,
-    PrefetchHooks Function({bool circleId})>;
-typedef $$WishesTableCreateCompanionBuilder = WishesCompanion Function({
-  Value<int> id,
-  required bool isFavorite,
-  Value<bool> done,
-  Value<String?> space,
-  required int circleId,
-  required String circleName,
-  Value<int> amount,
-  Value<String?> memo,
-});
-typedef $$WishesTableUpdateCompanionBuilder = WishesCompanion Function({
-  Value<int> id,
-  Value<bool> isFavorite,
-  Value<bool> done,
-  Value<String?> space,
-  Value<int> circleId,
-  Value<String> circleName,
-  Value<int> amount,
-  Value<String?> memo,
-});
+typedef $$KeywordsTableProcessedTableManager =
+    ProcessedTableManager<
+      _$CircleDatabase,
+      $KeywordsTable,
+      Keyword,
+      $$KeywordsTableFilterComposer,
+      $$KeywordsTableOrderingComposer,
+      $$KeywordsTableAnnotationComposer,
+      $$KeywordsTableCreateCompanionBuilder,
+      $$KeywordsTableUpdateCompanionBuilder,
+      (Keyword, $$KeywordsTableReferences),
+      Keyword,
+      PrefetchHooks Function({bool circleId})
+    >;
+typedef $$WishesTableCreateCompanionBuilder =
+    WishesCompanion Function({
+      Value<int> id,
+      required bool isFavorite,
+      Value<bool> done,
+      Value<String?> space,
+      required int circleId,
+      required String circleName,
+      Value<int> amount,
+      Value<String?> memo,
+    });
+typedef $$WishesTableUpdateCompanionBuilder =
+    WishesCompanion Function({
+      Value<int> id,
+      Value<bool> isFavorite,
+      Value<bool> done,
+      Value<String?> space,
+      Value<int> circleId,
+      Value<String> circleName,
+      Value<int> amount,
+      Value<String?> memo,
+    });
 
 final class $$WishesTableReferences
     extends BaseReferences<_$CircleDatabase, $WishesTable, Wish> {
@@ -3788,12 +4512,15 @@ final class $$WishesTableReferences
   $$CirclesTableProcessedTableManager get isFavorite {
     final $_column = $_itemColumn<bool>('is_favorite')!;
 
-    final manager = $$CirclesTableTableManager($_db, $_db.circles)
-        .filter((f) => f.isFavorite.sqlEquals($_column));
+    final manager = $$CirclesTableTableManager(
+      $_db,
+      $_db.circles,
+    ).filter((f) => f.isFavorite.sqlEquals($_column));
     final item = $_typedResult.readTableOrNull(_isFavoriteTable($_db));
     if (item == null) return manager;
     return ProcessedTableManager(
-        manager.$state.copyWith(prefetchedData: [item]));
+      manager.$state.copyWith(prefetchedData: [item]),
+    );
   }
 
   static $CirclesTable _circleIdTable(_$CircleDatabase db) =>
@@ -3802,12 +4529,15 @@ final class $$WishesTableReferences
   $$CirclesTableProcessedTableManager get circleId {
     final $_column = $_itemColumn<int>('circle_id')!;
 
-    final manager = $$CirclesTableTableManager($_db, $_db.circles)
-        .filter((f) => f.id.sqlEquals($_column));
+    final manager = $$CirclesTableTableManager(
+      $_db,
+      $_db.circles,
+    ).filter((f) => f.id.sqlEquals($_column));
     final item = $_typedResult.readTableOrNull(_circleIdTable($_db));
     if (item == null) return manager;
     return ProcessedTableManager(
-        manager.$state.copyWith(prefetchedData: [item]));
+      manager.$state.copyWith(prefetchedData: [item]),
+    );
   }
 
   static $CirclesTable _circleNameTable(_$CircleDatabase db) =>
@@ -3816,12 +4546,15 @@ final class $$WishesTableReferences
   $$CirclesTableProcessedTableManager get circleName {
     final $_column = $_itemColumn<String>('circle_name')!;
 
-    final manager = $$CirclesTableTableManager($_db, $_db.circles)
-        .filter((f) => f.name.sqlEquals($_column));
+    final manager = $$CirclesTableTableManager(
+      $_db,
+      $_db.circles,
+    ).filter((f) => f.name.sqlEquals($_column));
     final item = $_typedResult.readTableOrNull(_circleNameTable($_db));
     if (item == null) return manager;
     return ProcessedTableManager(
-        manager.$state.copyWith(prefetchedData: [item]));
+      manager.$state.copyWith(prefetchedData: [item]),
+    );
   }
 }
 
@@ -3835,77 +4568,96 @@ class $$WishesTableFilterComposer
     super.$removeJoinBuilderFromRootComposer,
   });
   ColumnFilters<int> get id => $composableBuilder(
-      column: $table.id, builder: (column) => ColumnFilters(column));
+    column: $table.id,
+    builder: (column) => ColumnFilters(column),
+  );
 
   ColumnFilters<bool> get done => $composableBuilder(
-      column: $table.done, builder: (column) => ColumnFilters(column));
+    column: $table.done,
+    builder: (column) => ColumnFilters(column),
+  );
 
   ColumnFilters<String> get space => $composableBuilder(
-      column: $table.space, builder: (column) => ColumnFilters(column));
+    column: $table.space,
+    builder: (column) => ColumnFilters(column),
+  );
 
   ColumnFilters<int> get amount => $composableBuilder(
-      column: $table.amount, builder: (column) => ColumnFilters(column));
+    column: $table.amount,
+    builder: (column) => ColumnFilters(column),
+  );
 
   ColumnFilters<String> get memo => $composableBuilder(
-      column: $table.memo, builder: (column) => ColumnFilters(column));
+    column: $table.memo,
+    builder: (column) => ColumnFilters(column),
+  );
 
   $$CirclesTableFilterComposer get isFavorite {
     final $$CirclesTableFilterComposer composer = $composerBuilder(
-        composer: this,
-        getCurrentColumn: (t) => t.isFavorite,
-        referencedTable: $db.circles,
-        getReferencedColumn: (t) => t.isFavorite,
-        builder: (joinBuilder,
-                {$addJoinBuilderToRootComposer,
-                $removeJoinBuilderFromRootComposer}) =>
-            $$CirclesTableFilterComposer(
-              $db: $db,
-              $table: $db.circles,
-              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
-              joinBuilder: joinBuilder,
-              $removeJoinBuilderFromRootComposer:
-                  $removeJoinBuilderFromRootComposer,
-            ));
+      composer: this,
+      getCurrentColumn: (t) => t.isFavorite,
+      referencedTable: $db.circles,
+      getReferencedColumn: (t) => t.isFavorite,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$CirclesTableFilterComposer(
+            $db: $db,
+            $table: $db.circles,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
     return composer;
   }
 
   $$CirclesTableFilterComposer get circleId {
     final $$CirclesTableFilterComposer composer = $composerBuilder(
-        composer: this,
-        getCurrentColumn: (t) => t.circleId,
-        referencedTable: $db.circles,
-        getReferencedColumn: (t) => t.id,
-        builder: (joinBuilder,
-                {$addJoinBuilderToRootComposer,
-                $removeJoinBuilderFromRootComposer}) =>
-            $$CirclesTableFilterComposer(
-              $db: $db,
-              $table: $db.circles,
-              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
-              joinBuilder: joinBuilder,
-              $removeJoinBuilderFromRootComposer:
-                  $removeJoinBuilderFromRootComposer,
-            ));
+      composer: this,
+      getCurrentColumn: (t) => t.circleId,
+      referencedTable: $db.circles,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$CirclesTableFilterComposer(
+            $db: $db,
+            $table: $db.circles,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
     return composer;
   }
 
   $$CirclesTableFilterComposer get circleName {
     final $$CirclesTableFilterComposer composer = $composerBuilder(
-        composer: this,
-        getCurrentColumn: (t) => t.circleName,
-        referencedTable: $db.circles,
-        getReferencedColumn: (t) => t.name,
-        builder: (joinBuilder,
-                {$addJoinBuilderToRootComposer,
-                $removeJoinBuilderFromRootComposer}) =>
-            $$CirclesTableFilterComposer(
-              $db: $db,
-              $table: $db.circles,
-              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
-              joinBuilder: joinBuilder,
-              $removeJoinBuilderFromRootComposer:
-                  $removeJoinBuilderFromRootComposer,
-            ));
+      composer: this,
+      getCurrentColumn: (t) => t.circleName,
+      referencedTable: $db.circles,
+      getReferencedColumn: (t) => t.name,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$CirclesTableFilterComposer(
+            $db: $db,
+            $table: $db.circles,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
     return composer;
   }
 }
@@ -3920,77 +4672,96 @@ class $$WishesTableOrderingComposer
     super.$removeJoinBuilderFromRootComposer,
   });
   ColumnOrderings<int> get id => $composableBuilder(
-      column: $table.id, builder: (column) => ColumnOrderings(column));
+    column: $table.id,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   ColumnOrderings<bool> get done => $composableBuilder(
-      column: $table.done, builder: (column) => ColumnOrderings(column));
+    column: $table.done,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   ColumnOrderings<String> get space => $composableBuilder(
-      column: $table.space, builder: (column) => ColumnOrderings(column));
+    column: $table.space,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   ColumnOrderings<int> get amount => $composableBuilder(
-      column: $table.amount, builder: (column) => ColumnOrderings(column));
+    column: $table.amount,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   ColumnOrderings<String> get memo => $composableBuilder(
-      column: $table.memo, builder: (column) => ColumnOrderings(column));
+    column: $table.memo,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   $$CirclesTableOrderingComposer get isFavorite {
     final $$CirclesTableOrderingComposer composer = $composerBuilder(
-        composer: this,
-        getCurrentColumn: (t) => t.isFavorite,
-        referencedTable: $db.circles,
-        getReferencedColumn: (t) => t.isFavorite,
-        builder: (joinBuilder,
-                {$addJoinBuilderToRootComposer,
-                $removeJoinBuilderFromRootComposer}) =>
-            $$CirclesTableOrderingComposer(
-              $db: $db,
-              $table: $db.circles,
-              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
-              joinBuilder: joinBuilder,
-              $removeJoinBuilderFromRootComposer:
-                  $removeJoinBuilderFromRootComposer,
-            ));
+      composer: this,
+      getCurrentColumn: (t) => t.isFavorite,
+      referencedTable: $db.circles,
+      getReferencedColumn: (t) => t.isFavorite,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$CirclesTableOrderingComposer(
+            $db: $db,
+            $table: $db.circles,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
     return composer;
   }
 
   $$CirclesTableOrderingComposer get circleId {
     final $$CirclesTableOrderingComposer composer = $composerBuilder(
-        composer: this,
-        getCurrentColumn: (t) => t.circleId,
-        referencedTable: $db.circles,
-        getReferencedColumn: (t) => t.id,
-        builder: (joinBuilder,
-                {$addJoinBuilderToRootComposer,
-                $removeJoinBuilderFromRootComposer}) =>
-            $$CirclesTableOrderingComposer(
-              $db: $db,
-              $table: $db.circles,
-              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
-              joinBuilder: joinBuilder,
-              $removeJoinBuilderFromRootComposer:
-                  $removeJoinBuilderFromRootComposer,
-            ));
+      composer: this,
+      getCurrentColumn: (t) => t.circleId,
+      referencedTable: $db.circles,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$CirclesTableOrderingComposer(
+            $db: $db,
+            $table: $db.circles,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
     return composer;
   }
 
   $$CirclesTableOrderingComposer get circleName {
     final $$CirclesTableOrderingComposer composer = $composerBuilder(
-        composer: this,
-        getCurrentColumn: (t) => t.circleName,
-        referencedTable: $db.circles,
-        getReferencedColumn: (t) => t.name,
-        builder: (joinBuilder,
-                {$addJoinBuilderToRootComposer,
-                $removeJoinBuilderFromRootComposer}) =>
-            $$CirclesTableOrderingComposer(
-              $db: $db,
-              $table: $db.circles,
-              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
-              joinBuilder: joinBuilder,
-              $removeJoinBuilderFromRootComposer:
-                  $removeJoinBuilderFromRootComposer,
-            ));
+      composer: this,
+      getCurrentColumn: (t) => t.circleName,
+      referencedTable: $db.circles,
+      getReferencedColumn: (t) => t.name,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$CirclesTableOrderingComposer(
+            $db: $db,
+            $table: $db.circles,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
     return composer;
   }
 }
@@ -4021,79 +4792,96 @@ class $$WishesTableAnnotationComposer
 
   $$CirclesTableAnnotationComposer get isFavorite {
     final $$CirclesTableAnnotationComposer composer = $composerBuilder(
-        composer: this,
-        getCurrentColumn: (t) => t.isFavorite,
-        referencedTable: $db.circles,
-        getReferencedColumn: (t) => t.isFavorite,
-        builder: (joinBuilder,
-                {$addJoinBuilderToRootComposer,
-                $removeJoinBuilderFromRootComposer}) =>
-            $$CirclesTableAnnotationComposer(
-              $db: $db,
-              $table: $db.circles,
-              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
-              joinBuilder: joinBuilder,
-              $removeJoinBuilderFromRootComposer:
-                  $removeJoinBuilderFromRootComposer,
-            ));
+      composer: this,
+      getCurrentColumn: (t) => t.isFavorite,
+      referencedTable: $db.circles,
+      getReferencedColumn: (t) => t.isFavorite,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$CirclesTableAnnotationComposer(
+            $db: $db,
+            $table: $db.circles,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
     return composer;
   }
 
   $$CirclesTableAnnotationComposer get circleId {
     final $$CirclesTableAnnotationComposer composer = $composerBuilder(
-        composer: this,
-        getCurrentColumn: (t) => t.circleId,
-        referencedTable: $db.circles,
-        getReferencedColumn: (t) => t.id,
-        builder: (joinBuilder,
-                {$addJoinBuilderToRootComposer,
-                $removeJoinBuilderFromRootComposer}) =>
-            $$CirclesTableAnnotationComposer(
-              $db: $db,
-              $table: $db.circles,
-              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
-              joinBuilder: joinBuilder,
-              $removeJoinBuilderFromRootComposer:
-                  $removeJoinBuilderFromRootComposer,
-            ));
+      composer: this,
+      getCurrentColumn: (t) => t.circleId,
+      referencedTable: $db.circles,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$CirclesTableAnnotationComposer(
+            $db: $db,
+            $table: $db.circles,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
     return composer;
   }
 
   $$CirclesTableAnnotationComposer get circleName {
     final $$CirclesTableAnnotationComposer composer = $composerBuilder(
-        composer: this,
-        getCurrentColumn: (t) => t.circleName,
-        referencedTable: $db.circles,
-        getReferencedColumn: (t) => t.name,
-        builder: (joinBuilder,
-                {$addJoinBuilderToRootComposer,
-                $removeJoinBuilderFromRootComposer}) =>
-            $$CirclesTableAnnotationComposer(
-              $db: $db,
-              $table: $db.circles,
-              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
-              joinBuilder: joinBuilder,
-              $removeJoinBuilderFromRootComposer:
-                  $removeJoinBuilderFromRootComposer,
-            ));
+      composer: this,
+      getCurrentColumn: (t) => t.circleName,
+      referencedTable: $db.circles,
+      getReferencedColumn: (t) => t.name,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$CirclesTableAnnotationComposer(
+            $db: $db,
+            $table: $db.circles,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
     return composer;
   }
 }
 
-class $$WishesTableTableManager extends RootTableManager<
-    _$CircleDatabase,
-    $WishesTable,
-    Wish,
-    $$WishesTableFilterComposer,
-    $$WishesTableOrderingComposer,
-    $$WishesTableAnnotationComposer,
-    $$WishesTableCreateCompanionBuilder,
-    $$WishesTableUpdateCompanionBuilder,
-    (Wish, $$WishesTableReferences),
-    Wish,
-    PrefetchHooks Function({bool isFavorite, bool circleId, bool circleName})> {
+class $$WishesTableTableManager
+    extends
+        RootTableManager<
+          _$CircleDatabase,
+          $WishesTable,
+          Wish,
+          $$WishesTableFilterComposer,
+          $$WishesTableOrderingComposer,
+          $$WishesTableAnnotationComposer,
+          $$WishesTableCreateCompanionBuilder,
+          $$WishesTableUpdateCompanionBuilder,
+          (Wish, $$WishesTableReferences),
+          Wish,
+          PrefetchHooks Function({
+            bool isFavorite,
+            bool circleId,
+            bool circleName,
+          })
+        > {
   $$WishesTableTableManager(_$CircleDatabase db, $WishesTable table)
-      : super(TableManagerState(
+    : super(
+        TableManagerState(
           db: db,
           table: table,
           createFilteringComposer: () =>
@@ -4102,122 +4890,140 @@ class $$WishesTableTableManager extends RootTableManager<
               $$WishesTableOrderingComposer($db: db, $table: table),
           createComputedFieldComposer: () =>
               $$WishesTableAnnotationComposer($db: db, $table: table),
-          updateCompanionCallback: ({
-            Value<int> id = const Value.absent(),
-            Value<bool> isFavorite = const Value.absent(),
-            Value<bool> done = const Value.absent(),
-            Value<String?> space = const Value.absent(),
-            Value<int> circleId = const Value.absent(),
-            Value<String> circleName = const Value.absent(),
-            Value<int> amount = const Value.absent(),
-            Value<String?> memo = const Value.absent(),
-          }) =>
-              WishesCompanion(
-            id: id,
-            isFavorite: isFavorite,
-            done: done,
-            space: space,
-            circleId: circleId,
-            circleName: circleName,
-            amount: amount,
-            memo: memo,
-          ),
-          createCompanionCallback: ({
-            Value<int> id = const Value.absent(),
-            required bool isFavorite,
-            Value<bool> done = const Value.absent(),
-            Value<String?> space = const Value.absent(),
-            required int circleId,
-            required String circleName,
-            Value<int> amount = const Value.absent(),
-            Value<String?> memo = const Value.absent(),
-          }) =>
-              WishesCompanion.insert(
-            id: id,
-            isFavorite: isFavorite,
-            done: done,
-            space: space,
-            circleId: circleId,
-            circleName: circleName,
-            amount: amount,
-            memo: memo,
-          ),
+          updateCompanionCallback:
+              ({
+                Value<int> id = const Value.absent(),
+                Value<bool> isFavorite = const Value.absent(),
+                Value<bool> done = const Value.absent(),
+                Value<String?> space = const Value.absent(),
+                Value<int> circleId = const Value.absent(),
+                Value<String> circleName = const Value.absent(),
+                Value<int> amount = const Value.absent(),
+                Value<String?> memo = const Value.absent(),
+              }) => WishesCompanion(
+                id: id,
+                isFavorite: isFavorite,
+                done: done,
+                space: space,
+                circleId: circleId,
+                circleName: circleName,
+                amount: amount,
+                memo: memo,
+              ),
+          createCompanionCallback:
+              ({
+                Value<int> id = const Value.absent(),
+                required bool isFavorite,
+                Value<bool> done = const Value.absent(),
+                Value<String?> space = const Value.absent(),
+                required int circleId,
+                required String circleName,
+                Value<int> amount = const Value.absent(),
+                Value<String?> memo = const Value.absent(),
+              }) => WishesCompanion.insert(
+                id: id,
+                isFavorite: isFavorite,
+                done: done,
+                space: space,
+                circleId: circleId,
+                circleName: circleName,
+                amount: amount,
+                memo: memo,
+              ),
           withReferenceMapper: (p0) => p0
-              .map((e) => (
-                    e.readTable<$WishesTable, Wish>(table),
-                    $$WishesTableReferences(db, table, e)
-                  ))
+              .map(
+                (e) => (
+                  e.readTable<$WishesTable, Wish>(table),
+                  $$WishesTableReferences(db, table, e),
+                ),
+              )
               .toList(),
-          prefetchHooksCallback: (
-              {isFavorite = false, circleId = false, circleName = false}) {
-            return PrefetchHooks(
-              db: db,
-              explicitlyWatchedTables: [],
-              addJoins: <
-                  T extends TableManagerState<
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic>>(state) {
-                if (isFavorite) {
-                  state = state.withJoin(
-                    currentTable: table,
-                    currentColumn: table.isFavorite,
-                    referencedTable:
-                        $$WishesTableReferences._isFavoriteTable(db),
-                    referencedColumn:
-                        $$WishesTableReferences._isFavoriteTable(db).isFavorite,
-                  ) as T;
-                }
-                if (circleId) {
-                  state = state.withJoin(
-                    currentTable: table,
-                    currentColumn: table.circleId,
-                    referencedTable: $$WishesTableReferences._circleIdTable(db),
-                    referencedColumn:
-                        $$WishesTableReferences._circleIdTable(db).id,
-                  ) as T;
-                }
-                if (circleName) {
-                  state = state.withJoin(
-                    currentTable: table,
-                    currentColumn: table.circleName,
-                    referencedTable:
-                        $$WishesTableReferences._circleNameTable(db),
-                    referencedColumn:
-                        $$WishesTableReferences._circleNameTable(db).name,
-                  ) as T;
-                }
+          prefetchHooksCallback:
+              ({isFavorite = false, circleId = false, circleName = false}) {
+                return PrefetchHooks(
+                  db: db,
+                  explicitlyWatchedTables: [],
+                  addJoins:
+                      <
+                        T extends TableManagerState<
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic
+                        >
+                      >(state) {
+                        if (isFavorite) {
+                          state =
+                              state.withJoin(
+                                    currentTable: table,
+                                    currentColumn: table.isFavorite,
+                                    referencedTable: $$WishesTableReferences
+                                        ._isFavoriteTable(db),
+                                    referencedColumn: $$WishesTableReferences
+                                        ._isFavoriteTable(db)
+                                        .isFavorite,
+                                  )
+                                  as T;
+                        }
+                        if (circleId) {
+                          state =
+                              state.withJoin(
+                                    currentTable: table,
+                                    currentColumn: table.circleId,
+                                    referencedTable: $$WishesTableReferences
+                                        ._circleIdTable(db),
+                                    referencedColumn: $$WishesTableReferences
+                                        ._circleIdTable(db)
+                                        .id,
+                                  )
+                                  as T;
+                        }
+                        if (circleName) {
+                          state =
+                              state.withJoin(
+                                    currentTable: table,
+                                    currentColumn: table.circleName,
+                                    referencedTable: $$WishesTableReferences
+                                        ._circleNameTable(db),
+                                    referencedColumn: $$WishesTableReferences
+                                        ._circleNameTable(db)
+                                        .name,
+                                  )
+                                  as T;
+                        }
 
-                return state;
+                        return state;
+                      },
+                  getPrefetchedDataCallback: (items) async {
+                    return [];
+                  },
+                );
               },
-              getPrefetchedDataCallback: (items) async {
-                return [];
-              },
-            );
-          },
-        ));
+        ),
+      );
 }
 
-typedef $$WishesTableProcessedTableManager = ProcessedTableManager<
-    _$CircleDatabase,
-    $WishesTable,
-    Wish,
-    $$WishesTableFilterComposer,
-    $$WishesTableOrderingComposer,
-    $$WishesTableAnnotationComposer,
-    $$WishesTableCreateCompanionBuilder,
-    $$WishesTableUpdateCompanionBuilder,
-    (Wish, $$WishesTableReferences),
-    Wish,
-    PrefetchHooks Function({bool isFavorite, bool circleId, bool circleName})>;
+typedef $$WishesTableProcessedTableManager =
+    ProcessedTableManager<
+      _$CircleDatabase,
+      $WishesTable,
+      Wish,
+      $$WishesTableFilterComposer,
+      $$WishesTableOrderingComposer,
+      $$WishesTableAnnotationComposer,
+      $$WishesTableCreateCompanionBuilder,
+      $$WishesTableUpdateCompanionBuilder,
+      (Wish, $$WishesTableReferences),
+      Wish,
+      PrefetchHooks Function({bool isFavorite, bool circleId, bool circleName})
+    >;
 
 class $CircleDatabaseManager {
   final _$CircleDatabase _db;

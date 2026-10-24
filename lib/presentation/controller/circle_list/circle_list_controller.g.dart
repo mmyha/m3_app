@@ -15,15 +15,15 @@ final circleListControllerProvider = CircleListControllerProvider._();
 final class CircleListControllerProvider
     extends $AsyncNotifierProvider<CircleListController, List<CircleModel>> {
   CircleListControllerProvider._()
-      : super(
-          from: null,
-          argument: null,
-          retry: null,
-          name: r'circleListControllerProvider',
-          isAutoDispose: true,
-          dependencies: null,
-          $allTransitiveDependencies: null,
-        );
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'circleListControllerProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
 
   @override
   String debugGetCreateSourceHash() => _$circleListControllerHash();
@@ -44,11 +44,14 @@ abstract class _$CircleListController
   WhenComplete runBuild() {
     final ref =
         this.ref as $Ref<AsyncValue<List<CircleModel>>, List<CircleModel>>;
-    final element = ref.element as $ClassProviderElement<
-        AnyNotifier<AsyncValue<List<CircleModel>>, List<CircleModel>>,
-        AsyncValue<List<CircleModel>>,
-        Object?,
-        Object?>;
+    final element =
+        ref.element
+            as $ClassProviderElement<
+              AnyNotifier<AsyncValue<List<CircleModel>>, List<CircleModel>>,
+              AsyncValue<List<CircleModel>>,
+              Object?,
+              Object?
+            >;
     return element.handleCreate(ref, build);
   }
 }
