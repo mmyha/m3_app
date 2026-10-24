@@ -1,6 +1,7 @@
 import 'dart:developer' as dev;
 
 import 'package:m3_app/core/constant/circle_event_name_const.dart';
+import 'package:m3_app/core/utils/circle_util.dart';
 import 'package:m3_app/domain/model/circle_model.dart';
 import 'package:m3_app/infrastructure/http/circle_api/circle_api_service.dart';
 import 'package:m3_app/infrastructure/local/dao/circle_dao.dart';
@@ -12,14 +13,14 @@ class CircleRepository {
   final CircleApiService _apiService;
   final CircleInfoDao _dao;
 
-  /// DBからサークル情報を取得
+  /// DBからサークル情報をスペース順で取得
   Future<List<CircleModel>> fetchCircleInfoFromDB() async {
     try {
       final data = await _dao.getAllCircle();
       if (data.isEmpty) {
         throw Exception('APIからデータを取得してください');
       }
-      return data;
+      return data..sort(CircleUtil.compareBySpace);
     } on Exception catch (_) {
       rethrow;
     }
