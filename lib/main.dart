@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:m3_app/core/theme/m3_theme.dart';
+import 'package:m3_app/presentation/view/components/common/toast.dart';
 import 'package:m3_app/provider/common/router/router_privder.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -37,6 +38,7 @@ class MyApp extends ConsumerWidget {
       routerConfig: router,
       title: 'M3 APP',
       theme: m3Theme,
+      scaffoldMessengerKey: scaffoldMessengerKey,
     );
   }
 }
