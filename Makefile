@@ -39,3 +39,8 @@ build_ios:
 install_ios:
 	make build_ios
 	fvm flutter install
+
+# マップのスペース位置を生成 (例: make map_spaces PDF=~/Downloads/map.pdf EVENT=2026f)
+.PHONY: map_spaces
+map_spaces:
+	fvm dart run tool/map_spaces/generate_map_spaces.dart $(PDF) tool/map_spaces/$(EVENT).json assets/map/spaces_$(EVENT).json

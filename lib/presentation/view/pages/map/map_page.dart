@@ -5,8 +5,10 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:m3_app/domain/model/map_space_model.dart';
 import 'package:m3_app/domain/model/map_stroke_model.dart';
 import 'package:m3_app/presentation/controller/circle_map/circle_map_controller.dart';
+import 'package:m3_app/presentation/controller/map_space/map_space_controller.dart';
 import 'package:m3_app/presentation/controller/map_stroke/map_stroke_controller.dart';
 import 'package:m3_app/presentation/view/components/common/error_page.dart';
 import 'package:m3_app/presentation/view/components/common/loading_page.dart';
@@ -51,11 +53,21 @@ class CircleMapPage extends HookConsumerWidget {
     final mapController = ref.watch(circleMapControllerProvider);
     final isPenMode = useState(false);
     final tool = useState<_MapTool>(_penTools.first);
+    final showSpaces = useState(false);
 
     return Scaffold(
       appBar: AppBar(
         title: const Text('マップ'),
         actions: [
+          // 開催ごとに生成するスペース位置の確認用
+          if (kDebugMode && mapController.hasValue)
+            IconButton(
+              tooltip: 'スペースの位置を表示',
+              isSelected: showSpaces.value,
+              icon: const Icon(Icons.grid_on_outlined),
+              selectedIcon: const Icon(Icons.grid_on),
+              onPressed: () => showSpaces.value = !showSpaces.value,
+            ),
           if (mapController.hasValue)
             IconButton(
               tooltip: isPenMode.value ? '閲覧モードにする' : '書き込みモードにする',
@@ -74,6 +86,7 @@ class CircleMapPage extends HookConsumerWidget {
                 child: _MapPdfView(
                   filePath: data,
                   tool: isPenMode.value ? tool.value : null,
+                  showSpaces: showSpaces.value,
                 ),
               ),
               if (isPenMode.value)
@@ -98,8 +111,13 @@ class CircleMapPage extends HookConsumerWidget {
 }
 
 class _MapPdfView extends HookConsumerWidget {
-  const _MapPdfView({required this.filePath, required this.tool});
+  const _MapPdfView({
+    required this.filePath,
+    required this.tool,
+    required this.showSpaces,
+  });
   final String filePath;
+  final bool showSpaces;
 
   /// nullなら閲覧モード
   final _MapTool? tool;
@@ -107,6 +125,9 @@ class _MapPdfView extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final strokes = ref.watch(mapStrokeControllerProvider).value ?? const [];
+    final spaces = showSpaces
+        ? ref.watch(mapSpaceControllerProvider).value ?? const {}
+        : const <String, MapSpaceModel>{};
     final isPenMode = tool != null;
     // 指の数はページの外(余白)に触れた指も含めて、ビューア全体で数える
     final pointers = useRef(<int>{});
@@ -139,6 +160,13 @@ class _MapPdfView extends HookConsumerWidget {
         onGeneralTap: isPenMode ? (_, _, _) => true : null,
         pageOverlaysBuilder: (context, pageRect, page) {
           return [
+            if (showSpaces)
+              _SpaceDebugLayer(
+                spaces: [
+                  for (final space in spaces.values)
+                    if (space.pageNumber == page.pageNumber) space,
+                ],
+              ),
             _StrokeLayer(
               key: ValueKey(page.pageNumber),
               pageNumber: page.pageNumber,
@@ -384,6 +412,69 @@ class _StrokePainter extends CustomPainter {
   bool shouldRepaint(_StrokePainter oldDelegate) {
     return oldDelegate.strokes != strokes ||
         oldDelegate.eraserPosition != eraserPosition;
+  }
+}
+
+/// スペースの枠と番号が増える向きを表示する(デバッグ用)
+class _SpaceDebugLayer extends StatelessWidget {
+  const _SpaceDebugLayer({required this.spaces});
+  final List<MapSpaceModel> spaces;
+
+  @override
+  Widget build(BuildContext context) {
+    return IgnorePointer(
+      child: CustomPaint(
+        size: Size.infinite,
+        painter: _SpaceDebugPainter(spaces: spaces),
+      ),
+    );
+  }
+}
+
+class _SpaceDebugPainter extends CustomPainter {
+  _SpaceDebugPainter({required this.spaces});
+  final List<MapSpaceModel> spaces;
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final fill = Paint()..color = const Color(0x331E88E5);
+    final outline = Paint()
+      ..color = const Color(0xFF1E88E5)
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = size.width * 0.0005;
+    final arrow = Paint()
+      ..color = const Color(0xFF000000)
+      ..strokeWidth = size.width * 0.0008;
+
+    for (final space in spaces) {
+      final rect = Rect.fromLTRB(
+        space.rect.left * size.width,
+        space.rect.top * size.height,
+        space.rect.right * size.width,
+        space.rect.bottom * size.height,
+      );
+      canvas
+        ..drawRect(rect, fill)
+        ..drawRect(rect, outline);
+
+      // 中心から番号が増える向きへ線を引く
+      final length = math.min(rect.width, rect.height) * 0.35;
+      final direction = switch (space.direction) {
+        MapSpaceDirection.up => const Offset(0, -1),
+        MapSpaceDirection.down => const Offset(0, 1),
+        MapSpaceDirection.left => const Offset(-1, 0),
+        MapSpaceDirection.right => const Offset(1, 0),
+      };
+      final end = rect.center + direction * length;
+      canvas
+        ..drawLine(rect.center, end, arrow)
+        ..drawCircle(end, arrow.strokeWidth * 1.5, arrow);
+    }
+  }
+
+  @override
+  bool shouldRepaint(_SpaceDebugPainter oldDelegate) {
+    return oldDelegate.spaces != spaces;
   }
 }
 

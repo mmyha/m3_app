@@ -702,7 +702,7 @@ packages:
     source: hosted
     version: "2.10.1"
   pdfrx_engine:
-    dependency: transitive
+    dependency: "direct dev"
     description:
       name: pdfrx_engine
       sha256: "70b8074111c08b44b9349b6500d8e2bca4a7f898c3c21b21d79370ae9447ef97"

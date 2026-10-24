@@ -51,3 +51,21 @@ Engine • hash a5f2c36e367c13f868cfe98db5806f562c52c35e (revision d2913632a4) (
 - 1 度データ取得後、ローカルに保存されるのでオフラインで閲覧可能
   
   <img src="https://github.com/user-attachments/assets/6511006d-6c65-4e61-9038-f8c520668edd" width =200>
+
+## 開催ごとの更新
+
+### マップのスペース位置
+
+マップ上でスペースをハイライトするため、マップPDFからスペースごとの位置を `assets/map/spaces_<開催>.json` に生成しています。
+
+1. その開催のマップPDFをダウンロードする
+2. 前回の設定 `tool/map_spaces/<前回の開催>.json` を `tool/map_spaces/<開催>.json` にコピーし、配置が変わっていればホールの範囲(`areas`)を直す
+   - 座標はPDFのポイント(左上原点)
+   - `label` は範囲内の番号を全てそのラベルにする(壁際の列など)
+   - `labels` + `assign` は範囲内のラベルのうち、`x`(横)/`y`(縦)の距離が一番近いものにする
+3. `make map_spaces PDF=<マップPDF> EVENT=<開催>` で生成する
+   - ラベルごとの件数と番号の抜けが表示されるので、マップと合っているか確認する
+4. デバッグビルドでマップ画面右上のグリッドのボタンを押し、スペースの枠がマップと重なっているか確認する
+   - 枠の中の線は番号が増える向き。a/b、x/y/z はこの向きに並ぶ
+   - 向きが違うスペースは設定の `overrides` で `{"A-01": {"dir": "left"}}` のように直す
+5. `test/repository/map_space_repository_test.dart` の件数などを今回のマップに合わせる
