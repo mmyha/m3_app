@@ -14,15 +14,15 @@ final budgetStateProvider = BudgetStateProvider._();
 
 final class BudgetStateProvider extends $NotifierProvider<BudgetState, int> {
   BudgetStateProvider._()
-      : super(
-          from: null,
-          argument: null,
-          retry: null,
-          name: r'budgetStateProvider',
-          isAutoDispose: true,
-          dependencies: null,
-          $allTransitiveDependencies: null,
-        );
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'budgetStateProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
 
   @override
   String debugGetCreateSourceHash() => _$budgetStateHash();
@@ -48,8 +48,14 @@ abstract class _$BudgetState extends $Notifier<int> {
   @override
   WhenComplete runBuild() {
     final ref = this.ref as $Ref<int, int>;
-    final element = ref.element
-        as $ClassProviderElement<AnyNotifier<int, int>, int, Object?, Object?>;
+    final element =
+        ref.element
+            as $ClassProviderElement<
+              AnyNotifier<int, int>,
+              int,
+              Object?,
+              Object?
+            >;
     return element.handleCreate(ref, build);
   }
 }

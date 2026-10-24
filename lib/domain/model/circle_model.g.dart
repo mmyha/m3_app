@@ -30,16 +30,11 @@ Map<String, dynamic> _$SnsLinksModelToJson(_SnsLinksModel instance) =>
       'sns': instance.sns,
     };
 
-_SocialLink _$SocialLinkFromJson(Map<String, dynamic> json) => _SocialLink(
-      text: json['text'] as String,
-      url: json['url'] as String,
-    );
+_SocialLink _$SocialLinkFromJson(Map<String, dynamic> json) =>
+    _SocialLink(text: json['text'] as String, url: json['url'] as String);
 
 Map<String, dynamic> _$SocialLinkToJson(_SocialLink instance) =>
-    <String, dynamic>{
-      'text': instance.text,
-      'url': instance.url,
-    };
+    <String, dynamic>{'text': instance.text, 'url': instance.url};
 
 _KeywordModel _$KeywordModelFromJson(Map<String, dynamic> json) =>
     _KeywordModel(
@@ -48,29 +43,16 @@ _KeywordModel _$KeywordModelFromJson(Map<String, dynamic> json) =>
     );
 
 Map<String, dynamic> _$KeywordModelToJson(_KeywordModel instance) =>
-    <String, dynamic>{
-      'text': instance.text,
-      'phonetic': instance.phonetic,
-    };
+    <String, dynamic>{'text': instance.text, 'phonetic': instance.phonetic};
 
-_RealSpModel _$RealSpModelFromJson(Map<String, dynamic> json) => _RealSpModel(
-      area: json['area'] as String?,
-      no: json['no'] as String?,
-    );
+_RealSpModel _$RealSpModelFromJson(Map<String, dynamic> json) =>
+    _RealSpModel(area: json['area'] as String?, no: json['no'] as String?);
 
 Map<String, dynamic> _$RealSpModelToJson(_RealSpModel instance) =>
-    <String, dynamic>{
-      'area': instance.area,
-      'no': instance.no,
-    };
+    <String, dynamic>{'area': instance.area, 'no': instance.no};
 
-_WebSpModel _$WebSpModelFromJson(Map<String, dynamic> json) => _WebSpModel(
-      area: json['area'] as String,
-      no: json['no'] as String,
-    );
+_WebSpModel _$WebSpModelFromJson(Map<String, dynamic> json) =>
+    _WebSpModel(area: json['area'] as String, no: json['no'] as String);
 
 Map<String, dynamic> _$WebSpModelToJson(_WebSpModel instance) =>
-    <String, dynamic>{
-      'area': instance.area,
-      'no': instance.no,
-    };
+    <String, dynamic>{'area': instance.area, 'no': instance.no};

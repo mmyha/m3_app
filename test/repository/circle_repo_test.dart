@@ -24,11 +24,11 @@ void main() {
 
   final db = CircleDatabase.memory();
   ProviderContainer createContainer() => ProviderContainer(
-        overrides: [
-          circleDaoProvider.overrideWithValue(CircleInfoDao(db)),
-          circleApiServiceProvider.overrideWithValue(mockApiService),
-        ],
-      );
+    overrides: [
+      circleDaoProvider.overrideWithValue(CircleInfoDao(db)),
+      circleApiServiceProvider.overrideWithValue(mockApiService),
+    ],
+  );
 
   setUp(() {
     mockApiService = MockCircleApiService();
@@ -37,7 +37,9 @@ void main() {
     repository = CircleRepository(mockApiService, dao);
 
     // getLatestEventCirclesメソッドのスタブを設定
-    when(mockApiService.getLatestEventCircles(CircleEventNameConst.CURRENT_EVENT)).thenAnswer(
+    when(
+      mockApiService.getLatestEventCircles(CircleEventNameConst.CURRENT_EVENT),
+    ).thenAnswer(
       (_) async => const CircleApiResponse(
         items: [
           CircleModelDto(
@@ -73,7 +75,11 @@ void main() {
       final data = await dao.getAllCircle();
 
       // api呼び出しがされているか
-      verify(mockApiService.getLatestEventCircles(CircleEventNameConst.CURRENT_EVENT)).called(1);
+      verify(
+        mockApiService.getLatestEventCircles(
+          CircleEventNameConst.CURRENT_EVENT,
+        ),
+      ).called(1);
 
       expect(data, isA<List<CircleModel>>());
       expect(data.length, 1);

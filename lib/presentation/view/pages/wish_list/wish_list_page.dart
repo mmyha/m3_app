@@ -244,8 +244,9 @@ class _WishAmountTextEditingArea extends HookWidget {
   final ValueChanged<String> onTapOutside;
   @override
   Widget build(BuildContext context) {
-    final textEditingController =
-        useTextEditingController(text: amount.toString());
+    final textEditingController = useTextEditingController(
+      text: amount.toString(),
+    );
     final focusNode = useFocusNode();
     focusNode.addListener(() {
       if (!focusNode.hasFocus) {
@@ -322,7 +323,9 @@ class _BudgetArea extends ConsumerWidget {
             _BudgetAmountTextField(
               initialAmount: budget,
               onTapOutside: (value) {
-                ref.read(budgetStateProvider.notifier).updateBudget(
+                ref
+                    .read(budgetStateProvider.notifier)
+                    .updateBudget(
                       int.parse(value),
                     );
               },
@@ -398,8 +401,9 @@ class _BudgetAmountTextField extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final textEditingController =
-        useTextEditingController(text: initialAmount.toString());
+    final textEditingController = useTextEditingController(
+      text: initialAmount.toString(),
+    );
     final focusNode = useFocusNode();
     focusNode.addListener(() {
       if (!focusNode.hasFocus) {
@@ -482,8 +486,9 @@ class _CircleName extends StatelessWidget {
           EdgeInsets.zero,
         ),
         splashFactory: NoSplash.splashFactory, // インクエフェクトを無効にする // テキストカラー
-        backgroundColor:
-            WidgetStateProperty.all(Colors.transparent), // 背景色を透明にする
+        backgroundColor: WidgetStateProperty.all(
+          Colors.transparent,
+        ), // 背景色を透明にする
         overlayColor: WidgetStateProperty.all(Colors.transparent), // ハイライ
       ),
       child: Text(

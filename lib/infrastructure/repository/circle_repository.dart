@@ -36,8 +36,10 @@ class CircleRepository {
   }
 
   /// サークルのお気に入り情報を更新
-  Future<void> updateCircleFavorite(
-      {required int circleId, required bool isFav}) async {
+  Future<void> updateCircleFavorite({
+    required int circleId,
+    required bool isFav,
+  }) async {
     try {
       await _dao.updateCircleFav(circleId: circleId, isFav: isFav);
     } on Exception catch (_) {
@@ -58,8 +60,9 @@ class CircleRepository {
   /// APIからサークル情報を取得
   Future<CircleApiResponse> _fetchCircleInfoFromAPI() async {
     try {
-      final response = await _apiService
-          .getLatestEventCircles(CircleEventNameConst.CURRENT_EVENT);
+      final response = await _apiService.getLatestEventCircles(
+        CircleEventNameConst.CURRENT_EVENT,
+      );
 
       return response;
     } on Exception catch (e, st) {

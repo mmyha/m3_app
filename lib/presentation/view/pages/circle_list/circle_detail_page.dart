@@ -211,8 +211,9 @@ class _WishToggleButton extends HookConsumerWidget {
     Future<void> updateMethod() async {
       try {
         futureState.value = true;
-        await notifier
-            .updateFavorite(circle.copyWith(isFavorite: isFavorite.value));
+        await notifier.updateFavorite(
+          circle.copyWith(isFavorite: isFavorite.value),
+        );
         futureState.value = false;
         isFavorite.value = !isFavorite.value;
       } on Exception catch (_) {

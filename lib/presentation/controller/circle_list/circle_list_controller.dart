@@ -40,8 +40,10 @@ class CircleListController extends _$CircleListController {
                       keyword.text.contains(query) ||
                       keyword.phonetic.contains(query),
                 ) ||
-                CircleUtil.generateSpaceName(realSp: e.realSp, webSp: e.webSp)
-                    .contains(query),
+                CircleUtil.generateSpaceName(
+                  realSp: e.realSp,
+                  webSp: e.webSp,
+                ).contains(query),
           ),
         ],
       );

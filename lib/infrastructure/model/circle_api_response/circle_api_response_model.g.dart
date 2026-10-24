@@ -14,6 +14,4 @@ _CircleApiResponse _$CircleApiResponseFromJson(Map<String, dynamic> json) =>
     );
 
 Map<String, dynamic> _$CircleApiResponseToJson(_CircleApiResponse instance) =>
-    <String, dynamic>{
-      'items': instance.items,
-    };
+    <String, dynamic>{'items': instance.items};

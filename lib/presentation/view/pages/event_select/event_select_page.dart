@@ -20,7 +20,8 @@ class EventSelectPage extends ConsumerWidget {
               EventCard(
                 eventName: '2026秋',
                 onTap: () {
-                  final isLocalAvailable = ref
+                  final isLocalAvailable =
+                      ref
                           .read(sharedPreferencesProvider)
                           .getBool('isLocalAvailable') ??
                       false;

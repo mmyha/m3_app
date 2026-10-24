@@ -28,11 +28,11 @@ class _MapApiService implements MapApiService {
     const Map<String, dynamic>? _data = null;
     final _options = _setStreamType<HttpResponse<List<int>>>(
       Options(
-        method: 'GET',
-        headers: _headers,
-        extra: _extra,
-        responseType: ResponseType.bytes,
-      )
+            method: 'GET',
+            headers: _headers,
+            extra: _extra,
+            responseType: ResponseType.bytes,
+          )
           .compose(
             _dio.options,
             '/m3_58/M3tuushin58map_web.pdf',

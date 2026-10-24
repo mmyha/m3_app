@@ -16,11 +16,11 @@ void main() {
 
   final db = CircleDatabase.memory();
   ProviderContainer createContainer() => ProviderContainer(
-        overrides: [
-          circleDaoProvider.overrideWithValue(CircleInfoDao(db)),
-          circleFavDaoProvider.overrideWithValue(CircleFavDao(db)),
-        ],
-      );
+    overrides: [
+      circleDaoProvider.overrideWithValue(CircleInfoDao(db)),
+      circleFavDaoProvider.overrideWithValue(CircleFavDao(db)),
+    ],
+  );
 
   setUp(() {
     container = createContainer();
